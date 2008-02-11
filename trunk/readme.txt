@@ -1,7 +1,7 @@
 === Plugin Name ===
 Contributors: pdf24
 Donate link: http://www.pdf24.org/
-Tags: pdf, convert, create
+Tags: pdf, convert, create, post
 Requires at least: 1.5.0
 Tested up to: 2.1
 Stable tag: trunk

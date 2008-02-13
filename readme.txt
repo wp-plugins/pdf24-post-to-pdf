@@ -4,7 +4,7 @@ Donate link: http://www.pdf24.org/
 Tags: pdf, convert, create, post, pdf24
 Requires at least: 1.5.0
 Tested up to: 2.1
-Stable tag: 1.0
+Stable tag: 1.0 
 
 Let your visitors create a pdf from a post and send the pdf to an email
 

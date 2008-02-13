@@ -1,10 +1,10 @@
 === Plugin Name ===
 Contributors: pdf24
 Donate link: http://www.pdf24.org/
-Tags: pdf, convert, create, post, sidebar
+Tags: pdf, convert, create, post, sidebar, pdf24
 Requires at least: 1.5.0
 Tested up to: 2.1
-Stable tag: trunk
+Stable tag: 1.0
 
 Let your visitors create a pdf from a all posts on the current viewed page and send the pdf to an email
 
@@ -14,14 +14,15 @@ Let your visitors create a pdf from a all posts on the current viewed page and s
 
 == Installation ==
 
+1. Unzip `wordpressSidebar.zip`
 1. Copy the file `pdf24.php` to your used theme directory where the file `sidebar.php` is located
 1. Insert the following code to the place in the file where the conversion box should appear
 
 Code for the theme file `sidebar.php`
 
-`<!-- Start pdf24.org sidebar plugin -->
-<?php include (TEMPLATEPATH . '/pdf24.php'); ?>
-<!-- End pdf24.org sidebar plugin -->`
+`<!-- Start pdf24.org sidebar plugin -->`
+`<?php include (TEMPLATEPATH . '/pdf24.php'); ?>`
+`<!-- End pdf24.org sidebar plugin -->`
 
 == Screenshots ==
 

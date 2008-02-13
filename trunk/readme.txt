@@ -20,7 +20,7 @@ Let your visitors create a pdf from a post and send the pdf to an email
 
 == Screenshots ==
 
-1. `img1.png`
+1. Screenshot1
 
 == Service of pdf24 ==
 

@@ -31,3 +31,7 @@ Code for the theme file `sidebar.php`
 == Service of pdf24 ==
 
 This plugin was made by pdf24.org. The plugin uses the service of pdf24 to create the pdf files. You do not need any special addon for this plugin. Everything is done by pdf24. This has several advantages. You do not have extra traffic on your server. The plugin is for free.
+
+== Frequently Asked Questions ==
+
+Currently there are no questions.

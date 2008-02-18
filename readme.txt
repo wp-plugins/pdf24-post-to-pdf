@@ -14,7 +14,6 @@ Let your visitors create a pdf from a post and send the pdf to an email
 
 == Installation ==
 
-1. Unzip `wordpressPlugin.zip`
 1. Add this plugin file `pdf24.php` to your wordpress plugin folder `/wp-content/plugins/`
 1. Activate the plugin through the 'Plugins' menu in WordPress
 

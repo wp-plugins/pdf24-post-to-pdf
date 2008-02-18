@@ -14,7 +14,6 @@ Let your visitors create a pdf from a all posts on the current viewed page and s
 
 == Installation ==
 
-1. Unzip `wordpressSidebar.zip`
 1. Copy the file `pdf24.php` to your used theme directory where the file `sidebar.php` is located
 1. Insert the following code to the place in the file where the conversion box should appear
 

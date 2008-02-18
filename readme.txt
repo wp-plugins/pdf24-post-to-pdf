@@ -1,4 +1,4 @@
-=== Plugin Name ===
+=== PDF24 Posts to PDF ===
 Contributors: pdf24
 Donate link: http://www.pdf24.org/
 Tags: pdf, convert, create, post, sidebar, pdf24

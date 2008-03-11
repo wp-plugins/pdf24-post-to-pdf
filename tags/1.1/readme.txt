@@ -1,7 +1,7 @@
 === PDF24 Post to PDF ===
 Contributors: pdf24
 Donate link: http://www.pdf24.org/
-Tags: pdf, convert, create, post, pdf24
+Tags: pdf creator, convert pdf, create pdf, pdf converter
 Requires at least: 1.5.0
 Tested up to: 2.1
 Stable tag: 1.1 

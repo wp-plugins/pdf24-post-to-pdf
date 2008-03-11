@@ -3,7 +3,7 @@
 /*
 Plugin Name: PDF24 Post to PDF
 Plugin URI: http://pdf24.org
-Description: A plugin that convert a post to PDF and send the PDF to an email
+Description: A plugin that convert posts to PDF and send the PDF to an email
 Author: Stefan Ziegler
 Version: 1.1
 Author URI: http://www.pdf24.org
@@ -20,13 +20,17 @@ $pdf24PluginStyleTable1 	= "padding:0px; width:100%";
 
 $pdf24PluginLang = array();
 
+//german Language
 $pdf24PluginLang["de"]["enterEmail"]		= "Emailaddresse";
 $pdf24PluginLang["de"]["send"]				= "Senden";
 $pdf24PluginLang["de"]["postAsPdf"]			= "Beitrag als PDF an";
+$pdf24PluginLang["de"]["linkAlt"]			= "Kostenlos PDF erstellen und kostenloser PDF Creator und PDF Converter";
 
+//default Language
 $pdf24PluginLang["def"]["enterEmail"]		= "Enter email address";
 $pdf24PluginLang["def"]["send"]				= "Send";
 $pdf24PluginLang["def"]["postAsPdf"]		= "Send post as PDF to";
+$pdf24PluginLang["def"]["linkAlt"]			= "create PDF and free PDF Creator and free PDF converter";
 
 //ein Index aus $pdf24PluginLang oder 'detectFromBrowser' zur automatischen Bestimmung
 $pdf24PluginUseLang 						= "detectFromBrowser";
@@ -92,7 +96,7 @@ function pdf24Plugin_getForm1(&$postsArr, $id)
 	$out .= pdf24Plugin_getLangVal("postAsPdf");	
 	$out .= " <input type=\"text\" name=\"sendEmailTo\" value=\"".pdf24Plugin_getLangVal("enterEmail")."\" style=\"".$pdf24PluginStyleInput1."\" onMouseDown=\"this.value = '';\">";	
 	$out .= " <input type=\"submit\" value=\"".pdf24Plugin_getLangVal("send")."\" style=\"".$pdf24PluginStyleButton1."\">";
-	$out .= "</td><td width=\"18\"><a href=\"http://www.pdf24.org\" target=\"_blank\" title=\"www.pdf24.org\"><img src=\"http://www.pdf24.org/images/sheep_16x16.gif\" alt=\"www.pdf24.org\" border=\"0\"></a></td></table>";	
+	$out .= "</td><td width=\"18\"><a href=\"http://www.pdf24.org\" target=\"_blank\" title=\"".pdf24Plugin_getLangVal("linkAlt")."\"><img src=\"http://www.pdf24.org/images/sheep_16x16.gif\" alt=\"".pdf24Plugin_getLangVal("linkAlt")."\" border=\"0\"></a></td></table>";	
 	$out .= "</form>";
 	
 	return $out;

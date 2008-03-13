@@ -23,14 +23,14 @@ $pdf24PluginLang = array();
 //german Language
 $pdf24PluginLang["de"]["enterEmail"]		= "Emailaddresse";
 $pdf24PluginLang["de"]["send"]				= "Senden";
-$pdf24PluginLang["de"]["postAsPdf"]			= "Beitrag als PDF an";
-$pdf24PluginLang["de"]["imgAlt"]			= "Kostenlos PDF erstellen und kostenloser PDF Creator und PDF Converter";
+$pdf24PluginLang["de"]["postAsPdf"]			= "Beitrag als %s an";
+$pdf24PluginLang["de"]["imgAlt"]			= "PDF Creator | PDF Converter | PDF Software | PDF erstellen";
 
 //default Language
 $pdf24PluginLang["def"]["enterEmail"]		= "Enter email address";
 $pdf24PluginLang["def"]["send"]				= "Send";
-$pdf24PluginLang["def"]["postAsPdf"]		= "Send post as PDF to";
-$pdf24PluginLang["def"]["imgAlt"]			= "create PDF and free PDF Creator and free PDF converter";
+$pdf24PluginLang["def"]["postAsPdf"]		= "Send post as %s to";
+$pdf24PluginLang["def"]["imgAlt"]			= "PDF Creator | PDF Converter | PDF Software | Create PDF";
 
 //ein Index aus $pdf24PluginLang oder 'detectFromBrowser' zur automatischen Bestimmung
 $pdf24PluginUseLang 						= "detectFromBrowser";
@@ -87,13 +87,15 @@ function pdf24Plugin_getPostsHiddenFields(&$postsArr)
 function pdf24Plugin_getForm1(&$postsArr, $id) 
 {
 	global $pdf24PluginScriptUrl, $pdf24PluginStyleForm1, $pdf24PluginStyleInput1, $pdf24PluginStyleButton1;
-	global $pdf24PluginStyleTable1;
+	global $pdf24PluginStyleTable1;	
+	
+	$pdf24PreText = sprintf(pdf24Plugin_getLangVal("postAsPdf"), "<a href=\"http://www.pdf24.org\" target=\"_blank\">PDF</a>");
 
 	$out = "<form id=pdf24Form_".$id." method=\"POST\" action=\"".$pdf24PluginScriptUrl."\" style=\"".$pdf24PluginStyleForm1."\" target=\"pdf24PopWin\" onsubmit=\"window.open('about:blank', 'pdf24PopWin', 'scrollbars=yes,width=400,height=200,top=0,left=0'); return true;\">";
 	$out .= pdf24Plugin_getBlogHiddenFields($postsArr);
 	$out .= pdf24Plugin_getPostsHiddenFields($postsArr);
 	$out .= "<table style=\"".$pdf24PluginStyleTable1."\" border=0><tr><td align=\"left\">";
-	$out .= pdf24Plugin_getLangVal("postAsPdf");	
+	$out .= $pdf24PreText;	
 	$out .= " <input type=\"text\" name=\"sendEmailTo\" value=\"".pdf24Plugin_getLangVal("enterEmail")."\" style=\"".$pdf24PluginStyleInput1."\" onMouseDown=\"this.value = '';\">";	
 	$out .= " <input type=\"submit\" value=\"".pdf24Plugin_getLangVal("send")."\" style=\"".$pdf24PluginStyleButton1."\">";
 	$out .= "</td><td width=\"18\"><a href=\"http://www.pdf24.org\" target=\"_blank\" title=\"".pdf24Plugin_getLangVal("imgAlt")."\"><img src=\"http://www.pdf24.org/images/sheep_16x16.gif\" alt=\"".pdf24Plugin_getLangVal("imgAlt")."\" border=\"0\"></a></td></table>";	

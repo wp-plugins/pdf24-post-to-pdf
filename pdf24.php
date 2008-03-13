@@ -5,7 +5,7 @@ Plugin Name: PDF24 Posts to PDF
 Plugin URI: http://pdf24.org
 Description: A plugin that convert posts to PDF and send the PDF to an email
 Author: Stefan Ziegler
-Version: 1.1
+Version: 1.2
 Author URI: http://www.pdf24.org
 */
 

@@ -37,4 +37,4 @@ This plugin was made by pdf24.org. The plugin uses the service of pdf24 to creat
 
 = How can i change a theme ? =
 
-Open the plugin file `pdf24.php` and search for $pdf24Theme. You can change the value of the variable to one of the specified one in the comment above the variable.
+Open the plugin file `pdf24.php` and search for $pdf24Theme. You can change the value of the variable to one of the specified in the comment above the variable.

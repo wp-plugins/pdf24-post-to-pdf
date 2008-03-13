@@ -12,29 +12,37 @@ Author URI: http://www.pdf24.org
 
 /**********  SETTINGS ******************************/
 
-$pdf24StyleForm 	= "text-align:center; border: 1px solid silver; padding: 5px;";
-$pdf24StyleInput 	= "";
-$pdf24StyleButton 	= "";
+//available themes are "blue", "simple"
+//If you want to show all themes, use "all"
+$pdf24Theme = "simple";
 
-$pdf24Lang = array();
+
+/*
+ * Thats the Language area. To provide a new Language only insert a new language block
+ * like the following ones. You have to set correctly the letter code of the language.
+ *
+ * %s in the texts will be replaced by another text and may not be deleted. 
+ */
+ $pdf24Lang = array();
 
 //german Language
 $pdf24Lang["de"]["enterEmail"]		= "Emailaddresse";
 $pdf24Lang["de"]["send"]			= "Senden";
-$pdf24Lang["de"]["postsAsPdf"]		= "Beiträge als PDF an";
-$pdf24Lang["de"]["linkTitle"]		= "Kostenlos PDF erstellen und kostenloser PDF Creator und PDF Converter";
+$pdf24Lang["de"]["postsAsPdf"]		= "Beiträge als %s an";
+$pdf24Lang["de"]["linkTitle"]		= "PDF Creator | PDF Converter | PDF Software | PDF erstellen";
+$pdf24Lang["de"]["linkText"]		= "PDF Creator";
 
 //default Language
 $pdf24Lang["def"]["enterEmail"]		= "Enter email address";
 $pdf24Lang["def"]["send"]			= "Send";
-$pdf24Lang["def"]["postsAsPdf"]		= "Send posts as PDF to";
-$pdf24Lang["def"]["linkTitle"]		= "create PDF and free PDF Creator and free PDF converter";
+$pdf24Lang["def"]["postsAsPdf"]		= "Send posts as %s to";
+$pdf24Lang["def"]["linkTitle"]		= "PDF Creator | PDF Converter | PDF Software | Create PDF";
+$pdf24Lang["def"]["linkText"]		= "PDF Creator";
 
-//ein Index aus $pdf24PluginLang oder 'detectFromBrowser' zur automatischen Bestimmung
+//an index from $pdf24Lang e.g. "de" or "def" or "detectFromBrowser" to set language from the visitors preferred language
 $pdf24UseLang 						= "detectFromBrowser";
 
-
-//Script auf pdf24, welches die Anfrage bearbeitet
+//Script on pdf24, which handles the requests and which creates and sends the pdf
 $pdf24ScriptUrl 	= "http://doc2pdf.pdf24.org/doc2pdf/wordpress.php";
 
 /********** END SETTINGS ******************************/
@@ -111,21 +119,57 @@ function pdf24_getFormHiddenFields(&$formArr, $keyPrefix="", $keySuffix="")
 	return $out;
 }
 
-
-echo "<form method=\"POST\" action=\"".$pdf24ScriptUrl."\" style=\"".$pdf24StyleForm."\" target=\"pdf24PopWin\" onsubmit=\"window.open('about:blank', 'pdf24PopWin', 'resizable=yes,scrollbars=yes,width=400,height=200,top=0,left=0'); return true;\">\n";
-echo pdf24_getFormHiddenFields($pdf24BlogArr);
+$formHiddenFields1 = pdf24_getFormHiddenFields($pdf24BlogArr);
+$formHiddenFields2 = "";
 
 $pdf24Count = 0;
 foreach($pdf24PostsArr as $key=>$val) 
 {
-	echo pdf24_getFormHiddenFields($val, "", "_".$pdf24Count);	
+	$formHiddenFields2 .= pdf24_getFormHiddenFields($val, "", "_".$pdf24Count);	
 	$pdf24Count++;
 }
 
-echo "<b>".$pdf24Langu["postsAsPdf"]."</b>";	
-echo " <input type=\"text\" name=\"sendEmailTo\" value=\"".$pdf24Langu["enterEmail"]."\" style=\"".$pdf24StyleInput."\" onMouseDown=\"this.value = '';\">";	
-echo " <input type=\"submit\" value=\"".$pdf24Langu["send"]."\" style=\"".$pdf24StyleButton."\">";
-echo " <br> <a href=\"http://www.pdf24.org\" target=\"_blank\" title=\"".$pdf24Langu["linkTitle"]."\">www.pdf24.org</a>";
-echo "</form>";
+$pdf24TextHead = sprintf($pdf24Langu["postsAsPdf"], "<a href=\"http://www.pdf24.org\" target=\"_blank\">PDF</a>");
 
+if($pdf24Theme == "blue" || $pdf24Theme == "all")
+{
 ?>
+	<div style="background-image:url(http://www.pdf24.org/images/plugins/box_big.gif); background-repeat: no-repeat; width:190px; height:125px; position:relative; padding:4px; font-family: Verdana, Arial">
+		<div style="position:absolute; left: 10px; top: 4px; text-align:left; width:110px">
+			<span style="color:#fff; font-family: Verdana, Arial; font-size: 14px; font-weight:bold"><? echo $pdf24TextHead; ?></span>
+		</div>
+		<form method="POST" target="pdf24PopWin" action="<? echo $pdf24ScriptUrl; ?>" style="text-align:center; padding: 5px;" onsubmit="window.open('about:blank', 'pdf24PopWin', 'resizable=yes,scrollbars=yes,width=400,height=200,top=0,left=0'); return true;">
+		<? echo $formHiddenFields1; ?>
+		<? echo $formHiddenFields2; ?>
+
+			<div style="position:absolute; left: 10px; top: 71px;">
+				<input type="text" name="sendEmailTo" value="<? echo $pdf24Langu["enterEmail"]; ?>" style="width: 168px; height: 17px; border:1px solid silver" onMouseDown="this.value = '';">
+			</div>
+			<div style="position:absolute; left: 155px; top: 100px;">
+				<input type="image" src="http://www.pdf24.org/images/plugins/go1.gif">
+			</div>
+		</form>
+		<div style="position:absolute; left: 11px; top: 103px; font-size:11px;">
+			<a href="http://www.pdf24.org" target="_blank" title="<? echo $pdf24Langu["linkTitle"]; ?>"><? echo $pdf24Langu["linkText"]; ?></a>
+		</div>
+	</div>
+<?
+}
+
+if($pdf24Theme == "simple" || $pdf24Theme == "all")
+{
+?>
+	<div>
+		<form method="POST" action="<? echo $pdf24ScriptUrl; ?>" style="text-align:center; border: 1px solid silver; padding: 5px;" target="pdf24PopWin" onsubmit="window.open('about:blank', 'pdf24PopWin', 'resizable=yes,scrollbars=yes,width=400,height=200,top=0,left=0'); return true;">
+		<? echo $formHiddenFields1; ?>
+		<? echo $formHiddenFields2; ?>
+
+		<b><? echo $pdf24TextHead; ?></b>	
+		<input type="text" name="sendEmailTo" value="<? echo $pdf24Langu["enterEmail"]; ?>" onMouseDown="this.value = '';">
+		<input type="submit" value="<? echo $pdf24Langu["send"]; ?>">
+		<br> <a href="http://www.pdf24.org" target="_blank" title="<? echo $pdf24Langu["linkTitle"]; ?>"><? echo $pdf24Langu["linkText"]; ?></a>
+		</form>
+	</div>
+<?
+}
+

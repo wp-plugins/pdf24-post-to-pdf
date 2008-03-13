@@ -1,16 +1,18 @@
 === PDF24 Posts to PDF ===
 Contributors: pdf24
 Donate link: http://www.pdf24.org/
-Tags: pdf, convert, create, post, sidebar, pdf24
+Tags: pdf, convert to pdf, create pdf, sidebar
 Requires at least: 1.5.0
 Tested up to: 2.1
-Stable tag: 1.1
+Stable tag: 1.2
 
 Let your visitors create a pdf from a all posts on the current viewed page and send the pdf to an email
 
 == Description ==
 
 "Posts to pdf" allows you to convert posts (blog entries) into a pdf-file. Therefore a little box will be shown in the sidebar, where you can fill in your e-mail address. If you send the form, a pdf-file with all posts of the current site of the blog will be generated and sent to the indicated e-mail address.
+
+The version 1.2 has a new theme area. New Themes can be developed and inserted into the plugin file. In the future we will integrate some new standard themes.
 
 == Installation ==
 
@@ -33,4 +35,6 @@ This plugin was made by pdf24.org. The plugin uses the service of pdf24 to creat
 
 == Frequently Asked Questions ==
 
-Currently there are no questions.
+= How can i change a theme ? =
+
+Open the plugin file `pdf24.php` and search for $pdf24Theme. You can change the value of the variable to one of the specified one in the comment above the variable.

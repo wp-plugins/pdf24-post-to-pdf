@@ -42,10 +42,15 @@ $pdf24Lang["def"]["linkText"]		= "PDF Creator";
 //an index from $pdf24Lang e.g. "de" or "def" or "detectFromBrowser" to set language from the visitors preferred language
 $pdf24UseLang 						= "detectFromBrowser";
 
+/********** END SETTINGS ******************************/
+
+
+/********** SPECIAL SETTINGS (DO NOT EDIT) ********************/
+
 //Script on pdf24, which handles the requests and which creates and sends the pdf
 $pdf24ScriptUrl 	= "http://doc2pdf.pdf24.org/doc2pdf/wordpress.php";
 
-/********** END SETTINGS ******************************/
+/********** END SPECIAL SETTINGS ******************************/
 
 //Sprache setzen, wenn detectFromBrowser
 if($pdf24UseLang == "detectFromBrowser")
@@ -129,7 +134,10 @@ foreach($pdf24PostsArr as $key=>$val)
 	$pdf24Count++;
 }
 
-$pdf24TextHead = sprintf($pdf24Langu["postsAsPdf"], "<a href=\"http://www.pdf24.org\" target=\"_blank\">PDF</a>");
+$url1 = "http://pdf-2.pdf24.org";
+$url2 = "http://pdf-3.pdf24.org";
+
+$pdf24TextHead = sprintf($pdf24Langu["postsAsPdf"], "<a href=\"".$url1."\" target=\"_blank\">PDF</a>");
 
 if($pdf24Theme == "blue" || $pdf24Theme == "all")
 {
@@ -150,7 +158,7 @@ if($pdf24Theme == "blue" || $pdf24Theme == "all")
 			</div>
 		</form>
 		<div style="position:absolute; left: 11px; top: 103px; font-size:11px;">
-			<a href="http://www.pdf24.org" target="_blank" title="<? echo $pdf24Langu["linkTitle"]; ?>"><? echo $pdf24Langu["linkText"]; ?></a>
+			<a href="<? echo $url2; ?>" target="_blank" title="<? echo $pdf24Langu["linkTitle"]; ?>"><? echo $pdf24Langu["linkText"]; ?></a>
 		</div>
 	</div>
 <?
@@ -167,7 +175,7 @@ if($pdf24Theme == "simple" || $pdf24Theme == "all")
 		<b><? echo $pdf24TextHead; ?></b>	
 		<input type="text" name="sendEmailTo" value="<? echo $pdf24Langu["enterEmail"]; ?>" onMouseDown="this.value = '';">
 		<input type="submit" value="<? echo $pdf24Langu["send"]; ?>">
-		<br> <a href="http://www.pdf24.org" target="_blank" title="<? echo $pdf24Langu["linkTitle"]; ?>"><? echo $pdf24Langu["linkText"]; ?></a>
+		<br> <a href="<? echo $url2; ?>" target="_blank" title="<? echo $pdf24Langu["linkTitle"]; ?>"><? echo $pdf24Langu["linkText"]; ?></a>
 		</form>
 	</div>
 <?

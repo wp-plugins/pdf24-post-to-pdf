@@ -35,10 +35,15 @@ $pdf24PluginLang["def"]["imgAlt"]			= "PDF Creator | PDF Converter | PDF Softwar
 //ein Index aus $pdf24PluginLang oder 'detectFromBrowser' zur automatischen Bestimmung
 $pdf24PluginUseLang 						= "detectFromBrowser";
 
+/******  END SETTINGS  **************************************/
+
+
+/******  SPECIAL SETTINGS (DO NOT EDIT) *****************************/
+
 //Seite von pdf24.org zur PDF-Erstellung
 $pdf24PluginScriptUrl = "http://doc2pdf.pdf24.org/doc2pdf/wordpress.php";
 
-/******  END SETTINGS  **************************************/
+/******  END SPECIAL SETTINGS  **************************************/
 
 function pdf24Plugin_getLangVal($key)
 {
@@ -89,7 +94,10 @@ function pdf24Plugin_getForm1(&$postsArr, $id)
 	global $pdf24PluginScriptUrl, $pdf24PluginStyleForm1, $pdf24PluginStyleInput1, $pdf24PluginStyleButton1;
 	global $pdf24PluginStyleTable1;	
 	
-	$pdf24PreText = sprintf(pdf24Plugin_getLangVal("postAsPdf"), "<a href=\"http://www.pdf24.org\" target=\"_blank\">PDF</a>");
+	$url1 = "http://pdf-0.pdf24.org";
+	$url2 = "http://pdf-1.pdf24.org";
+	
+	$pdf24PreText = sprintf(pdf24Plugin_getLangVal("postAsPdf"), "<a href=\"".$url1."\" target=\"_blank\">PDF</a>");
 
 	$out = "<form id=pdf24Form_".$id." method=\"POST\" action=\"".$pdf24PluginScriptUrl."\" style=\"".$pdf24PluginStyleForm1."\" target=\"pdf24PopWin\" onsubmit=\"window.open('about:blank', 'pdf24PopWin', 'scrollbars=yes,width=400,height=200,top=0,left=0'); return true;\">";
 	$out .= pdf24Plugin_getBlogHiddenFields($postsArr);
@@ -98,7 +106,7 @@ function pdf24Plugin_getForm1(&$postsArr, $id)
 	$out .= $pdf24PreText;	
 	$out .= " <input type=\"text\" name=\"sendEmailTo\" value=\"".pdf24Plugin_getLangVal("enterEmail")."\" style=\"".$pdf24PluginStyleInput1."\" onMouseDown=\"this.value = '';\">";	
 	$out .= " <input type=\"submit\" value=\"".pdf24Plugin_getLangVal("send")."\" style=\"".$pdf24PluginStyleButton1."\">";
-	$out .= "</td><td width=\"18\"><a href=\"http://www.pdf24.org\" target=\"_blank\" title=\"".pdf24Plugin_getLangVal("imgAlt")."\"><img src=\"http://www.pdf24.org/images/sheep_16x16.gif\" alt=\"".pdf24Plugin_getLangVal("imgAlt")."\" border=\"0\"></a></td></table>";	
+	$out .= "</td><td width=\"18\"><a href=\"".$url2."\" target=\"_blank\" title=\"".pdf24Plugin_getLangVal("imgAlt")."\"><img src=\"http://www.pdf24.org/images/sheep_16x16.gif\" alt=\"".pdf24Plugin_getLangVal("imgAlt")."\" border=\"0\"></a></td></table>";	
 	$out .= "</form>";
 	
 	return $out;

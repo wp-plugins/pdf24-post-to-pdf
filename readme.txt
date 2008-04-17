@@ -3,8 +3,8 @@ Contributors: pdf24
 Donate link: http://www.pdf24.org/
 Tags: pdf, convert to pdf, create pdf, sidebar
 Requires at least: 1.5.0
-Tested up to: 2.1
-Stable tag: 1.2
+Tested up to: 2.5
+Stable tag: 1.3
 
 Let your visitors create a pdf from a all posts on the current viewed page and send the pdf to an email
 
@@ -34,7 +34,3 @@ Code for the theme file `sidebar.php`
 This plugin was made by pdf24.org. The plugin uses the service of pdf24 to create the pdf files. You do not need any special addon for this plugin. Everything is done by pdf24. This has several advantages. You do not have extra traffic on your server. The plugin is for free.
 
 == Frequently Asked Questions ==
-
-= How can i change a theme ? =
-
-Open the plugin file `pdf24.php` and search for $pdf24Theme. You can change the value of the variable to one of the specified in the comment above the variable.

@@ -5,7 +5,7 @@ Plugin Name: PDF24 Posts to PDF
 Plugin URI: http://pdf24.org
 Description: A plugin that convert posts to PDF and send the PDF to an email
 Author: Stefan Ziegler
-Version: 1.2
+Version: 1.3
 Author URI: http://www.pdf24.org
 */
 
@@ -17,32 +17,38 @@ Author URI: http://www.pdf24.org
 $pdf24Theme = "simple";
 
 
-/*
- * Thats the Language area. To provide a new Language only insert a new language block
- * like the following ones. You have to set correctly the letter code of the language.
- *
- * %s in the texts will be replaced by another text and may not be deleted. 
- */
- $pdf24Lang = array();
+//
+//Language
+//
+$pdf24Lang = array
+(
+	"de" => array
+	(
+		"enterEmail"	=> "Emailaddresse", 
+		"send"			=> "Senden",
+		"postsAsPdf"	=> "Beiträge als %s an",
+		"linkTitle"		=> "PDF Creator | PDF Converter | PDF Software | PDF erstellen",
+		"linkText"		=> "PDF Creator"
+	),
+	"en" => array
+	(
+		"enterEmail"	=> "Enter email address", 
+		"send"			=> "Send",
+		"postsAsPdf"	=> "Send posts as %s to",
+		"linkTitle"		=> "PDF Creator | PDF Converter | PDF Software | Create PDF",
+		"linkText"		=> "PDF Creator"
+	)
+);
 
-//german Language
-$pdf24Lang["de"]["enterEmail"]		= "Emailaddresse";
-$pdf24Lang["de"]["send"]			= "Senden";
-$pdf24Lang["de"]["postsAsPdf"]		= "Beiträge als %s an";
-$pdf24Lang["de"]["linkTitle"]		= "PDF Creator | PDF Converter | PDF Software | PDF erstellen";
-$pdf24Lang["de"]["linkText"]		= "PDF Creator";
-
-//default Language
-$pdf24Lang["def"]["enterEmail"]		= "Enter email address";
-$pdf24Lang["def"]["send"]			= "Send";
-$pdf24Lang["def"]["postsAsPdf"]		= "Send posts as %s to";
-$pdf24Lang["def"]["linkTitle"]		= "PDF Creator | PDF Converter | PDF Software | Create PDF";
-$pdf24Lang["def"]["linkText"]		= "PDF Creator";
-
-//an index from $pdf24Lang e.g. "de" or "def" or "detectFromBrowser" to set language from the visitors preferred language
-$pdf24UseLang 						= "detectFromBrowser";
+//
+//an index from $pdf24Lang e.g. "de" or "detect" to to autoset from wordpress settings
+//
+$pdf24UseLang = "detect";
 
 /********** END SETTINGS ******************************/
+
+
+
 
 
 /********** SPECIAL SETTINGS (DO NOT EDIT) ********************/
@@ -50,26 +56,32 @@ $pdf24UseLang 						= "detectFromBrowser";
 //Script on pdf24, which handles the requests and which creates and sends the pdf
 $pdf24ScriptUrl 	= "http://doc2pdf.pdf24.org/doc2pdf/wordpress.php";
 
+//URL Bereiche
+$pdf24UrlRanges = array
+(
+	"other" => array(0,9),
+	"de" => array(10,19),
+	"en" => array(19,29)
+);
+
 /********** END SPECIAL SETTINGS ******************************/
 
 //Sprache setzen, wenn detectFromBrowser
-if($pdf24UseLang == "detectFromBrowser")
+if($pdf24UseLang == "detect")
 {
-	$setLang = "def";
-	
-	if(isset($_SERVER["HTTP_ACCEPT_LANGUAGE"]))
+	$setLang = "other";	
+	if(defined('WPLANG') && strlen(WPLANG) >= 2)
 	{
-		$l = substr($_SERVER["HTTP_ACCEPT_LANGUAGE"], 0, 2);
+		$l = strtolower(substr(WPLANG, 0, 2));
 		if(isset($pdf24Lang[$l]))
 		{
 			$setLang = $l;
 		}
-	}
-	$pdf24UseLang 	= $setLang;
-	$pdf24Langu 	= $pdf24Lang[$pdf24UseLang];
+	}			
+	$pdf24UseLang = $setLang;
 }
 
-$pdf24Langu = $pdf24Lang[$pdf24UseLang];
+$pdf24Langu = $pdf24UseLang == "other" ? $pdf24Lang["en"] : $pdf24Lang[$pdf24UseLang];
 
 //zur�cksetzen
 rewind_posts();	
@@ -112,7 +124,6 @@ $pdf24BlogArr = array
 	"blogValueEncoding" => "htmlSpecialChars"
 );
 
-
 function pdf24_getFormHiddenFields(&$formArr, $keyPrefix="", $keySuffix="") 
 {	
 	$out = "";
@@ -134,8 +145,16 @@ foreach($pdf24PostsArr as $key=>$val)
 	$pdf24Count++;
 }
 
-$url1 = "http://pdf-2.pdf24.org";
-$url2 = "http://pdf-3.pdf24.org";
+$urlRange = $pdf24UrlRanges[$pdf24UseLang];
+
+$val1 = rand($urlRange[0], $urlRange[1]);
+do
+{
+	$val2 = rand($urlRange[0], $urlRange[1]);
+} while($urlRange[1] - $urlRange[0] > 1 && $val1 == $val2);
+
+$url1 = "http://pdf-".$val1.".pdf24.org";
+$url2 = "http://pdf-".$val2.".pdf24.org";
 
 $pdf24TextHead = sprintf($pdf24Langu["postsAsPdf"], "<a href=\"".$url1."\" target=\"_blank\">PDF</a>");
 

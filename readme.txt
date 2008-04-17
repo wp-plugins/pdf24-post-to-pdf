@@ -1,12 +1,12 @@
 === PDF24 Post to PDF ===
 Contributors: pdf24
 Donate link: http://www.pdf24.org/
-Tags: pdf, create pdf, convert to pdf
+Tags: pdf, create pdf, convert to pdf, post to pdf, entry to pdf
 Requires at least: 1.5.0
 Tested up to: 2.1
-Stable tag: 1.1 
+Stable tag: 1.2
 
-Let your visitors create a pdf from a post and send the pdf to an email
+Let your visitors create a pdf from a post and send the pdf to an email.
 
 == Description ==
 

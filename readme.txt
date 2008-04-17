@@ -1,7 +1,7 @@
 === PDF24 Posts to PDF ===
 Contributors: pdf24
 Donate link: http://www.pdf24.org/
-Tags: pdf, convert to pdf, create pdf, sidebar
+Tags: pdf, convert to pdf, create pdf, sidebar, posts to pdf, entries to pdf
 Requires at least: 1.5.0
 Tested up to: 2.5
 Stable tag: 1.3

@@ -11,18 +11,6 @@ Author URI: http://www.pdf24.org
 
 
 /******  SETTINGS  **************************************/
-//
-//Styles for the formular
-//
-$pdf24PluginStyle = array
-(
-	"form"		=> "border: 1px solid silver; padding: 0px; margin:0px;",
-	"input"		=> "width: 150px; font-size:smaller;",
-	"button"	=> "font-size:smaller;",
-	"table"		=> "padding:0px; width:100%;",
-	"td1"		=> "text-align: left; font-size:smaller;",
-	"td2"		=> "width: 18px"
-);
 
 //
 //Language
@@ -48,25 +36,19 @@ $pdf24PluginLang = array
 //ein Index aus $pdf24PluginLang oder 'detect' zur automatischen Bestimmung
 $pdf24PluginUseLang = "detect";
 
-/******  END SETTINGS  **************************************/
-
-
-
-
-/******  SPECIAL SETTINGS (DO NOT EDIT) *****************************/
-
-//Seite von pdf24.org zur PDF-Erstellung
-$pdf24PluginScriptUrl = "http://doc2pdf.pdf24.org/doc2pdf/wordpress.php";
-
-//URL Bereiche
-$pdf24PluginUrlRanges = array
+//
+//Styles for the formular
+//
+$pdf24PluginStyle = array
 (
-	"other" => array(0,9),
-	"de" => array(10,19),
-	"en" => array(19,29)
+	"form"		=> "border: 1px solid silver; padding: 0px; margin:0px;",
+	"input"		=> "width: 150px; font-size:smaller;",
+	"button"	=> "font-size:smaller;",
+	"table"		=> "padding:0px; width:100%;",
+	"td1"		=> "text-align: left; font-size:smaller;",
+	"td2"		=> "width: 18px"
 );
-
-/******  END SPECIAL SETTINGS  **************************************/
+/******  END SETTINGS  **************************************/
 
 
 function pdf24Plugin_checkUseLang()
@@ -75,24 +57,19 @@ function pdf24Plugin_checkUseLang()
 	
 	if($pdf24PluginUseLang == "detect")
 	{
-		$setLang = "other";		
 		if(defined('WPLANG') && strlen(WPLANG) >= 2)
 		{
 			$l = strtolower(substr(WPLANG, 0, 2));
-			if(isset($pdf24PluginLang[$l]))
-			{
-				$setLang = $l;
-			}
-		}			
-		$GLOBALS["pdf24PluginUseLang"] = $setLang;
+			$GLOBALS["pdf24PluginUseLang"] = $l;
+		}					
 	}
 }
 
 function pdf24Plugin_getLangVal($key)
 {
 	global $pdf24PluginUseLang, $pdf24PluginLang;
-	$lkey = $pdf24PluginUseLang == "other" ? "en" : $pdf24PluginUseLang;
-	return $pdf24PluginLang[$lkey][$key];
+	$l = isset($pdf24PluginLang[$pdf24PluginUseLang]) ? $pdf24PluginUseLang : "en";
+	return $pdf24PluginLang[$l][$key];
 }
 
 function pdf24Plugin_getFormHiddenFields(&$formArr, $keyPrefix="", $keySuffix="") 
@@ -131,20 +108,30 @@ function pdf24Plugin_getPostsHiddenFields(&$postsArr)
 	return $out;
 }
 
-$pdf24PluginUrlCache = null;
+$pdf24PluginUrlCache = array();
 
 function pdf24Plugin_getUrl()
 {
-	global $pdf24PluginUseLang, $pdf24PluginLang, $pdf24PluginUrlRanges, $pdf24PluginUrlCache;
-	
-	$urlRange = $pdf24PluginUrlRanges[$pdf24PluginUseLang];
-	
+	global $pdf24PluginUseLang, $pdf24PluginUrlRanges, $pdf24PluginUrlCache;
+		
 	if(count($pdf24PluginUrlCache) == 0)
 	{
-		$arr = array();
-		for($i=$urlRange[0]; $i<=$urlRange[1]; $i++)
+		$c = 0;
+		$l = in_array($pdf24PluginUseLang, $pdf24PluginUrlRanges) ? $pdf24PluginUseLang : "other";		
+		foreach($pdf24PluginUrlRanges as $key => $val)
 		{
-			$arr[$i - $urlRange[0]] = $i;
+			if($val == $l)
+			{
+				$c = $key;
+				break;
+			}
+		}	
+		$start = $c * 10;
+		$end = $start + 9;
+		$arr = array();
+		for($i=$start; $i<=$end; $i++)
+		{
+			$arr[$i - $start] = $i;
 		}
 		shuffle($arr);
 		$pdf24PluginUrlCache = $arr;
@@ -195,6 +182,164 @@ function pdf24Plugin_content($content)
 }
 
 add_filter("the_content", "pdf24Plugin_content");
+
+
+
+/******  SPECIAL SETTINGS (DO NOT EDIT) *****************************/
+
+//Seite von pdf24.org zur PDF-Erstellung
+$pdf24PluginScriptUrl = "http://doc2pdf.pdf24.org/doc2pdf/wordpress.php";
+
+//Languages
+/*
+$pdf24PluginLangCodes = array
+(
+	"aa" => "Afar",
+	"ab" => "Abkhazian",
+	"af" => "Afrikaans",
+	"am" => "Amharic",
+	"ar" => "Arabic",
+	"as" => "Assamese",
+	"ay" => "Aymara",
+	"az" => "Azerbaijani",
+	"ba" => "Bashkir",
+	"be" => "Byelorussian",
+	"bg" => "Bulgarian",
+	"bh" => "Bihari",
+	"bi" => "Bislama",
+	"bn" => "Bengali",
+	"bo" => "Tibetan",
+	"br" => "Breton",
+	"ca" => "Catalan",
+	"co" => "Corsican",
+	"cs" => "Czech",
+	"cy" => "Welsh",
+	"da" => "Danish",
+	"de" => "German",
+	"dz" => "Bhutani",
+	"el" => "Greek",
+	"en" => "English",
+	"eo" => "Esperanto",
+	"es" => "Spanish",
+	"et" => "Estonian",
+	"eu" => "Basque",
+	"fa" => "Persian",
+	"fi" => "Finnish",
+	"fj" => "Fiji",
+	"fo" => "Faroese",
+	"fr" => "French",
+	"fy" => "Frisian",
+	"ga" => "Irish",
+	"gd" => "Scots Gaelic",
+	"gl" => "Galician",
+	"gn" => "Guarani",
+	"gu" => "Gujarati",
+	"ha" => "Hausa",
+	"he" => "Hebrew",
+	"hi" => "Hindi",
+	"hr" => "Croatian",
+	"hu" => "Hungarian",
+	"hy" => "Armenian",
+	"ia" => "Interlingua",
+	"id" => "Indonesian",
+	"ie" => "Interlingue",
+	"ik" => "Inupiak",
+	"is" => "Icelandic",
+	"it" => "Italian",
+	"iu" => "Inuktitut",
+	"ja" => "Japanese",
+	"jw" => "Javanese",
+	"ka" => "Georgian",
+	"kk" => "Kazakh",
+	"kl" => "Greenlandic",
+	"km" => "Cambodian",
+	"kn" => "Kannada",
+	"ko" => "Korean",
+	"ks" => "Kashmiri",
+	"ku" => "Kurdish",
+	"ky" => "Kirghiz",
+	"la" => "Latin",
+	"ln" => "Lingala",
+	"lo" => "Laothian",
+	"lt" => "Lithuanian",
+	"lv" => "Latvian, Lettish",
+	"mg" => "Malagasy",
+	"mi" => "Maori",
+	"mk" => "Macedonian",
+	"ml" => "Malayalam",
+	"mn" => "Mongolian",
+	"mo" => "Moldavian",
+	"mr" => "Marathi",
+	"ms" => "Malay",
+	"mt" => "Maltese",
+	"my" => "Burmese",
+	"na" => "Nauru",
+	"ne" => "Nepali",
+	"nl" => "Dutch",
+	"no" => "Norwegian",
+	"oc" => "Occitan",
+	"om" => "(Afan) Oromo",
+	"or" => "Oriya",
+	"pa" => "Punjabi",
+	"pl" => "Polish",
+	"ps" => "Pashto, Pushto",
+	"pt" => "Portuguese",
+	"qu" => "Quechua",
+	"rm" => "Rhaeto-Romance",
+	"rn" => "Kirundi",
+	"ro" => "Romanian",
+	"ru" => "Russian",
+	"rw" => "Kinyarwanda",
+	"sa" => "Sanskrit",
+	"sd" => "Sindhi",
+	"sg" => "Sangho",
+	"sh" => "Serbo-Croatian",
+	"si" => "Sinhalese",
+	"sk" => "Slovak",
+	"sl" => "Slovenian",
+	"sm" => "Samoan",
+	"sn" => "Shona",
+	"so" => "Somali",
+	"sq" => "Albanian",
+	"sr" => "Serbian",
+	"ss" => "Siswati",
+	"st" => "Sesotho",
+	"su" => "Sundanese",
+	"sv" => "Swedish",
+	"sw" => "Swahili",
+	"ta" => "Tamil",
+	"te" => "Telugu",
+	"tg" => "Tajik",
+	"th" => "Thai",
+	"ti" => "Tigrinya",
+	"tk" => "Turkmen",
+	"tl" => "Tagalog",
+	"tn" => "Setswana",
+	"to" => "Tonga",
+	"tr" => "Turkish",
+	"ts" => "Tsonga",
+	"tt" => "Tatar",
+	"tw" => "Twi",
+	"ug" => "Uighur",
+	"uk" => "Ukrainian",
+	"ur" => "Urdu",
+	"uz" => "Uzbek",
+	"vi" => "Vietnamese",
+	"vo" => "Volapuk",
+	"wo" => "Wolof",
+	"xh" => "Xhosa",
+	"yi" => "Yiddish",
+	"yo" => "Yoruba",
+	"za" => "Zhuang",
+	"zh" => "Chinese",
+	"zu" => "Zulu"
+);
+*/
+
+//URL Bereiche, jeder Eintrag bekommt einen Bereich von 10 Urls
+$pdf24PluginUrlRanges=array("other","de","en","aa","ab","af","am","ar","as","ay","az","ba","be","bg","bh","bi","bn","bo","br","ca","co","cs","cy","da","dz","el","eo","es","et","eu","fa","fi","fj","fo","fr","fy","ga","gd","gl","gn","gu","ha","he","hi","hr","hu","hy","ia","id","ie","ik","is","it","iu","ja","jw","ka","kk","kl","km","kn","ko","ks","ku","ky","la","ln","lo","lt","lv","mg","mi","mk","ml","mn","mo","mr","ms","mt","my","na","ne","nl","no","oc","om","or","pa","pl","ps","pt","qu","rm","rn","ro","ru","rw","sa","sd","sg","sh","si","sk","sl","sm","sn","so","sq","sr","ss","st","su","sv","sw","ta","te","tg","th","ti","tk","tn","to","tr","ts","tt","tw","ug","uk","ur","uz","vi","vo","wo","xh","yi","yo","za","zh","zu");
+
+
 
 
 ?>

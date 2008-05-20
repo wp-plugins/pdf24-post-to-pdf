@@ -4,9 +4,9 @@ Donate link: http://www.pdf24.org/
 Tags: pdf, convert to pdf, create pdf, sidebar, posts to pdf, entries to pdf
 Requires at least: 1.5.0
 Tested up to: 2.5
-Stable tag: 1.3
+Stable tag: 1.4
 
-Let your visitors create a pdf from a all posts on the current viewed page and send the pdf to an email
+Let your visitors create a pdf from a all posts on the current viewed page and send the created pdf to an email
 
 == Description ==
 

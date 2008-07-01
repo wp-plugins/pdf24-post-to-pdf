@@ -1,16 +1,16 @@
-=== Plugin Name ===
+=== PDF24 Post to PDF ===
 Contributors: pdf24
 Donate link: http://www.pdf24.org/
-Tags: pdf, convert, create, post, pdf24
+Tags: pdf, create pdf, convert to pdf, post to pdf, entry to pdf
 Requires at least: 1.5.0
-Tested up to: 2.1
-Stable tag: 1.0 
+Tested up to: 2.5
+Stable tag: 1.5
 
-Let your visitors create a pdf from a post and send the pdf to an email
+Let your visitors create a pdf from a post and send the created pdf to an email.
 
 == Description ==
 
-"Post to pdf" allows you to convert posts (blog entries) into a pdf-file. Therefore a little box will be shown below every post, where you can fill in your e-mail address. If you send the form, a pdf-file will be generated of the particular article and sent to the indicated e-mail address. Its very easy to use. Test it out!
+"Post to pdf" allows you to convert posts (blog entries) into a pdf file. Therefore a little box will be shown below every post, where you can fill in your e-mail address. If you send the form, a pdf-file will be generated of the particular article and sent to the indicated e-mail address. Its very easy to use. Test it out!
 
 == Installation ==
 

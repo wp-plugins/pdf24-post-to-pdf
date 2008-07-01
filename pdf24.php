@@ -3,11 +3,12 @@
 /*
 Plugin Name: PDF24 Post to PDF
 Plugin URI: http://pdf24.org
-Description: A plugin that convert posts to PDF and send the PDF to an email
+Description: A plugin that convert a post to PDF and send the PDF to an email
 Author: Stefan Ziegler
-Version: 1.4
+Version: 1.5
 Author URI: http://www.pdf24.org
 */
+
 
 /******  SETTINGS  **************************************/
 
@@ -47,7 +48,6 @@ $pdf24PluginStyle = array
 	"td1"		=> "text-align: left; font-size:smaller;",
 	"td2"		=> "width: 18px"
 );
-
 /******  END SETTINGS  **************************************/
 
 
@@ -108,6 +108,15 @@ function pdf24Plugin_getPostsHiddenFields(&$postsArr)
 	return $out;
 }
 
+function pdf24Plugin_getUrl()
+{
+	global $pdf24PluginUseLang, $pdf24PluginUrlRanges;
+	
+	$l = in_array($pdf24PluginUseLang, $pdf24PluginUrlRanges) ? $pdf24PluginUseLang : "www";
+	return "http://".$l.".pdf24.org";
+}
+
+/*
 $pdf24PluginUrlCache = array();
 
 function pdf24Plugin_getUrl()
@@ -139,6 +148,7 @@ function pdf24Plugin_getUrl()
 	$val = array_pop($pdf24PluginUrlCache);	
 	return "http://pdf-".$val.".pdf24.org";
 }
+*/
 
 function pdf24Plugin_getForm(&$postsArr, $id) 
 {

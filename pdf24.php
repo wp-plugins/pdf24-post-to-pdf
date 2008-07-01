@@ -5,9 +5,10 @@ Plugin Name: PDF24 Posts to PDF
 Plugin URI: http://pdf24.org
 Description: A plugin that convert posts to PDF and send the PDF to an email
 Author: Stefan Ziegler
-Version: 1.4
+Version: 1.5
 Author URI: http://www.pdf24.org
 */
+
 
 /**********  SETTINGS ******************************/
 
@@ -277,8 +278,9 @@ foreach($pdf24PostsArr as $key=>$val)
 	$pdf24Count++;
 }
 
-$pdf24Offset = 0;
-$pdf24UseVal = in_array($pdf24UseLang, $pdf24UrlRanges) ? $pdf24UseLang : "other";		
+/*
+$pdf24UseVal = in_array($pdf24UseLang, $pdf24UrlRanges) ? $pdf24UseLang : "other";	
+$pdf24Offset = 0;	
 foreach($pdf24UrlRanges as $key => $val)
 {
 	if($val == $pdf24UseVal)
@@ -298,6 +300,11 @@ do
 
 $pdf24Url1 = "http://pdf-".$pdf24Val1.".pdf24.org";
 $pdf24Url2 = "http://pdf-".$pdf24Val2.".pdf24.org";
+*/
+
+$pdf24UseVal = in_array($pdf24UseLang, $pdf24UrlRanges) ? $pdf24UseLang : "www";
+$pdf24Url1 = "http://".$pdf24UseVal.".pdf24.org";
+$pdf24Url2 = "http://".$pdf24UseVal.".pdf24.org";
 
 $pdf24TextHead = sprintf($pdf24Langu["postsAsPdf"], "<a href=\"".$pdf24Url1."\" target=\"_blank\">PDF</a>");
 

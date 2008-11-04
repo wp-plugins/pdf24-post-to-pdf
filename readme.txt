@@ -4,7 +4,7 @@ Donate link: http://www.pdf24.org/
 Tags: pdf, create pdf, convert to pdf, post to pdf, entry to pdf
 Requires at least: 1.5.0
 Tested up to: 2.5
-Stable tag: 1.5
+Stable tag: 2.0
 
 Let your visitors create a pdf from a post and send the created pdf to an email.
 
@@ -16,6 +16,7 @@ Let your visitors create a pdf from a post and send the created pdf to an email.
 
 1. Add the plugin file `pdf24.php` to your wordpress plugin folder `/wp-content/plugins/`
 1. Activate the plugin through the 'Plugins' menu in WordPress
+1. Configure the plugin in wordpress admin section Options->PDF24 Plugin
 
 == Screenshots ==
 

@@ -4,9 +4,9 @@ Donate link: http://www.pdf24.org/
 Tags: pdf, convert to pdf, create pdf, sidebar, posts to pdf, entries to pdf
 Requires at least: 1.5.0
 Tested up to: 2.5
-Stable tag: 2.0
+Stable tag: 2.1
 
-Let your visitors create a pdf from a all posts on the current viewed page and send the created pdf to an email
+Let your visitors create a pdf from a all posts on the current page and send the created pdf to an email
 
 == Description ==
 
@@ -20,11 +20,19 @@ The version 2.0 has a lot of options to customize the plugin.
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Configure the plugin in wordpress admin section Options->PDF24 Plugin
 
+If the sidebar box should be displayed:
 Code for the theme file `sidebar.php`
 
 `<!-- Start pdf24.org sidebar plugin -->`
 `<?php pdf24Plugin_sidebarBox(); ?>`
 `<!-- End pdf24.org sidebar plugin -->`
+
+If the top/bottom bar should be displayed:
+Code for the theme file `index.php`
+
+`<!-- Start pdf24.org top/bottom plugin -->`
+`<?php pdf24Plugin_topBottomBox(); ?>`
+`<!-- End pdf24.org top/bottom plugin -->`
 
 == Screenshots ==
 

@@ -4,7 +4,7 @@ Plugin Name: PDF24 Post to PDF
 Plugin URI: http://pdf24.org
 Description: A plugin that converts posts to PDF and send the PDF to an email
 Author: Stefan Ziegler
-Version: 2.0
+Version: 2.1
 Author URI: http://www.pdf24.org
 */
 
@@ -40,7 +40,7 @@ if(!isset($pdf24Plugin))
 	
 	//wenn gesetzt, werden Language ELemente aus diesem Array verwendet
 	$pdf24PluginCustomLang = null;
-	
+		
 	//Default Styles für das Content Plugin
 	$pdf24PluginCpDefaultStyles = 
 	'
@@ -51,11 +51,14 @@ if(!isset($pdf24Plugin))
 	.pdf24Plugin-cp-box a { font-size:smaller; }
 	';
 	
+	//Default Styles für die Top Bottom Bar
+	$pdf24PluginTbpDefaultStyles = str_replace('-cp-','-tbp-',$pdf24PluginCpDefaultStyles);
+	
 	//Default Styles für das Sidebar Plugin
 	$pdf24PluginSbpDefaultStyles = 
 	'
 	.pdf24Plugin-sbp-box { text-align:center; border: 1px solid silver; padding: 5px; }
-	.pdf24Plugin-sbp-title { width: 150px; font-weight:bold }
+	.pdf24Plugin-sbp-title { font-weight:bold }
 	.pdf24Plugin-sbp-sendto { font-size:smaller; }
 	.pdf24Plugin-sbp-submit { font-size:smaller; }
 	.pdf24Plugin-sbp-backlink { font-size:smaller; }
@@ -257,27 +260,82 @@ if(!isset($pdf24Plugin))
 		return str_replace("\t",'',$style);
 	}
 
-	function pdf24Plugin_getContentForm(&$postArr, $id) 
+	function pdf24Plugin_getLongBarForm($postsArr, $styleId) 
 	{
-		global $pdf24PluginScriptUrl, $pdf24PluginStyle;
+		if(count($postsArr) == 0)
+		{
+			return '';
+		}		
+		global $pdf24PluginScriptUrl;
 		
 		$url = pdf24Plugin_getUrl();
-		$pdf24PreText = preg_replace('/pdf/i', '<a href="'.$url.'" target="_blank">$0</a>', pdf24Plugin_getLangVal("postAsPdf"));
+		$text = pdf24Plugin_getLangVal(count($postsArr) == 1 ? 'postAsPdf' : 'postsAsPdf');
+		$pdf24PreText = preg_replace('/pdf/i', '<a href="'.$url.'" target="_blank">$0</a>', $text);
 
-		$out = '<div class="pdf24Plugin-cp-box">';
-		$out .= '<form id="pdf24Form_'.$id.'" method="POST" action="'.$pdf24PluginScriptUrl.'" target="pdf24PopWin" onsubmit="window.open(\'about:blank\', \'pdf24PopWin\', \'scrollbars=yes,width=400,height=200,top=0,left=0\'); return true;">';
-		$out .= pdf24Plugin_getBlogHiddenFields(1);
-		$out .= pdf24Plugin_getFormHiddenFields($postArr, "", "_0");
+		$out = '<div class="pdf24Plugin-'.$styleId.'-box">';
+		$out .= '<form method="POST" action="'.$pdf24PluginScriptUrl.'" target="pdf24PopWin" onsubmit="window.open(\'about:blank\', \'pdf24PopWin\', \'scrollbars=yes,width=400,height=200,top=0,left=0\'); return true;">';
+		$out .= pdf24Plugin_getBlogHiddenFields(count($postsArr));
+		foreach($postsArr as $key => $val)
+		{
+			$out .= pdf24Plugin_getFormHiddenFields($val, '', '_' . $key);
+		}
 		$out .= '<table cellspacing="0" cellpadding="0" border="0" width="100%" ><tr><td align="left">';
 		$out .= $pdf24PreText;	
-		$out .= ' <input class="pdf24Plugin-cp-input" type="text" name="sendEmailTo" value="'.pdf24Plugin_getLangVal('enterEmail').'" onMouseDown="this.value = \'\';">';	
-		$out .= ' <input class="pdf24Plugin-cp-submit" type="submit" value="'.pdf24Plugin_getLangVal('send').'">';
+		$out .= ' <input class="pdf24Plugin-'.$styleId.'-input" type="text" name="sendEmailTo" value="'.pdf24Plugin_getLangVal('enterEmail').'" onMouseDown="this.value = \'\';">';	
+		$out .= ' <input class="pdf24Plugin-'.$styleId.'-submit" type="submit" value="'.pdf24Plugin_getLangVal('send').'">';
 		$out .= '</td><td align="right"><a href="'.$url.'" target="_blank" title="'.pdf24Plugin_getLangVal('imgAlt').'"><img src="http://www.pdf24.org/images/sheep_16x16.gif" alt="'.pdf24Plugin_getLangVal('imgAlt').'" border="0"></a></td></table>';	
 		$out .= '</form>';
 		$out .= '</div>';
 		
 		return $out;
 	}
+	
+	function pdf24Plugin_getContentForm($postsArr) 
+	{
+		return pdf24Plugin_getLongBarForm($postsArr, 'cp');
+	}
+	
+	function pdf24Plugin_getTopBottomForm($postsArr) 
+	{
+		return pdf24Plugin_getLongBarForm($postsArr, 'tbp');
+	}
+	
+	function pdf24Plugin_getSidebarForm($postsArr) 
+	{
+		if(count($postsArr) == 0)
+		{
+			return '';
+		}	
+		global $pdf24PluginScriptUrl;
+		
+		$url = pdf24Plugin_getUrl();
+		$text = pdf24Plugin_getLangVal(count($postsArr) == 1 ? 'postAsPdf' : 'postsAsPdf');
+		$pdf24TextHead = preg_replace('/pdf/i', '<a href="'.$url.'" target="_blank">$0</a>', $text);
+		
+		$formHiddenFields = '';
+		foreach($postsArr as $key => $val)
+		{
+			$formHiddenFields .= pdf24Plugin_getFormHiddenFields($val, '', '_' . $key);
+		}
+		
+		$out =
+		'
+		<div class="pdf24Plugin-sbp-box">
+		<div class="pdf24Plugin-sbp-title">'. $pdf24TextHead .'</div>
+		<form method="POST" target="pdf24PopWin" action="'. $pdf24PluginScriptUrl .'" onsubmit="window.open(\'about:blank\', \'pdf24PopWin\', \'resizable=yes,scrollbars=yes,width=400,height=200,top=0,left=0\'); return true;">
+		'. pdf24Plugin_getBlogHiddenFields(count($postsArr)) .'
+		'. $formHiddenFields .'
+		<div class="pdf24Plugin-sbp-sendto"><input type="text" name="sendEmailTo" value="'. pdf24Plugin_getLangVal('enterEmail') .'" onMouseDown="this.value = \'\';"></div>
+		<div class="pdf24Plugin-sbp-submit"><input type="submit" value="'. pdf24Plugin_getLangVal('send') .'" /></div>
+		</form>
+		<div class="pdf24Plugin-sbp-backlink"><a href="'. $url .'" target="_blank" title="'. pdf24Plugin_getLangVal('imgAlt') .'">'. pdf24Plugin_getLangVal('linkText') .'</a></div>
+		</div>
+		';
+			
+		return $out;
+	}
+	
+	
 
 	function pdf24Plugin_content($content) 
 	{		
@@ -290,8 +348,7 @@ if(!isset($pdf24Plugin))
 			"postContent" 	=> $content
 		);
 		
-		$id = $GLOBALS["id"];
-		$out = pdf24Plugin_getContentForm($params, $id);
+		$out = pdf24Plugin_getContentForm(array($params));
 			
 		return $content . $out;
 	}
@@ -381,6 +438,18 @@ if(!isset($pdf24Plugin))
 		return $styles;
 	}
 	
+	function pdf24Plugin_getTbpStyles()
+	{
+		global $pdf24PluginTbpDefaultStyles;
+		
+		$styles = get_option('pdf24Plugin_tbpStyles');
+		if($styles === false || trim($styles) == '')
+		{
+			$styles = pdf24Plugin_parseStyle($pdf24PluginTbpDefaultStyles);
+		}
+		return $styles;
+	}
+	
 	function pdf24Plugin_getCustomizedLang()
 	{
 		return get_option('pdf24Plugin_customizedLang');
@@ -416,6 +485,18 @@ if(!isset($pdf24Plugin))
 		return  $styles && $styles != '';
 	}
 	
+	function pdf24Plugin_isTbpInUse()
+	{
+		$opt = get_option('pdf24Plugin_useTbp');
+		return $opt === false || $opt == 'true';
+	}
+	
+	function pdf24Plugin_isTbpCustomStylesInUse()
+	{
+		$styles = get_option('pdf24Plugin_tbpStyles');
+		return  $styles && $styles != '';
+	}
+	
 	function pdf24Plugin_isEmailOptionsInUse()
 	{
 		$opt = get_option('pdf24Plugin_useEmailOptions');
@@ -427,16 +508,9 @@ if(!isset($pdf24Plugin))
 		$opt = get_option('pdf24Plugin_useDocOptions');
 		return $opt && $opt == 'true';
 	}
-		
-	function pdf24Plugin_sidebarBox()
-	{
-		global $pdf24PluginScriptUrl;
-		
-		if(!pdf24Plugin_isSbpInUse())
-		{
-			return;
-		}
 	
+	function pdf24Plugin_getAllPosts()
+	{
 		//zurücksetzen
 		rewind_posts();	
 		$pdf24PostsArr = array();
@@ -470,30 +544,25 @@ if(!isset($pdf24Plugin))
 		{
 			add_filter('the_content', 'pdf24Plugin_content');
 		}
+		return $pdf24PostsArr;
+	}
 		
-		$blogHiddenFields = pdf24Plugin_getBlogHiddenFields(count($pdf24PostsArr));		
-		$formHiddenFields = "";
-		foreach($pdf24PostsArr as $key=>$val) 
+	function pdf24Plugin_sidebarBox()
+	{		
+		if(!pdf24Plugin_isSbpInUse())
 		{
-			$formHiddenFields .= pdf24Plugin_getFormHiddenFields($val, "", "_".$key);
+			return;
 		}
-		$url = pdf24Plugin_getUrl();
-		$pdf24TextHead = preg_replace('/pdf/i', '<a href="'.$url.'" target="_blank">$0</a>', pdf24Plugin_getLangVal("postsAsPdf"));
-		
-		$out =
-		'
-		<div class="pdf24Plugin-sbp-box">
-		<div class="pdf24Plugin-sbp-title">'. $pdf24TextHead .'</div>
-		<form method="POST" target="pdf24PopWin" action="'. $pdf24PluginScriptUrl .'" onsubmit="window.open(\'about:blank\', \'pdf24PopWin\', \'resizable=yes,scrollbars=yes,width=400,height=200,top=0,left=0\'); return true;">
-		'. $blogHiddenFields .'
-		'. $formHiddenFields .'
-		<div class="pdf24Plugin-sbp-sendto"><input type="text" name="sendEmailTo" value="'. pdf24Plugin_getLangVal('enterEmail') .'" onMouseDown="this.value = \'\';"></div>
-		<div class="pdf24Plugin-sbp-submit"><input type="submit" value="'. pdf24Plugin_getLangVal('send') .'" /></div>
-		</form>
-		<div class="pdf24Plugin-sbp-backlink"><a href="'. $url .'" target="_blank" title="'. pdf24Plugin_getLangVal('imgAlt') .'">'. pdf24Plugin_getLangVal('linkText') .'</a></div>
-		</div>
-		';
-		echo $out;
+		echo pdf24Plugin_getSidebarForm(pdf24Plugin_getAllPosts());
+	}
+	
+	function pdf24Plugin_topBottomBox()
+	{		
+		if(!pdf24Plugin_isTbpInUse())
+		{
+			return;
+		}
+		echo pdf24Plugin_getTopBottomForm(pdf24Plugin_getAllPosts());
 	}
 }
 
@@ -509,6 +578,8 @@ if (is_plugin_page())
 		update_option('pdf24Plugin_useCp', isset($_POST['useCp']) ? 'true' : 'false');
 		update_option('pdf24Plugin_sbpStyles', isset($_POST['useSbpCustomStyles']) ? stripslashes($_POST['sbpStyles']) : '');
 		update_option('pdf24Plugin_useSbp', isset($_POST['useSbp']) ? 'true' : 'false');
+		update_option('pdf24Plugin_tbpStyles', isset($_POST['useTbpCustomStyles']) ? stripslashes($_POST['tbpStyles']) : '');
+		update_option('pdf24Plugin_useTbp', isset($_POST['useTbp']) ? 'true' : 'false');
 		update_option('pdf24Plugin_useEmailOptions', isset($_POST['useEmailOptions']) ? 'true' : 'false');
 		update_option('pdf24Plugin_emailType', $_POST['emailType']);
 		update_option('pdf24Plugin_emailSubject', stripslashes($_POST['emailSubject']));
@@ -693,7 +764,7 @@ if (is_plugin_page())
 			</fieldset>
 			<fieldset class="options">
 				<legend>Sidebar Plugin</legend>	
-				This plugin displays a small box everywhere in your blog where you place some peace of code in a template.
+				This plugin displays a small box everywhere in your blog where you place some peace of code in a template of your theme.
 				Place the code &lt;?php pdf24Plugin_sidebarBox(); ?&gt; in a template where the box should appear. E.G. in the sidebar template.				
 				<table style="margin-top: 20px;">	
 				<tr>
@@ -707,6 +778,25 @@ if (is_plugin_page())
 				<tr>
 					<td width="100" valign="top">Custom Styles:</td>
 					<td><textarea name="sbpStyles" style="width:600px; height:150px;"><?php echo htmlspecialchars(pdf24Plugin_getSbpStyles()); ?></textarea></td>
+				</tr>
+				</table>
+			</fieldset>
+			<fieldset class="options">
+				<legend>Top Bottom Plugin</legend>	
+				This plugin displays a small box everywhere in your blog where you place some peace of code in a template of your theme.
+				Place the code &lt;?php pdf24Plugin_topBottomBox(); ?&gt; in a template where the box should appear.				
+				<table style="margin-top: 20px;">	
+				<tr>
+					<td width="100" valign="top"></td>
+					<td><input type="checkbox" name="useTbp"<?php echo pdf24Plugin_isTbpInUse() ? 'checked' : ''; ?>/> Use this Plugin</td>
+				</tr>	
+				<tr>
+					<td width="100" valign="top"></td>
+					<td><input type="checkbox" name="useTbpCustomStyles"<?php echo pdf24Plugin_isTbpCustomStylesInUse() ? 'checked' : ''; ?>/> Use custom styles</td>
+				</tr>							
+				<tr>
+					<td width="100" valign="top">Custom Styles:</td>
+					<td><textarea name="tbpStyles" style="width:600px; height:150px;"><?php echo htmlspecialchars(pdf24Plugin_getTbpStyles()); ?></textarea></td>
 				</tr>
 				</table>
 			</fieldset>
@@ -747,6 +837,18 @@ else
 			if($stylesCp)
 			{
 				$styles .= $stylesCp;
+			}
+		}
+		if(pdf24Plugin_isTbpInUse())
+		{
+			$stylesTbp = pdf24Plugin_getTbpStyles();
+			if($stylesTbp)
+			{
+				if($styles != '')
+				{
+					$styles .= "\n";
+				}
+				$styles .= $stylesTbp;
 			}
 		}
 		if(pdf24Plugin_isSbpInUse())

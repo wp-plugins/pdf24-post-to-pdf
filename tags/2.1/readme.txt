@@ -19,14 +19,14 @@ Let your visitors create a pdf from a post and send the created pdf to an email.
 1. Configure the plugin in wordpress admin section Options->PDF24 Plugin
 
 If the sidebar box should be displayed:
-Code for the theme file `sidebar.php`
+Insert the following code into the `sidebar.php`, where the pdf box should appear.
 
 `<!-- Start pdf24.org sidebar plugin -->`
 `<?php pdf24Plugin_sidebarBox(); ?>`
 `<!-- End pdf24.org sidebar plugin -->`
 
 If the top/bottom bar should be displayed:
-Code for the theme file `index.php`
+Insert the following code into the theme file `index.php`, where the pdf bar should appear.
 
 `<!-- Start pdf24.org top/bottom plugin -->`
 `<?php pdf24Plugin_topBottomBox(); ?>`
@@ -42,4 +42,50 @@ This plugin was made by pdf24.org. The plugin uses the service of pdf24 to creat
 
 == Frequently Asked Questions ==
 
-Currently there are no questions.
+= How can i remove the boxes underneath each article =
+
+1. Locate to the section Options->PDF24 Plugin in wordpress admin area
+1. Uncheck 'Use this plugin' in the section Content Plugin
+1. Save the settings
+
+= Where do i have to insert the code to display the sidebar box =
+
+In my theme directory there is an file named sidebar.php. A part of the file with inserted code looks like this:
+
+`...`
+`<li>`
+`<?php include (TEMPLATEPATH . '/searchform.php'); ?>`
+`</li>`
+
+`<!-- Start pdf24.org sidebar plugin -->`
+`<?php pdf24Plugin_sidebarBox(); ?>`
+`<!-- End pdf24.org sidebar plugin -->`
+`...`
+
+= Where do i have to insert the code to display the bottom bar box =
+
+In my theme directory there is an file named index.php. A part of the file with inserted code looks like this:
+
+`...`
+`<?php endwhile; ?>`
+
+`<!-- Start pdf24.org top bottom plugin -->`
+`<?php pdf24Plugin_topBottomBox(); ?>`
+`<!-- End pdf24.org top bottom plugin -->`
+
+`<div class="navigation">`
+`...`
+
+= Where do i have to insert the code to display the top bar box =
+
+In my theme directory there is an file named index.php. A part of the file with inserted code looks like this:
+
+`...`
+`<div id="content" class="narrowcolumn">`
+	
+`<!-- Start pdf24.org top bottom plugin -->`
+`<?php pdf24Plugin_topBottomBox(); ?>`
+`<!-- End pdf24.org top bottom plugin -->`
+
+`<?php if (have_posts()) : ?>`
+`...`

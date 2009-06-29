@@ -1,4 +1,4 @@
-=== PDF24 Article To PDF ===
+=== PDF24 Articles To PDF ===
 Contributors: pdf24
 Donate link: http://www.pdf24.org/
 Tags: pdf, create pdf, convert to pdf, article to pdf

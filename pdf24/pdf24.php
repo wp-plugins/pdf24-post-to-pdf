@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: PDF24 Article To PDF
+Plugin Name: PDF24 Articles To PDF
 Plugin URI: http://www.pdf24.org
 Description: A plugin that converts articles to PDF. Visitors of your blog can make a copy of articles in form of a PDF. Contents in the PDF are linked with your blog.
 Author: Stefan Ziegler

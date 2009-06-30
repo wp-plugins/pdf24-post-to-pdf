@@ -18,8 +18,7 @@ The plugin can be highly configured in your blog admin area. There you can confi
 
 == Installation ==
 
-1. Create a folder named `pdf24` in your wordpress plugin folder `/wp-content/plugins/`
-1. Unpack the plugin zip archive in that folder
+1. Unpack the plugin zip archive in your wordpress plugin folder `/wp-content/plugins/`
 1. Activate the plugin through the 'Plugins' menu in WordPress admin area
 1. Configure the plugin in wordpress admin area Settings->PDF24 Plugin
 

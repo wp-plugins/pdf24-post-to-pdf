@@ -12,7 +12,7 @@ A plugin to convert articles to PDF. Visitors can make a copy of articles in for
 
 This plugin enables your readers to convert one or more articles into pdf files. Therefore a little box can be shown below every article, in the sidebar or on the top or bottom af a page. In that boxes you can fill in your e-mail address. After sending the form a pdf file will be created and sent to the entered email address.
 
-If one of the boxes boxes below each article was used to create the pdf, the pdf will only contain that article. If the sidebar box or the top/bottom box was used to create the pdf, the pdf will contain all articles on the page.
+If one of the boxes below each article was used to create the pdf, the pdf will only contain that article. If the sidebar box or the top/bottom box was used to create the pdf, the pdf will contain all articles on the page.
 
 The plugin can be highly configured in your blog admin area. There you can configure email properties, page format and layout, enable or disable some plugin boxes, changing styles and so on. Its very easy to use. Check it out!
 

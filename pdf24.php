@@ -21,7 +21,7 @@ if(!isset($pdf24Plugin))
 	$pdf24PluginDir = dirname(__FILE__);
 	
 	//url zum plugin
-	$pdf24PluginUrl = get_option('siteurl') . '/wp-content/plugins/pdf24';
+	$pdf24PluginUrl = get_option('siteurl') . '/wp-content/plugins/' . basename($pdf24PluginDir);
 
 	//default language
 	$pdf24PluginDefaultLang = 'en';

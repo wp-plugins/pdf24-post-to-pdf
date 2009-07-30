@@ -25,7 +25,7 @@ function pdf24Plugin_createCustomizedLangInputs()
 	$langElements = pdf24Plugin_getLangElements();
 	foreach($langElements as $key => $val)
 	{
-		$out .= '<input type="text" name="lang-'. $key .'" value="'. addslashes($val) .'" style="width:300px"/> ('. $pdf24PluginLang[$key] .')<br />';
+		$out .= '<input type="text" name="lang-'. $key .'" value="'. addslashes($val) .'" style="width:300px" /> ('. $pdf24PluginLang[$key] .')<br />';
 	}
 	return $out;
 }
@@ -213,7 +213,7 @@ if (isset($_POST['update']))
 		<table>
 		<tr>
 			<td class="tr1"></td>
-			<td><input type="checkbox" name="useDocOptions"<?php echo pdf24Plugin_isDocOptionsInUse() ? 'checked' : ''; ?>/> Override default document options</td>
+			<td><input type="checkbox" name="useDocOptions" <?php echo pdf24Plugin_isDocOptionsInUse() ? 'checked' : ''; ?> /> Override default document options</td>
 		</tr>		
 		<tr>
 			<td class="tr1">Title Text:</td>
@@ -235,7 +235,7 @@ if (isset($_POST['update']))
 		<table>
 		<tr>
 			<td class="tr1"></td>
-			<td><input type="checkbox" name="useEmailOptions"<?php echo pdf24Plugin_isEmailOptionsInUse() ? 'checked' : ''; ?>/> Override default email options</td>
+			<td><input type="checkbox" name="useEmailOptions" <?php echo pdf24Plugin_isEmailOptionsInUse() ? 'checked' : ''; ?> /> Override default email options</td>
 		</tr>			
 		<tr>
 			<td width="100">Type:</td>
@@ -266,7 +266,7 @@ if (isset($_POST['update']))
 		<table>	
 		<tr>
 			<td class="tr1"></td>
-			<td><input type="checkbox" name="useCp"<?php echo pdf24Plugin_isCpInUse() ? 'checked' : ''; ?>/> Use this plugin</td>
+			<td><input type="checkbox" name="useCp" <?php echo pdf24Plugin_isCpInUse() ? 'checked' : ''; ?> /> Use this plugin</td>
 		</tr>
 		<tr>
 			<td class="tr1">Style</td>
@@ -288,7 +288,7 @@ if (isset($_POST['update']))
 		<table>	
 		<tr>
 			<td class="tr1"></td>
-			<td><input type="checkbox" name="useSbp"<?php echo pdf24Plugin_isSbpInUse() ? 'checked' : ''; ?>/> Use this plugin</td>
+			<td><input type="checkbox" name="useSbp" <?php echo pdf24Plugin_isSbpInUse() ? 'checked' : ''; ?> /> Use this plugin</td>
 		</tr>
 		<tr>
 			<td class="tr1">Style</td>
@@ -310,7 +310,7 @@ if (isset($_POST['update']))
 		<table>	
 		<tr>
 			<td class="tr1"></td>
-			<td><input type="checkbox" name="useTbp"<?php echo pdf24Plugin_isTbpInUse() ? 'checked' : ''; ?>/> Use this Plugin</td>
+			<td><input type="checkbox" name="useTbp" <?php echo pdf24Plugin_isTbpInUse() ? 'checked' : ''; ?> /> Use this Plugin</td>
 		</tr>	
 		<tr>
 			<td class="tr1">Style</td>
@@ -333,7 +333,7 @@ if (isset($_POST['update']))
 		<table>	
 		<tr>
 			<td class="tr1"></td>
-			<td><input type="checkbox" name="useCustomLang"<?php echo pdf24Plugin_isCustomizedLang() ? 'checked' : ''; ?>/> Use cutomized language</td>
+			<td><input type="checkbox" name="useCustomLang" <?php echo pdf24Plugin_isCustomizedLang() ? 'checked' : ''; ?> /> Use cutomized language</td>
 		</tr>				
 		<tr>
 			<td class="tr1">Custom Language Elements:</td>

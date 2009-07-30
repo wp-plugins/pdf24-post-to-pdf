@@ -1,10 +1,10 @@
 === PDF24 Articles To PDF ===
 Contributors: pdf24
 Donate link: http://www.pdf24.org/
-Tags: pdf, create pdf, convert to pdf, article to pdf
+Tags: pdf, create pdf, convert to pdf, articles to pdf
 Requires at least: 1.5.0
 Tested up to: 2.8
-Stable tag: 2.3.1
+Stable tag: 2.3.2
 
 A plugin to convert articles to PDF. Visitors can make a copy of articles in form of a PDF. Contents in created PDF files are linked with your blog.
 
@@ -45,6 +45,10 @@ Insert the following code into the theme file `index.php`, where the top/bottom 
 1. Screenshot1
 
 == Changelog ==
+
+= 2.3.2 =
+* Outputs are now valid xhtml code
+* Fixed style problem when using only the top/bottom plugin
 
 = 2.3.1 =
 * Restructured the plugin to work with automated installation in Wordpress

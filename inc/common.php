@@ -97,7 +97,7 @@ function pdf24Plugin_getFormHiddenFields(&$formArr, $keyPrefix="", $keySuffix=""
 	foreach($formArr as $key => $val) 
 	{
 		$val = htmlspecialchars($val);
-		$out .= "<input type=\"hidden\" name=\"".$keyPrefix.$key.$keySuffix."\" value=\"".$val."\">\n";
+		$out .= "<input type=\"hidden\" name=\"".$keyPrefix.$key.$keySuffix."\" value=\"".$val."\" />\n";
 	}	
 	return $out;
 }
@@ -190,7 +190,7 @@ function pdf24Plugin_getLongBarForm($postsArr, $styleId)
 	$text = pdf24Plugin_getLangVal(count($postsArr) == 1 ? 'postAsPdf' : 'postsAsPdf');
 
 	$out = '<div class="pdf24Plugin-'.$styleId.'-box">';
-	$out .= '<form method="POST" action="'.$pdf24PluginScriptUrl.'" target="pdf24PopWin" onsubmit="window.open(\'about:blank\', \'pdf24PopWin\', \'scrollbars=yes,width=400,height=200,top=0,left=0\'); return true;">';
+	$out .= '<form method="post" action="'.$pdf24PluginScriptUrl.'" target="pdf24PopWin" onsubmit="window.open(\'about:blank\', \'pdf24PopWin\', \'scrollbars=yes,width=400,height=200,top=0,left=0\'); return true;">';
 	$out .= pdf24Plugin_getBlogHiddenFields(count($postsArr));
 	foreach($postsArr as $key => $val)
 	{
@@ -198,9 +198,9 @@ function pdf24Plugin_getLongBarForm($postsArr, $styleId)
 	}
 	$out .= '<table cellspacing="0" cellpadding="0" border="0" width="100%"><tr><td align="left">';
 	$out .= $text;	
-	$out .= ' <input class="pdf24Plugin-'.$styleId.'-input" type="text" name="sendEmailTo" value="'.pdf24Plugin_getLangVal('enterEmail').'" onMouseDown="this.value = \'\';">';	
-	$out .= ' <input class="pdf24Plugin-'.$styleId.'-submit" type="submit" value="'.pdf24Plugin_getLangVal('send').'">';
-	$out .= '</td><td align="right"><a href="'.$url.'" target="_blank" title="'.$blText.'"><img src="'. $pdf24PluginUrl .'/img/sheep_16x16.gif" alt="'.$blText.'" border="0"></a></td></table>';	
+	$out .= ' <input class="pdf24Plugin-'.$styleId.'-input" type="text" name="sendEmailTo" value="'.pdf24Plugin_getLangVal('enterEmail').'" onmousedown="this.value = \'\';" />';	
+	$out .= ' <input class="pdf24Plugin-'.$styleId.'-submit" type="submit" value="'.pdf24Plugin_getLangVal('send').'" />';
+	$out .= '</td><td align="right"><a href="'.$url.'" target="_blank" title="'.$blText.'"><img src="'. $pdf24PluginUrl .'/img/sheep_16x16.gif" alt="'.$blText.'" border="0" /></a></td></tr></table>';	
 	$out .= '</form>';
 	$out .= '</div>';
 	
@@ -239,10 +239,10 @@ function pdf24Plugin_getSidebarForm($postsArr)
 	'
 	<div class="pdf24Plugin-sbp-box">
 	<div class="pdf24Plugin-sbp-title">'. $text .'</div>
-	<form method="POST" target="pdf24PopWin" action="'. $pdf24PluginScriptUrl .'" onsubmit="window.open(\'about:blank\', \'pdf24PopWin\', \'resizable=yes,scrollbars=yes,width=400,height=200,top=0,left=0\'); return true;">
+	<form method="post" target="pdf24PopWin" action="'. $pdf24PluginScriptUrl .'" onsubmit="window.open(\'about:blank\', \'pdf24PopWin\', \'resizable=yes,scrollbars=yes,width=400,height=200,top=0,left=0\'); return true;">
 	'. pdf24Plugin_getBlogHiddenFields(count($postsArr)) .'
 	'. $formHiddenFields .'
-	<div class="pdf24Plugin-sbp-sendto"><input type="text" name="sendEmailTo" value="'. pdf24Plugin_getLangVal('enterEmail') .'" onMouseDown="this.value = \'\';"></div>
+	<div class="pdf24Plugin-sbp-sendto"><input type="text" name="sendEmailTo" value="'. pdf24Plugin_getLangVal('enterEmail') .'" onmousedown="this.value = \'\';" /></div>
 	<div class="pdf24Plugin-sbp-submit"><input type="submit" value="'. pdf24Plugin_getLangVal('send') .'" /></div>
 	</form>
 	<div class="pdf24Plugin-sbp-backlink"><a href="'. $url .'" target="_blank" title="'. $blText .'">'. $blText .'</a></div>

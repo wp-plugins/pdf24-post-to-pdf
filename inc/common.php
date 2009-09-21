@@ -140,28 +140,13 @@ function pdf24Plugin_getUrl()
 function pdf24Plugin_getBLText()
 {
 	$text = pdf24Plugin_getLangVal('blTexts');
-	$charList = '|,;';
-	$words = array();
-	
-	while($temp = strpbrk($text, $charList))
-	{
-		$word = trim(str_replace($temp, '', $text));
-		if($word != '')
-		{
-			$words[] = $word;
-		}		
-		$text = substr($temp, 1);
-	}
-	if(trim($text) != '')
-	{
-		$words[] = trim($text);
-	}
+	$words = preg_split('/;|\|/',$text);
 	if(count($words) == 0)
 	{
 		$words = array('PDF');
 	}
 	$key = array_rand($words);
-	return $words[$key];
+	return trim($words[$key]);
 }
 
 function pdf24Plugin_replaceLang($str)

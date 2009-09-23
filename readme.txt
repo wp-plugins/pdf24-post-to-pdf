@@ -46,6 +46,9 @@ Insert the following code into the theme file `index.php`, where the top/bottom 
 
 == Changelog ==
 
+= 2.3.3 =
+* Plugins works now with php4 and php5
+
 = 2.3.2 =
 * Outputs are now valid xhtml code
 * Fixed style problem when using only the top/bottom plugin

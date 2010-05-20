@@ -1,8 +1,7 @@
 <?php
 
 //Document sizes of created PDF
-$GLOBALS['pdf24PluginDocSizes'] = array
-(
+$GLOBALS['pdf24PluginDocSizes'] = array(
 	'A0' =>	'841x1189',
 	'A1' => '594x841',
 	'A2' => '420x594',
@@ -28,11 +27,9 @@ $GLOBALS['pdf24PluginDocSizes'] = array
 );
 
 //Document orientation
-$GLOBALS['pdf24PluginDocOrientations'] = array
-(
+$GLOBALS['pdf24PluginDocOrientations'] = array(
 	'portrait' => 'Portrait',
-	'landscape' => 'Landscape',
-	
+	'landscape' => 'Landscape',	
 	'default' => 'portrait'
 );
 

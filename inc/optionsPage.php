@@ -1,30 +1,25 @@
 <?php
 
-function pdf24Plugin_getLangOptions()
-{
+function pdf24Plugin_getLangOptions() {
 	global $pdf24PluginLangCodes, $pdf24PluginDefaultLang, $pdf24PluginUseLang;
 	
 	$l = get_option('pdf24Plugin_language');
-	if($l === false)
-	{
+	if($l === false) {
 		$l = isset($pdf24PluginUseLang) ? $pdf24PluginUseLang : $pdf24PluginDefaultLang;
 	}
 	$out = '';
-	foreach($pdf24PluginLangCodes as $key => $val)
-	{
+	foreach($pdf24PluginLangCodes as $key => $val) {
 		$out .= '<option value="'. $key .'"'. ($l == $key ? ' selected' : '') .'>'. $val .'</option>';
 	}
 	return $out;
 }
 
-function pdf24Plugin_createCustomizedLangInputs()
-{
+function pdf24Plugin_createCustomizedLangInputs() {
 	global $pdf24PluginLang;
 
 	$out = '';
 	$langElements = pdf24Plugin_getLangElements();
-	foreach($langElements as $key => $val)
-	{
+	foreach($langElements as $key => $val) {
 		$out .= '<input type="text" name="lang-'. $key .'" value="'. addslashes($val) .'" style="width:300px" /> ('. $pdf24PluginLang[$key] .')<br />';
 	}
 	return $out;
@@ -36,10 +31,8 @@ function pdf24Plugin_createDocSizeOptions()
 	
 	$currentSize = pdf24Plugin_getDocSize();
 	$out = '';
-	foreach($pdf24PluginDocSizes as $key => $val)
-	{
-		if($key != 'default')
-		{
+	foreach($pdf24PluginDocSizes as $key => $val) {
+		if($key != 'default') {
 			$out .= '<option value="'. $key .'"'. ($key == $currentSize ? ' selected' : '') .'>'. $key .'</option>';
 		}
 	}
@@ -52,10 +45,8 @@ function pdf24Plugin_createDocOrientationOptions()
 	
 	$currentOrientation = pdf24Plugin_getDocOrientation();
 	$out = '';
-	foreach($pdf24PluginDocOrientations as $key => $val)
-	{
-		if($key != 'default')
-		{
+	foreach($pdf24PluginDocOrientations as $key => $val) {
+		if($key != 'default') {
 			$out .= '<option value="'. $key .'"'. ($key == $currentOrientation ? ' selected' : '') .'>'. $val .'</option>';
 		}
 	}
@@ -67,8 +58,7 @@ function pdf24Plugin_getCustomStyles($wpOption, $styleFolder)
 	global $pdf24PluginDir;
 	
 	$styles = get_option($wpOption);
-	if($styles === false || trim($styles) == '')
-	{
+	if($styles === false || trim($styles) == '') {
 		$styles = file_get_contents($pdf24PluginDir . '/'. $styleFolder .'/default.css');
 	}
 	return $styles;
@@ -77,8 +67,7 @@ function pdf24Plugin_getCustomStyles($wpOption, $styleFolder)
 function pdf24Plugin_getLangElements()
 {
 	global $pdf24PluginUseLang, $pdf24PluginLang, $pdf24PluginCustomLang;
-	if($pdf24PluginCustomLang)
-	{
+	if($pdf24PluginCustomLang) {
 		return array_merge($pdf24PluginLang, $pdf24PluginCustomLang);
 	}
 	return $pdf24PluginLang;
@@ -91,8 +80,7 @@ function pdf24Plugin_getStyleOptions($wpSetting, $folder)
 
 	$out = '';
 	$files = pdf24Plugin_getFiles($folder, '.css', 'ir');
-	foreach($files as $f)
-	{
+	foreach($files as $f) {
 		$out .= '<option value="'. $f .'" ' . ($f == $style ? 'selected' : '') . '/>'. $f .'</option>';
 	}
 	$out .= '<option value="%custom%" ' . ($style == '%custom%' ? 'selected' : '') . '>Custom Style</option>';
@@ -101,8 +89,7 @@ function pdf24Plugin_getStyleOptions($wpSetting, $folder)
 
 include_once($pdf24PluginDir . '/inc/langCodes.php');
 
-if (isset($_POST['update'])) 
-{	
+if (isset($_POST['update'])) {	
 	update_option('pdf24Plugin_language', $_POST['language']);
 	update_option('pdf24Plugin_emailText', stripslashes($_POST['emailText']));
 	update_option('pdf24Plugin_cpStyle', $_POST['cpStyle']);
@@ -123,20 +110,15 @@ if (isset($_POST['update']))
 	update_option('pdf24Plugin_docSize', $_POST['docSize']);
 	update_option('pdf24Plugin_docOrientation', $_POST['docOrientation']);
 	
-	if(isset($_POST['useCustomLang']))
-	{
+	if(isset($_POST['useCustomLang'])) {
 		$customLang = array();
-		foreach($_POST as $key => $val)
-		{
-			if(substr($key, 0, 5) == 'lang-')
-			{
+		foreach($_POST as $key => $val) {
+			if(substr($key, 0, 5) == 'lang-') {
 				$customLang[substr($key, 5)] = stripslashes($val);
 			}
 		}
 		update_option('pdf24Plugin_customizedLang', $customLang);
-	}
-	else
-	{
+	} else {
 		update_option('pdf24Plugin_customizedLang', '');
 	}
 	
@@ -146,11 +128,9 @@ if (isset($_POST['update']))
 	$warnings = array();
 		
 	//check language
-	if(!isset($_POST['useCustomLang']))
-	{
+	if(!isset($_POST['useCustomLang'])) {
 		$availableLangs = pdf24Plugin_getAvailableLang();
-		if(!in_array($_POST['language'], $availableLangs)) 
-		{	
+		if(!in_array($_POST['language'], $availableLangs)) {	
 			$usedLang = $pdf24PluginLangCodes[$pdf24PluginDefaultLang];
 			$warnings[] = 'There is no language file installed for this defined language. Currently the default language <b>'. $usedLang .'</b> is used. Please use the <a href="#customLang">Customize Language</a> settings to customize the language.';
 		}
@@ -166,7 +146,7 @@ if (isset($_POST['update']))
 ?>
 
 
-<div>
+<div class="wrap">
 <script language="javascript">
 	var pdf24_formError = false;
 	function pdf24_check(elem, v) {

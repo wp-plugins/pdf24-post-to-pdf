@@ -4,7 +4,7 @@ Donate link: http://www.pdf24.org/
 Tags: pdf, create pdf, convert to pdf, article to pdf
 Requires at least: 1.5.0
 Tested up to: 2.9.2
-Stable tag: 2.3.3
+Stable tag: 2.3.5
 
 A plugin to convert articles to PDF. Visitors can make a copy of articles in form of a PDF. Contents in created PDF files are linked with your blog.
 
@@ -45,6 +45,14 @@ Insert the following code into the theme file `index.php`, where the top/bottom 
 1. Screenshot1
 
 == Changelog ==
+
+= 2.3.5 =
+* Plugin order changed so that pdf24 plugin is called at last. This change fixes some problems working together with some other plugins.
+* New value encoding added in form building process to better format the output
+* Style class in admin option page added to better format this page
+
+= 2.3.4 =
+* Some language files added
 
 = 2.3.3 =
 * Plugins works now with php4 and php5

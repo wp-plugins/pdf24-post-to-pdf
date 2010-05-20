@@ -1,7 +1,6 @@
 <?php
 
-$GLOBALS['pdf24PluginLang'] = array
-(
+$GLOBALS['pdf24PluginLang'] = array(
 	'enterEmail'	=> 'Enter email address',
 	'send'			=> 'Send',
 	'postAsPdf'		=> 'Send article as PDF to',

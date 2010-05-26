@@ -32,7 +32,7 @@ if(!isset($pdf24Plugin)) {
 	$pdf24PluginDefaultFilter = 'base64';
 	
 	//Url of pdf24.org which creates PDF
-	$pdf24PluginScriptUrl = 'http://doc2pdf.pdf24.org/doc2pdf/blog.php';
+	$pdf24PluginScriptUrl = 'http://doc2pdf.pdf24.org/doc2pdf/wordpress.php';
 	
 	//include common functions
 	include_once($pdf24PluginDir . '/inc/common.php');

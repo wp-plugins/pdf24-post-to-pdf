@@ -186,11 +186,11 @@ function pdf24Plugin_getLongBarForm($postsArr, $styleId) {
 	foreach($postsArr as $key => $val) {
 		$out .= pdf24Plugin_getFormHiddenFields($val, '', '_' . $key);
 	}
-	$out .= '<table cellspacing="0" cellpadding="0" border="0" width="100%"><tr><td align="left">';
-	$out .= $text;	
-	$out .= ' <input class="pdf24Plugin-'.$styleId.'-input" type="text" name="sendEmailTo" value="'.pdf24Plugin_getLangVal('enterEmail').'" onmousedown="this.value = \'\';" />';	
-	$out .= ' <input class="pdf24Plugin-'.$styleId.'-submit" type="submit" value="'.pdf24Plugin_getLangVal('send').'" />';
-	$out .= '</td><td align="right"><a href="'.$url.'" target="_blank" title="'.$blText.'"><img src="'. $pdf24PluginUrl .'/img/sheep_16x16.gif" alt="'.$blText.'" border="0" /></a></td></tr></table>';	
+	$out .= '<a href="'.$url.'" target="_blank" title="'.$blText.'"><img src="'. $pdf24PluginUrl .'/img/sheep_16x16.gif" alt="'.$blText.'" border="0" /></a>';
+	$out .= ' <span class="pdf24Plugin-'.$styleId.'-space">&nbsp;&nbsp;</span> ';
+	$out .= '<span class="pdf24Plugin-'.$styleId.'-text">' . $text .'</span>';
+	$out .= ' <input class="pdf24Plugin-'.$styleId.'-input" style="margin: 0px;" type="text" name="sendEmailTo" value="'.pdf24Plugin_getLangVal('enterEmail').'" onmousedown="this.value = \'\';" />';	
+	$out .= ' <input class="pdf24Plugin-'.$styleId.'-submit" style="margin: 0px;" type="submit" value="'.pdf24Plugin_getLangVal('send').'" />';
 	$out .= '</form>';
 	$out .= '</div>';
 	

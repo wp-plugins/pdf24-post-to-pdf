@@ -3,10 +3,10 @@ Contributors: pdf24
 Donate link: http://www.pdf24.org/
 Tags: pdf, create pdf, convert to pdf, article to pdf
 Requires at least: 1.5.0
-Tested up to: 2.9.2
-Stable tag: 2.3.7
+Tested up to: 3.0.1
+Stable tag: 3.0.0
 
-A plugin to convert articles to PDF. Visitors can make a copy of articles in form of a PDF. Contents in created PDF files are linked with your blog.
+A plugin that converts articles to PDF. Visitors of your blog can make copies of articles in form of a PDF. Contents in PDF are linked back to your blog.
 
 == Description ==
 
@@ -42,9 +42,23 @@ Insert the following code into the theme file `index.php`, where the top/bottom 
 
 == Screenshots ==
 
-1. Screenshot1
+1. Test page with two Send as PDF boxes enabled
+2. Plugin settings in Wordpress admin area
+3. Test page with two Download as PDF links enabled
+4. Links and boxes can be inserted in multiple places
+5. You can choose between multiple styles our you can customize each style
 
 == Changelog ==
+
+= 3.0.0 =
+* Added the wanted ability to download created PDF directly without sending the PDF via email
+* Added CSS document section in settings to format a created PDF file
+* Added a lot of new predefined styles which can be customized
+* There are styles for direct PDF download and for email PDF mode
+* PDF buttons can be displayed for every visitor or only for logged in user
+* Produces better formatted PDF files
+* Added outlines to a created PDF document based on articles title
+* Visualizes the PDF creation process until the PDF is created.
 
 = 2.3.7 =
 * Some changes to work better with new wordpress 3.0 version
@@ -79,6 +93,13 @@ Insert the following code into the theme file `index.php`, where the top/bottom 
 
 = 2.1 =
 * Introduced plugin options page to configure the plugin.
+
+== Upgrade Notice ==
+
+= 3.0.0 =
+We have redesigned a lot of parts of the plugin. If you update your currently installed plugin
+please configure the plugin in settings of wordpress admin area.
+
 
 == Frequently Asked Questions ==
 

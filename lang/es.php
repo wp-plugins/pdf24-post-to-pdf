@@ -1,11 +1,16 @@
 <?php
 
-$GLOBALS['pdf24PluginLang'] = array(
-	'enterEmail'	=> 'Correo electrónico',
-	'send'			=> 'Enviar',
-	'postAsPdf'		=> 'Enviar artículo en formato PDF a',
-	'postsAsPdf'	=> 'Enviar artículos en formato PDF a',
-	'blTexts'		=> 'PDF | PDF Creator | Word PDF | PDF Download'
+global $pdf24Plugin;
+
+$pdf24Plugin['lang'] = array(
+	'enterEmail'			=> 'Correo electrónico',
+	'send'					=> 'Enviar',
+	'sendArticleAsPDF'		=> 'Enviar artículo en formato PDF a',
+	'sendArticlesAsPDF'		=> 'Enviar artículos en formato PDF a',
+	'blTexts'				=> 'PDF | PDF Creator | Create PDF | PDF Printer | PDF Download',
+	'downloadArticleAsPDF'	=> 'Descargar artículo en formato PDF',
+	'downloadArticlesAsPDF'	=> 'Descargar artículos en formato PDF',
+	'createPDF'				=> 'Crear PDF'
 );
 	
 ?>

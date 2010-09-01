@@ -1,7 +1,8 @@
 <?php
 
 //Language codes
-$GLOBALS['pdf24PluginLangCodes'] = array(
+global $pdf24Plugin;
+$pdf24Plugin['langCodes'] = array(
 	'aa' => 'Afar',			'ab' => 'Abkhazian',		'af' => 'Afrikaans',		'am' => 'Amharic',
 	'ar' => 'Arabic',		'as' => 'Assamese',			'ay' => 'Aymara',			'az' => 'Azerbaijani',
 	'ba' => 'Bashkir',		'be' => 'Byelorussian',		'bg' => 'Bulgarian',		'bh' => 'Bihari',

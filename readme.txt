@@ -1,4 +1,4 @@
-=== PDF24 Articles To PDF ===
+=== PDF24 Article To PDF ===
 Contributors: pdf24
 Donate link: http://www.pdf24.org/
 Tags: pdf, create pdf, convert to pdf, article to pdf
@@ -6,15 +6,22 @@ Requires at least: 1.5.0
 Tested up to: 3.0.1
 Stable tag: 3.0.0
 
-A plugin that converts articles to PDF. Visitors of your blog can make copies of articles in form of a PDF. Contents in PDF are linked back to your blog.
+A plugin to convert articles to PDF. Visitors can make a copy of articles in form of a PDF. Contents in created PDF files are linked with your blog.
 
 == Description ==
 
-This plugin enables your readers to convert one or more articles into pdf files. Therefore a little box can be shown below every article, in the sidebar or on the top or bottom af a page. In that boxes you can fill in your e-mail address. After sending the form a pdf file will be created and sent to the entered email address.
+This plugin enables your readers to convert one or more articles to pdf files. Therefore a little box is shown below every article, 
+in the sidebar or on the top or bottom of each page in your wordpress blog.
 
-If one of the boxes below each article was used to create the pdf, the pdf will only contain that article. If the sidebar box or the top/bottom box was used to create the pdf, the pdf will contain all articles on the page.
+The plugin provides two modes to create PDF files. The first mode is the email mode. In that mode each box has a field in which a visitor
+has to enter an email address to which the created PDF will be sent. The second mode is the direct download mode. No email address is needed
+in that mode. Each PDF box or each PDF link creates the PDF directly and the user has to download the created PDF.
 
-The plugin can be highly configured in your blog admin area. There you can configure email properties, page format and layout, enable or disable some plugin boxes, changing styles and so on. Its very easy to use. Check it out!
+A PDF box/link below or above each article creates a PDF only of the approriate article. A PDF box/link in the sidebar or above or below all
+articles creates a PDF from all article of the page.
+
+The PDF boxes and links and the format of the PDF file can be customized by CSS. Furthermore you can configure some other parts
+of the plugin. Plugin settings are provided in settings in wordpress admin area.
 
 == Installation ==
 
@@ -22,7 +29,8 @@ The plugin can be highly configured in your blog admin area. There you can confi
 1. Activate the plugin through the 'Plugins' menu in WordPress admin area
 1. Configure the plugin in wordpress admin area Settings->PDF24 Plugin
 
-The plugin is configured to display a small pdf box below each article by default. The plugin can display boxes below each article, in the sidebar or on the top or bottom of each page. To enable or disable some of these boxes please change the plugin settings.
+The plugin is configured to display a small pdf box below each article by default. The plugin can display boxes below each article,
+in the sidebar or on the top or bottom of each page. To enable or disable some of these boxes please change the plugin settings.
 
 You have to insert some peace of code into a template file if the sidebar box or the top/bottom box should be displayed:
 

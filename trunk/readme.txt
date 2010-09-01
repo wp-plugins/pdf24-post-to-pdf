@@ -4,7 +4,7 @@ Donate link: http://www.pdf24.org/
 Tags: pdf, create pdf, convert to pdf, article to pdf
 Requires at least: 1.5.0
 Tested up to: 3.0.1
-Stable tag: 2.3.7
+Stable tag: 3.0.0
 
 A plugin that converts articles to PDF. Visitors of your blog can make copies of articles in form of a PDF. Contents in PDF are linked back to your blog.
 

@@ -1,0 +1,7 @@
+.pdf24Plugin-sbp { background-image:url(box_big.gif); background-repeat: no-repeat; width:190px; height:125px; position:relative; padding:4px; font-family: Verdana, Arial; }
+.pdf24Plugin-sbp-title { position:absolute; left: 10px; top: 4px; text-align:left; width:110px; color:#fff; font-size: 14px; font-weight:bold; }
+.pdf24Plugin-sbp-sendto { position:absolute; left: 10px; top: 71px; }
+.pdf24Plugin-sbp-sendto input { width: 168px; height: 17px; border:1px solid silver; }
+.pdf24Plugin-sbp-submit { position:absolute; right: 15px; top: 100px; }
+.pdf24Plugin-sbp-submit input { background-color: #66A4DA; border:0px;  border-left: 1px solid silver; border-bottom: 1px solid silver; color:#fff; font-weight:bold; padding:1px; cursor: pointer; }
+.pdf24Plugin-sbp-bl { position:absolute; left: 11px; top: 103px; font-size:11px; }

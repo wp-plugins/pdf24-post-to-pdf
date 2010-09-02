@@ -102,6 +102,11 @@ if (isset($_POST['update'])) {
 	update_option('pdf24Plugin_tbpStyle_customize', isset($_POST['tbpCustomize']) ? 'true' : 'false');
 	update_option('pdf24Plugin_tbpStyle_' . $_POST['tbpStyle'], stripslashes($_POST['tbpCustomStyle']));
 	
+	update_option('pdf24Plugin_lpInUse', isset($_POST['lpInUse']) ? 'true' : 'false');
+	update_option('pdf24Plugin_lpStyle', $_POST['lpStyle']);
+	update_option('pdf24Plugin_lpStyle_customize', isset($_POST['lpCustomize']) ? 'true' : 'false');
+	update_option('pdf24Plugin_lpStyle_' . $_POST['tbpStyle'], stripslashes($_POST['tbpCustomStyle']));
+	
 	update_option('pdf24Plugin_emailOptionsInUse', isset($_POST['emailOptionsInUse']) ? 'true' : 'false');
 	update_option('pdf24Plugin_emailType', $_POST['emailType']);
 	update_option('pdf24Plugin_emailSubject', stripslashes($_POST['emailSubject']));
@@ -318,8 +323,8 @@ if (isset($_POST['update'])) {
 		<script language="javascript"><?php  echo $styleParms['js']; ?></script>
 		<h3>Sidebar Plugin</h3>	
 		<div class="descr">This plugin displays a small box everywhere in your blog where you place some peace of code in a template of your theme.<br />
-		Copy and paste the code <b><nobr>&lt;?php pdf24Plugin_sidebarBox(); ?&gt;</nobr></b> into the sidebar template file (e.g. sidebar.php) where the box should appear.</div>			
-		<table>	
+		Copy and paste the code <b><nobr>&lt;?php pdf24Plugin_sidebar(); ?&gt;</nobr></b> into the sidebar template file (e.g. sidebar.php) where the box shall be shown.</div>			
+		<table>
 		<tr>
 			<td class="tr1">Use this plugin</td>
 			<td><input type="checkbox" name="sbpInUse" <?php echo pdf24Plugin_isSbpInUse() ? 'checked' : ''; ?> /></td>
@@ -347,7 +352,7 @@ if (isset($_POST['update'])) {
 		<script language="javascript"><?php  echo $styleParms['js']; ?></script>
 		<h3>Top Bottom Plugin</h3>
 		<div class="descr">This plugin displays a small box everywhere in your blog where you place some peace of code in a template of your theme.<br />
-		Copy and paste the code <b><nobr>&lt;?php pdf24Plugin_topBottomBox(); ?&gt;</nobr></b> into the header or footer template (e.g. header.php, footer.php) where the box should appear.</div>
+		Copy and paste the code <b><nobr>&lt;?php pdf24Plugin_topBottom(); ?&gt;</nobr></b> into the header or footer template (e.g. header.php, footer.php) where the box shall be shown.</div>
 		<table>
 		<tr>
 			<td class="tr1">Use this plugin</td>
@@ -370,7 +375,38 @@ if (isset($_POST['update'])) {
 			<td><textarea name="tbpCustomStyle" class="cusSty"><?php echo $styleParms['custom']; ?></textarea></td>
 		</tr>
 		</table>
-	</div>	
+	</div>
+	<div>
+		<?php  $styleParms = pdf24Plugin_getStyleParams('pdf24Plugin_lpStyle', 'styles/lp'); ?>
+		<script language="javascript"><?php  echo $styleParms['js']; ?></script>
+		<h3>Link Plugin</h3>
+		<div class="descr">This plugin displays a link everywhere in your blog where you place some peace of code in a template of your theme.<br />
+		Copy and paste the code <b><nobr>&lt;?php pdf24Plugin_link(); ?&gt;</nobr></b> or <b><nobr>&lt;?php pdf24Plugin_link('MY_LINK_TEXT'); ?&gt;</nobr></b>
+		into a template of your theme where a download as PDF link shall be shown. If the link is places outside the loop, the code produce a link which converts all
+		articles on the current page to PDF. If the link is places inside the loop, the code produce a link which converts only the current article to PDF.</div>
+		<table>
+		<tr>
+			<td class="tr1">Use this plugin</td>
+			<td><input type="checkbox" name="lpInUse" <?php echo pdf24Plugin_isLpInUse() ? 'checked' : ''; ?> /></td>
+		</tr>
+		<tr>
+			<td class="tr1">Style</td>
+			<td><select name="lpStyle" onchange="document.forms.pdf24Form.lpCustomStyle.value = pdf24Plugin_lpStyle_custom[this.selectedIndex];">
+					<?php  echo $styleParms['options'] ?>
+				</select>
+				&nbsp;&nbsp; <input type="checkbox" name="lpCustomize" onclick="pdf24_showHideCheck('lpCustomStyle', this);" <?php echo $styleParms['customized'] ? 'checked' : ''; ?> />
+				Customize this style
+			</td>
+		</tr>
+		<tr id="lpCustomStyle" class="<?php echo ($styleParms['customized'] ? '' : 'noDis') ?>">
+			<td class="tr1">
+				Custom style:<br />
+				<a href="javascript:void(document.forms.pdf24Form.lpCustomStyle.value = pdf24Plugin_lpStyle_default[document.forms.pdf24Form.lpStyle.selectedIndex]);">Load styles default</a>
+			</td>
+			<td><textarea name="lpCustomStyle" class="cusSty"><?php echo $styleParms['custom']; ?></textarea></td>
+		</tr>
+		</table>
+	</div>
 	<div>
 		<a name="customLang"></a>
 		<h3>Custom language</h3>

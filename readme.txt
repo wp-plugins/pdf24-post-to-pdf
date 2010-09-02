@@ -3,18 +3,25 @@ Contributors: pdf24
 Donate link: http://www.pdf24.org/
 Tags: pdf, create pdf, convert to pdf, article to pdf
 Requires at least: 1.5.0
-Tested up to: 2.9.2
-Stable tag: 2.3.6
+Tested up to: 3.0.1
+Stable tag: 3.0.1
 
 A plugin to convert articles to PDF. Visitors can make a copy of articles in form of a PDF. Contents in created PDF files are linked with your blog.
 
 == Description ==
 
-This plugin enables your readers to convert one or more articles into pdf files. Therefore a little box can be shown below every article, in the sidebar or on the top or bottom af a page. In that boxes you can fill in your e-mail address. After sending the form a pdf file will be created and sent to the entered email address.
+This plugin enables your readers to convert one or more articles to pdf files. Therefore a little box is shown below every article, 
+in the sidebar or on the top or bottom of each page in your wordpress blog.
 
-If one of the boxes below each article was used to create the pdf, the pdf will only contain that article. If the sidebar box or the top/bottom box was used to create the pdf, the pdf will contain all articles on the page.
+The plugin provides two modes to create PDF files. The first mode is the email mode. In that mode each box has a field in which a visitor
+has to enter an email address to which the created PDF will be sent. The second mode is the direct download mode. No email address is needed
+in that mode. Each PDF box or each PDF link creates the PDF directly and the user has to download the created PDF.
 
-The plugin can be highly configured in your blog admin area. There you can configure email properties, page format and layout, enable or disable some plugin boxes, changing styles and so on. Its very easy to use. Check it out!
+A PDF box/link below or above each article creates a PDF only of the approriate article. A PDF box/link in the sidebar or above or below all
+articles creates a PDF from all article of the page.
+
+The PDF boxes and links and the format of the PDF file can be customized by CSS. Furthermore you can configure some other parts
+of the plugin. Plugin settings are provided in settings in wordpress admin area.
 
 == Installation ==
 
@@ -22,7 +29,8 @@ The plugin can be highly configured in your blog admin area. There you can confi
 1. Activate the plugin through the 'Plugins' menu in WordPress admin area
 1. Configure the plugin in wordpress admin area Settings->PDF24 Plugin
 
-The plugin is configured to display a small pdf box below each article by default. The plugin can display boxes below each article, in the sidebar or on the top or bottom of each page. To enable or disable some of these boxes please change the plugin settings.
+The plugin is configured to display a small pdf box below each article by default. The plugin can display boxes below each article,
+in the sidebar or on the top or bottom of each page. To enable or disable some of these boxes please change the plugin settings.
 
 You have to insert some peace of code into a template file if the sidebar box or the top/bottom box should be displayed:
 
@@ -42,9 +50,26 @@ Insert the following code into the theme file `index.php`, where the top/bottom 
 
 == Screenshots ==
 
-1. Screenshot1
+1. Test page with two Send as PDF boxes enabled
+2. Plugin settings in Wordpress admin area
+3. Test page with two Download as PDF links enabled
+4. Links and boxes can be inserted in multiple places
+5. You can choose between multiple styles our you can customize each style
 
 == Changelog ==
+
+= 3.0.0 =
+* Added the wanted ability to download created PDF directly without sending the PDF via email
+* Added CSS document section in settings to format a created PDF file
+* Added a lot of new predefined styles which can be customized
+* There are styles for direct PDF download and for email PDF mode
+* PDF buttons can be displayed for every visitor or only for logged in user
+* Produces better formatted PDF files
+* Added outlines to a created PDF document based on articles title
+* Visualizes the PDF creation process until the PDF is created.
+
+= 2.3.7 =
+* Some changes to work better with new wordpress 3.0 version
 
 = 2.3.5 =
 * Plugin order changed so that pdf24 plugin is called at last. This change fixes some problems working together with some other plugins.
@@ -76,6 +101,13 @@ Insert the following code into the theme file `index.php`, where the top/bottom 
 
 = 2.1 =
 * Introduced plugin options page to configure the plugin.
+
+== Upgrade Notice ==
+
+= 3.0.0 =
+We have redesigned a lot of parts of the plugin. If you update your currently installed plugin
+please configure the plugin in settings of wordpress admin area.
+
 
 == Frequently Asked Questions ==
 

@@ -323,7 +323,7 @@ if (isset($_POST['update'])) {
 		<script language="javascript"><?php  echo $styleParms['js']; ?></script>
 		<h3>Sidebar Plugin</h3>	
 		<div class="descr">This plugin displays a small box everywhere in your blog where you place some peace of code in a template of your theme.<br />
-		Copy and paste the code <b><nobr>&lt;?php pdf24Plugin_sidebarBox(); ?&gt;</nobr></b> into the sidebar template file (e.g. sidebar.php) where the box shall be shown.</div>			
+		Copy and paste the code <b><nobr>&lt;?php pdf24Plugin_sidebar(); ?&gt;</nobr></b> into the sidebar template file (e.g. sidebar.php) where the box shall be shown.</div>			
 		<table>
 		<tr>
 			<td class="tr1">Use this plugin</td>
@@ -352,7 +352,7 @@ if (isset($_POST['update'])) {
 		<script language="javascript"><?php  echo $styleParms['js']; ?></script>
 		<h3>Top Bottom Plugin</h3>
 		<div class="descr">This plugin displays a small box everywhere in your blog where you place some peace of code in a template of your theme.<br />
-		Copy and paste the code <b><nobr>&lt;?php pdf24Plugin_topBottomBox(); ?&gt;</nobr></b> into the header or footer template (e.g. header.php, footer.php) where the box shall be shown.</div>
+		Copy and paste the code <b><nobr>&lt;?php pdf24Plugin_topBottom(); ?&gt;</nobr></b> into the header or footer template (e.g. header.php, footer.php) where the box shall be shown.</div>
 		<table>
 		<tr>
 			<td class="tr1">Use this plugin</td>

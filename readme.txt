@@ -1,10 +1,10 @@
-=== PDF24 Articles To PDF ===
+=== PDF24 Article To PDF ===
 Contributors: pdf24
 Donate link: http://www.pdf24.org/
 Tags: pdf, create pdf, convert to pdf, article to pdf
 Requires at least: 1.5.0
 Tested up to: 3.0.1
-Stable tag: 3.0.0
+Stable tag: 3.0.1
 
 A plugin to convert articles to PDF. Visitors can make a copy of articles in form of a PDF. Contents in created PDF files are linked with your blog.
 
@@ -18,10 +18,10 @@ has to enter an email address to which the created PDF will be sent. The second 
 in that mode. Each PDF box or each PDF link creates the PDF directly and the user has to download the created PDF.
 
 A PDF box/link below or above each article creates a PDF only of the approriate article. A PDF box/link in the sidebar or above or below all
-articles creates a PDF from all article of the page.
+articles creates a PDF from all articles in the page.
 
-The PDF boxes and links and the format of the PDF file can be customized by CSS. Furthermore you can configure some other parts
-of the plugin. Plugin settings are provided in settings in wordpress admin area.
+The PDF boxes, PDF links and the format of the PDF file can be customized by CSS. Furthermore you can configure some other parts
+of the plugin. Plugin settings are provided in Wordpress admin area in settings section.
 
 == Installation ==
 
@@ -30,7 +30,8 @@ of the plugin. Plugin settings are provided in settings in wordpress admin area.
 1. Configure the plugin in wordpress admin area Settings->PDF24 Plugin
 
 The plugin is configured to display a small pdf box below each article by default. The plugin can display boxes below each article,
-in the sidebar or on the top or bottom of each page. To enable or disable some of these boxes please change the plugin settings.
+in the sidebar, on top or bottom of each page or you can place a PDF link everywhere in your blog.
+To enable or disable some of these boxes please change the plugin settings.
 
 You have to insert some peace of code into a template file if the sidebar box or the top/bottom box should be displayed:
 
@@ -38,15 +39,22 @@ You have to insert some peace of code into a template file if the sidebar box or
 Insert the following code into the `sidebar.php`, where the sidebar pdf box should appear.
 
 `<!-- Start pdf24.org sidebar plugin -->`
-`<?php pdf24Plugin_sidebarBox(); ?>`
+`<?php pdf24Plugin_sidebar(); ?>`
 `<!-- End pdf24.org sidebar plugin -->`
 
 
-Insert the following code into the theme file `index.php`, where the top/bottom pdf bar should appear.
+Insert the following code into the theme file `header.php` or `footer.php`, where the top/bottom pdf bar should appear.
 
 `<!-- Start pdf24.org top/bottom plugin -->`
-`<?php pdf24Plugin_topBottomBox(); ?>`
+`<?php pdf24Plugin_topBottom(); ?>`
 `<!-- End pdf24.org top/bottom plugin -->`
+
+
+Insert the following code into any theme file, where you want to display a PDF link.
+
+`<!-- Start pdf24.org PDF link plugin -->`
+`<?php pdf24Plugin_link(); ?>`
+`<!-- End pdf24.org PDF link plugin -->`
 
 == Screenshots ==
 
@@ -55,8 +63,12 @@ Insert the following code into the theme file `index.php`, where the top/bottom 
 3. Test page with two Download as PDF links enabled
 4. Links and boxes can be inserted in multiple places
 5. You can choose between multiple styles our you can customize each style
+6. You can place PDF links everywhere in your Wordpress Blog
 
 == Changelog ==
+
+= 3.0.1 =
+* Added a PDF link feature to display PDF links everywhere in your blog.
 
 = 3.0.0 =
 * Added the wanted ability to download created PDF directly without sending the PDF via email
@@ -104,6 +116,10 @@ Insert the following code into the theme file `index.php`, where the top/bottom 
 
 == Upgrade Notice ==
 
+= 3.0.1 =
+You can upgrade if you need the new PDF link feature. The PDF link feature provides the ability to
+display PDF links everywhere in your blog. Thats what a lot of people want.
+
 = 3.0.0 =
 We have redesigned a lot of parts of the plugin. If you update your currently installed plugin
 please configure the plugin in settings of wordpress admin area.
@@ -129,7 +145,7 @@ After that peace of code insert this:
 
 `<li>`
 `<!-- Start pdf24.org sidebar plugin -->`
-`<?php pdf24Plugin_sidebarBox(); ?>`
+`<?php pdf24Plugin_sidebar(); ?>`
 `<!-- End pdf24.org sidebar plugin -->`
 `</li>`
 
@@ -142,7 +158,7 @@ In my theme directory there is an file named index.php. A part of that file look
 After that code insert this:
 
 `<!-- Start pdf24.org top bottom plugin -->`
-`<?php pdf24Plugin_topBottomBox(); ?>`
+`<?php pdf24Plugin_topBottom(); ?>`
 `<!-- End pdf24.org top bottom plugin -->`
 
 = Where do i have to insert the code to display the top bar box =
@@ -154,5 +170,5 @@ In my theme directory there is an file named index.php. A part of that file look
 After that code insert this:
 
 `<!-- Start pdf24.org top bottom plugin -->`
-`<?php pdf24Plugin_topBottomBox(); ?>`
+`<?php pdf24Plugin_topBottom(); ?>`
 `<!-- End pdf24.org top bottom plugin -->`

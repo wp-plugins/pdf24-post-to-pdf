@@ -2,9 +2,9 @@
 /*
 Plugin Name: PDF24 Articles To PDF
 Plugin URI: http://www.pdf24.org
-Description: A plugin that converts articles to PDF. Visitors of your blog can make copies of articles in form of a PDF. Contents in PDF are linked back to your blog.
+Description: A plugin that converts articles to PDF. Visitors of your blog can make a copy of articles in form of a PDF. Contents in the PDF are linked with your blog.
 Author: Stefan Ziegler
-Version: 3.0.0
+Version: 3.0.1
 Author URI: http://www.pdf24.org
 */
 
@@ -52,6 +52,9 @@ function pdf24Plugin_head() {
 	if(pdf24Plugin_isSbpInUse()) {
 		pdf24Plugin_appendStyle('pdf24Plugin_sbpStyle', 'styles/sbp', $stylesArr);
 	}
+	if(pdf24Plugin_isLpInUse()) {
+		pdf24Plugin_appendStyle('pdf24Plugin_lpStyle', 'styles/lp', $stylesArr);
+	}
 	if(count($stylesArr) > 0) {
 		$outText = '';
 		$outFiles = '';
@@ -73,7 +76,7 @@ if(pdf24Plugin_isAvailable()) {
 	if(pdf24Plugin_isCpInUse()) {
 		add_filter('the_content', 'pdf24Plugin_content', $pdf24Plugin['contentFilterPriority']);
 	}
-	if(pdf24Plugin_isCpInUse() || pdf24Plugin_isSbpInUse() || pdf24Plugin_isTbpInUse()) {
+	if(pdf24Plugin_isCpInUse() || pdf24Plugin_isSbpInUse() || pdf24Plugin_isTbpInUse() || pdf24Plugin_isLpInUse()) {
 		add_action ('wp_head', 'pdf24Plugin_head' );	
 	}
 }

@@ -1,5 +1,5 @@
 === PDF24 Articles To PDF ===
-Contributors: pdf24
+Contributors: pdf24, StefanZiegler
 Donate link: http://www.pdf24.org/
 Tags: pdf, create pdf, convert to pdf, article to pdf
 Requires at least: 1.5.0

@@ -59,11 +59,11 @@ function pdf24Plugin_setLang() {
 }
 
 function pdf24Plugin_getCustomizedLang() {
-	return get_option('pdf24Plugin_customizedLang');
+	return get_option('pdf24Plugin_customLang');
 }	
 
 function pdf24Plugin_isCustomizedLang() {
-	$opt = get_option('pdf24Plugin_customizedLang');
+	$opt = get_option('pdf24Plugin_customLang');
 	return $opt && $opt != '';
 }
 

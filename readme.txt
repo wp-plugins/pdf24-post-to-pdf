@@ -4,7 +4,7 @@ Donate link: http://www.pdf24.org/
 Tags: pdf, create pdf, convert to pdf, article to pdf
 Requires at least: 1.5.0
 Tested up to: 3.0.1
-Stable tag: 3.0.1
+Stable tag: 3.0.2
 
 A plugin to convert articles to PDF. Visitors can make a copy of articles in form of a PDF. Contents in created PDF files are linked with your blog.
 
@@ -67,6 +67,9 @@ Insert the following code into any theme file, where you want to display a PDF l
 
 == Changelog ==
 
+= 3.0.2 =
+* Fixed bug in language customization. Language can be customized again.
+
 = 3.0.1 =
 * Added a PDF link feature to display PDF links everywhere in your blog.
 
@@ -115,6 +118,10 @@ Insert the following code into any theme file, where you want to display a PDF l
 * Introduced plugin options page to configure the plugin.
 
 == Upgrade Notice ==
+
+= 3.0.2 =
+If you need language customization you need this update. Language customization could not be enabled in version
+3.0.1 and 3.0.0. Version 3.0.2 fixes this bug.
 
 = 3.0.1 =
 You can upgrade if you need the new PDF link feature. The PDF link feature provides the ability to

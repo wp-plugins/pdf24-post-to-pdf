@@ -305,7 +305,7 @@ function pdf24Plugin_getAllPosts() {
 				"postTitle" => get_the_title(),
 				"postLink" => get_permalink(),
 				"postAuthor" => get_the_author(),
-				"postDateTime" => get_the_date() . ' ' . get_the_time(),
+				"postDateTime" => get_the_time("Y-m-d H:m:s"),
 				"postContent" => $content
 			);
 			$pdf24PostsArr[] = $pdf24Params;			
@@ -325,11 +325,11 @@ function pdf24Plugin_getThePost() {
 	remove_filter("the_content", "pdf24Plugin_content", $pdf24Plugin['contentFilterPriority']);
 
 	$params = array(	
-		"postTitle" 	=> get_the_title(),
-		"postLink" 		=> get_permalink(),
-		"postAuthor" 	=> get_the_author(),
-		"postDateTime" 	=> get_the_date() . ' ' . get_the_time(),
-		"postContent" 	=> get_the_content()
+		"postTitle" => get_the_title(),
+		"postLink" => get_permalink(),
+		"postAuthor" => get_the_author(),
+		"postDateTime" => get_the_time("Y-m-d H:m:s"),
+		"postContent" => get_the_content()
 	);
 	
 	if(pdf24Plugin_isCpInUse()) {
@@ -348,11 +348,11 @@ function pdf24Plugin_getPosts() {
 
 function pdf24Plugin_content($content) {
 	$params = array(	
-		"postTitle" 	=> get_the_title(),
-		"postLink" 		=> get_permalink(),
-		"postAuthor" 	=> get_the_author(),
-		"postDateTime" 	=> get_the_date() . ' ' . get_the_time(),
-		"postContent" 	=> $content
+		"postTitle" => get_the_title(),
+		"postLink" => get_permalink(),
+		"postAuthor" => get_the_author(),
+		"postDateTime" => get_the_time("Y-m-d H:m:s"),
+		"postContent" => $content
 	);
 	$out = pdf24Plugin_getContentForm(array($params));
 	if(get_option('pdf24Plugin_cpDisplayMode') == 'top') {

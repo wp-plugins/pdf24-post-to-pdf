@@ -483,7 +483,7 @@ function pdf24Plugin_isCpInUse() {
 
 function pdf24Plugin_isSbpInUse() {
 	$opt = get_option('pdf24Plugin_sbpInUse');
-	return $opt == 'true';
+	return $opt === false || $opt == 'true';
 }
 
 function pdf24Plugin_isTbpInUse() {

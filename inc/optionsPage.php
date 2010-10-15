@@ -47,38 +47,6 @@ function pdf24Plugin_createDocOrientationOptions() {
 	return $out;
 }
 
-function pdf24Plugin_getStyleParams($wpSetting, $folder) {
-	global $pdf24Plugin;
-	$style = get_option($wpSetting);
-	$style = $style === false || $style == '' ? 'default' : $style;
-
-	$parms = array();
-	$parms['options'] = '';
-	$parms['js'] = 'var ' . $wpSetting . '_custom = new Array();';
-	$parms['js'] .= 'var ' . $wpSetting . '_default = new Array();';
-	$files = pdf24Plugin_getFiles($folder, '.css', 'ir');
-	foreach($files as $f) {
-		$p = explode('_', $f);
-		$name = $p[0] . ($p[1][0] == 'e' ? ' (Email PDF)' : ' (Download PDF)');
-		$parms['options'] .= '<option value="'. $f .'" ' . ($f == $style || $p[0] == $style ? 'selected' : '') . '/>'. $name .'</option>';
-		
-		$default = file_get_contents($pdf24Plugin['dir'] . '/' . $folder . '/' . $f . '.css');
-		$custom = get_option($wpSetting . '_' . $f);
-		if(!$custom || $custom == '') {
-			$custom = $default;
-		}
-		
-		if($f == $style || $p[0] == $style) {
-			$parms['custom'] = htmlspecialchars($custom);
-		}
-		
-		$parms['js'] .= $wpSetting . "_custom.push('" . htmlspecialchars(str_replace(array("\r\n","\n"),array('\r\n','\n'),$custom)) . "'); ";
-		$parms['js'] .= $wpSetting . "_default.push('" . htmlspecialchars(str_replace(array("\r\n","\n"),array('\r\n','\n'),$default)) . "'); ";
-		$parms['customized'] = get_option($wpSetting . '_customize') === 'true';
-	}
-	return $parms;
-}
-
 include_once($pdf24Plugin['dir'] . '/inc/langCodes.php');
 
 if (isset($_POST['update'])) {
@@ -321,9 +289,8 @@ if (isset($_POST['update'])) {
 	<div>
 		<?php  $styleParms = pdf24Plugin_getStyleParams('pdf24Plugin_sbpStyle', 'styles/sbp'); ?>
 		<script language="javascript"><?php  echo $styleParms['js']; ?></script>
-		<h3>Sidebar Plugin</h3>	
-		<div class="descr">This plugin displays a small box everywhere in your blog where you place some peace of code in a template of your theme.<br />
-		Copy and paste the code <b><nobr>&lt;?php pdf24Plugin_sidebar(); ?&gt;</nobr></b> into the sidebar template file (e.g. sidebar.php) where the box shall be shown.</div>			
+		<h3>Sidebar Widget Plugin</h3>	
+		<div class="descr">This plugin adds a widget to your Wordpress blog. Look at the widget section in your wordpress admin area to put the widget into the sidebar.</div>			
 		<table>
 		<tr>
 			<td class="tr1">Use this plugin</td>

@@ -4,7 +4,7 @@ Plugin Name: PDF24 Articles To PDF
 Plugin URI: http://www.pdf24.org
 Description: A plugin that converts articles to PDF. Visitors of your blog can make a copy of articles in form of a PDF. Contents in the PDF are linked with your blog.
 Author: Stefan Ziegler
-Version: 3.0.3
+Version: 3.0.4
 Author URI: http://www.pdf24.org
 */
 
@@ -49,7 +49,7 @@ function pdf24Plugin_head() {
 	if(pdf24Plugin_isTbpInUse()) {
 		pdf24Plugin_appendStyle('pdf24Plugin_tbpStyle', 'styles/tbp', $stylesArr);
 	}
-	if(pdf24Plugin_isSbpInUse()) {
+	if(pdf24Plugin_isSbpInUse() && is_active_widget('pdf24Plugin_widget')) {
 		pdf24Plugin_appendStyle('pdf24Plugin_sbpStyle', 'styles/sbp', $stylesArr);
 	}
 	if(pdf24Plugin_isLpInUse()) {
@@ -72,6 +72,21 @@ function pdf24Plugin_head() {
 	}
 }
 
+function pdf24Plugin_registerWidget() {
+	global $pdf24Plugin;
+	$widgetId = 'Articles To PDF';
+	if(function_exists('wp_register_sidebar_widget')) {
+		wp_register_sidebar_widget( $widgetId, $widgetId, 'pdf24Plugin_widget');		
+		include_once($pdf24Plugin['dir'] . '/inc/widgetControl.php');
+		wp_register_widget_control($widgetId, $widgetId, 'pdf24Plugin_widgetControl');
+	}
+	else {
+		register_sidebar_widget($widgetId, 'pdf24Plugin_widget');		
+		include_once($pdf24Plugin['dir'] . '/inc/widgetControl.php');
+		register_widget_control($widgetId, 'pdf24Plugin_widgetControl');
+	}
+}
+
 if(pdf24Plugin_isAvailable()) {
 	if(pdf24Plugin_isCpInUse()) {
 		add_filter('the_content', 'pdf24Plugin_content', $pdf24Plugin['contentFilterPriority']);
@@ -81,6 +96,7 @@ if(pdf24Plugin_isAvailable()) {
 	}
 }
 
+add_action('plugins_loaded', 'pdf24Plugin_registerWidget');
 add_action('admin_menu', 'pdf24Plugin_adminMenu');
 
 ?>

@@ -232,10 +232,8 @@ function pdf24Plugin_parseTplContent($postsArr, $tpl, $styleId, $searchReplace =
 		$hiddenFilds .= pdf24Plugin_getFormHiddenFields($val, '', '_' . $key);
 	}
 	$tpl = file_get_contents(pdf24Plugin_getFile('tpl', $tpl));
-	$search = array('{styleId}', '{formId}', '{actionUrl}', '{hiddenFields}', '{blText}', '{blUrl}', 
-		'{pluginUrl}', '{targetName}', '{openTargetCode}');
-	$replace = array($styleId, pdf24Plugin_nextFormId(), $pdf24Plugin['serviceUrl'], $hiddenFilds, 
-		$blText, $blUrl, $pdf24Plugin['url'], $pdf24Plugin['targetName'], $pdf24Plugin['jsOpenTargetWin']);
+	$search = array('{styleId}', '{formId}', '{actionUrl}', '{hiddenFields}', '{blText}', '{blUrl}', '{pluginUrl}', '{targetName}', '{openTargetCode}');
+	$replace = array($styleId, pdf24Plugin_nextFormId(), $pdf24Plugin['serviceUrl'], $hiddenFilds, $blText, $blUrl, $pdf24Plugin['url'], $pdf24Plugin['targetName'], $pdf24Plugin['jsOpenTargetWin']);
 	$content = str_replace($search, $replace, $tpl);
 	$content = pdf24Plugin_replaceLang($content, count($postsArr), $searchReplace);
 	if($searchReplace != null && is_array($searchReplace)) {
@@ -415,7 +413,8 @@ function pdf24Plugin_hasStyleFile($styleFolder, $styleFile) {
 function pdf24Plugin_getDefaultStyle($styleFolder) {
 	$files = pdf24Plugin_getFiles($styleFolder, '.css', $flags='ir');
 	foreach($files as $file) {
-		if(strpos($file,'default') == 0) {
+		$p = strpos($file,'default_');
+		if($p === 0) {
 			$style = $file;
 			break;
 		}
@@ -438,6 +437,8 @@ function pdf24Plugin_appendStyle($styleOption, $styleFolder, &$stylesArr) {
 	} else {
 		if(pdf24Plugin_hasStyleFile($styleFolder, $style)) {
 			$stylesArr[] = array('file', $styleFolder . '/' . $style . '.css');
+		} else {
+			$stylesArr[] = array('file', $styleFolder . '/' . pdf24Plugin_getDefaultStyle($styleFolder) . '.css');
 		}
 	}
 }
@@ -454,10 +455,11 @@ function pdf24Plugin_getStyleParams($wpSetting, $folder) {
 	$parms['js'] .= 'var ' . $wpSetting . '_default = new Array();';
 	$files = pdf24Plugin_getFiles($folder, '.css', 'ir');
 	
-	foreach($files as $f) {	
+	foreach($files as $f) {
 		$p = explode('_', $f);
 		$name = $p[0] . ($p[1][0] == 'e' ? ' (Email PDF)' : ' (Download PDF)');
-		$parms['options'] .= '<option value="'. $f .'" ' . ($f == $style || $p[0] == $style ? 'selected="true"' : '') . '>'. $name .'</option>';
+		$selected = $f == $style || $p[0] == $style;
+		$parms['options'] .= '<option value="'. $f .'" ' . ($selected ? 'selected="true"' : '') . '>'. $name .'</option>';
 		
 		$default = file_get_contents($pdf24Plugin['dir'] . '/' . $folder . '/' . $f . '.css');
 		$custom = get_option($wpSetting . '_' . $f);

@@ -1,0 +1,9 @@
+<div class="pdf24Plugin-{styleId}">
+	<div class="pdf24Plugin-{styleId}-title">{lang_sendAsPDF}</div>
+	<form name="pdf24Form{formId}" method="post" target="{targetName}" action="{actionUrl}" onsubmit="{openTargetCode}">
+		{hiddenFields}
+		<div class="pdf24Plugin-{styleId}-sendto"><input type="text" name="sendEmailTo" value="{lang_enterEmail}" onmousedown="this.value = '';" /></div>
+		<div class="pdf24Plugin-{styleId}-submit"><input type="submit" value="{lang_send}" /></div>
+	</form>
+	<div class="pdf24Plugin-{styleId}-bl"><a href="{blUrl}" target="_blank" title="{blText}">{blText}</a></div>
+</div>

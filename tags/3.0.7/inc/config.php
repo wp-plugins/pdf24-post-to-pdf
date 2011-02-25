@@ -1,0 +1,57 @@
+<?php
+
+//default language
+global $pdf24Plugin;
+
+//default language
+$pdf24Plugin['defaultLang'] = 'en';
+
+//Priority to execute at last
+$pdf24Plugin['contentFilterPriority'] = 999;
+
+//the default filter used to encode values
+$pdf24Plugin['defaultFilter'] = 'base64';
+
+//Url to pdf24.org service
+$pdf24Plugin['serviceUrl'] = 'http://doc2pdf.pdf24.org/wordpress.php';
+
+//target name for opened windows
+$pdf24Plugin['targetName'] = 'pdf24PopWin';
+
+//js code to open the target window
+$pdf24Plugin['jsOpenTargetWin'] = "var pdf24Win = window.open('about:blank', 'pdf24PopWin', 'resizable=yes,scrollbars=yes,width=400,height=200,top=0,left=0'); pdf24Win.focus();";
+
+//Document sizes of created PDF
+$pdf24Plugin['docSizes'] = array(
+	'A0' =>	'841x1189',
+	'A1' => '594x841',
+	'A2' => '420x594',
+	'A3' => '297x420',
+	'A4' => '210x297',
+	'A5' => '148x210',
+	
+	'B0' =>	'1000x1414',
+	'B1' =>	'707x1000',
+	'B2' =>	'500x707',
+	'B3' =>	'353x500',
+	'B4' =>	'250x353',
+	'B5' =>	'176x250',
+	
+	'C0' =>	'917x1297',
+	'C1' =>	'648x917',
+	'C2' =>	'458x648',
+	'C3' =>	'324x458',
+	'C4' =>	'229x324',
+	'C5' =>	'162x229',
+	
+	'default' => 'A4'
+);
+
+//Document orientations
+$pdf24Plugin['docOrientations'] = array(
+	'portrait' => 'Portrait',
+	'landscape' => 'Landscape',	
+	'default' => 'portrait'
+);
+
+?>

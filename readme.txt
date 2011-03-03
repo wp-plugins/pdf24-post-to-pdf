@@ -4,7 +4,7 @@ Donate link: http://www.pdf24.org/
 Tags: pdf, create pdf, convert to pdf, article to pdf
 Requires at least: 1.5.0
 Tested up to: 3.1
-Stable tag: 3.0.8
+Stable tag: 3.0.9
 
 A plugin to convert articles to PDF. Visitors can make a copy of articles in form of a PDF. Contents in created PDF files are linked with your blog.
 
@@ -29,14 +29,14 @@ of the plugin. Plugin settings are provided in Wordpress admin area in settings 
 1. Activate the plugin through the 'Plugins' menu in WordPress admin area
 1. Configure the plugin in wordpress admin area Settings->PDF24 Plugin
 
-By default the plugin is configured to display a small PDF box below each article. You can change that in settings.
+By default the pdf24 plugin is configured to display a small PDF box below each article. You can change that in settings.
 The plugin can display boxes above or below each article, in the sidebar, on top or bottom of each page or you can place
 a PDF link everywhere in your blog. To enable or disable some of these boxes simply change the plugin settings.
 
-If you want to use the sidebar widget you have to enable the sidebar plugin. Then open the widget section and put the widget
+If you want to use the pdf24 sidebar widget you have to enable the sidebar plugin. Then open the widget section and put the widget
 into the sidebar.
 
-If you want to use the top/bottom box or the link plugin you have to insert some peace of code into a template file
+If you want to use the pdf24 top/bottom box or the link plugin you have to insert some peace of code into a template file
 where the box or the link shall appear.
 
 
@@ -62,6 +62,11 @@ Insert the following code into any theme file, where you want to display a PDF l
 6. You can place PDF links everywhere in your Wordpress Blog
 
 == Changelog ==
+
+= 3.0.9 =
+* Fixed: Works now together with the Wordpress more tag. The content plugin will not show it's bar it the more tag is used.
+* Fixed: Do not display the content bars of the content plugin if contents are build up for rss feed requests.
+* Fixed: Fixed a small language selection bug. There could be one case where the language selector could not find a language which results into a script warning.
 
 = 3.0.8 =
 * Overworked a core part

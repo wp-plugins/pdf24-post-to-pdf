@@ -109,7 +109,7 @@ if (isset($_POST['update'])) {
 		$availableLangs = pdf24Plugin_getAvailableLang();
 		if(!in_array($_POST['language'], $availableLangs)) {
 			$usedLang = $pdf24Plugin['langCodes'][$pdf24Plugin['defaultLang']];
-			$warnings[] = 'There is no language file installed for this defined language. Currently the default language <b>'. $usedLang .'</b> is used. Please use the <a href="#customLang">Customize Language</a> settings to customize the language.';
+			$warnings[] = 'There is no language file installed for this defined language. Currently the default language <b>'. $usedLang .'</b> will be used. Please use the <a href="#customLang">Customize Language</a> settings to customize the language.';
 		}
 	}
 	

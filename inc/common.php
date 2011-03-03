@@ -35,23 +35,35 @@ function pdf24Plugin_getAvailableLang() {
 
 function pdf24Plugin_setLang() {
 	global $pdf24Plugin;
-
+	
+	$trylangs = array();
 	$lang = get_option('pdf24Plugin_language');
-	$langFile = $lang ? $pdf24Plugin['dir'] . '/lang/' . $lang . '.php' : '';
-	if($lang && file_exists($langFile)) {
-		$pdf24Plugin['useLang'] = $lang;
-		include_once($langFile);
-	} else if(defined('WPLANG') && strlen(WPLANG) >= 2) {
-		$lang = strtolower(substr(WPLANG, 0, 2));
-		$langFile = $pdf24Plugin['dir'] . '/lang/' . $lang . '.php';
+	if($lang) {
+		$trylangs[] = $lang;
+	}
+	if(defined('WPLANG') && strlen(WPLANG) >= 2) {
+		$trylangs[] = strtolower(substr(WPLANG, 0, 2));
+	}
+	$trylangs[] = $pdf24Plugin['defaultLang'];
+	$trylangs[] = 'en';
+	$trylangs[] = 'de';
+	
+	$found = false;
+	foreach($trylangs as $tryLang) {
+		$pdf24Plugin['useLang'] = $tryLang;
+		$langFile = $pdf24Plugin['dir'] . '/lang/' . $tryLang . '.php';
 		if(file_exists($langFile)) {
-			$pdf24Plugin['useLang'] = $lang;
-			include_once($langFile);
+			$found = true;
+			break;
 		}
+	}
+	if(!$found) {
+		$pdf24Plugin['lang'] = array();
 	} else {
-		$pdf24Plugin['useLang'] = $pdf24Plugin['defaultLang'];
-		$langFile = $pdf24Plugin['dir'] . '/lang/' . $pdf24Plugin['defaultLang'] . '.php';
 		include_once($langFile);
+		if(!isset($pdf24Plugin['lang']) || !is_array($pdf24Plugin['lang'])) {
+			$pdf24Plugin['lang'] = array();
+		}
 	}
 	if(pdf24Plugin_isCustomizedLang()) {
 		$pdf24Plugin['customLang'] = pdf24Plugin_getCustomizedLang();
@@ -78,7 +90,7 @@ function pdf24Plugin_getLangVal($key) {
 
 function pdf24Plugin_getLangElements() {
 	global $pdf24Plugin;
-	if($pdf24Plugin['customLang']) {
+	if(isset($pdf24Plugin['customLang'])) {
 		return array_merge($pdf24Plugin['lang'], $pdf24Plugin['customLang']);
 	}
 	return $pdf24Plugin['lang'];
@@ -348,6 +360,13 @@ function pdf24Plugin_getPosts() {
 }
 
 function pdf24Plugin_content($content) {
+	global $more;
+	if((isset($more) && $more == 1) || is_feed()) {
+		return $content;
+	}
+	if(strpos($content,'more-link') !== false || strpos($content,'<!--more-->') !== false) {
+		return $content;
+	}
 	$params = array(
 		"postTitle" => get_the_title(),
 		"postLink" => get_permalink(),

@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * DO NOT CHANGE THESE SETTINGS. CAN CAUSE AN NOT WORKING PLUGIN.
+ */
+
 //default language
 global $pdf24Plugin;
 

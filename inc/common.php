@@ -361,7 +361,7 @@ function pdf24Plugin_getPosts() {
 
 function pdf24Plugin_content($content) {
 	global $more;
-	if((isset($more) && $more == 1) || is_feed()) {
+	if(/*(isset($more) && $more == 1) ||*/ is_feed()) {
 		return $content;
 	}
 	if(strpos($content,'more-link') !== false || strpos($content,'<!--more-->') !== false) {

@@ -63,7 +63,7 @@ Insert the following code into any theme file, where you want to display a PDF l
 
 == Changelog ==
 
-= 3.0.9 =
+= 3.1.0 =
 * Fixed a bug which has crept in in last version. The Download as PDF link was never shown in the article if the more tag was used. Now the link is shown in the article itself but not in article overview if the is cutted because of the more tag.
 
 = 3.0.9 =

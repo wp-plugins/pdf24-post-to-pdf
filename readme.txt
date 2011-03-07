@@ -64,6 +64,9 @@ Insert the following code into any theme file, where you want to display a PDF l
 == Changelog ==
 
 = 3.0.9 =
+* Fixed a bug which has crept in in last version. The Download as PDF link was never shown in the article if the more tag was used. Now the link is shown in the article itself but not in article overview if the is cutted because of the more tag.
+
+= 3.0.9 =
 * Fixed: Works now together with the Wordpress more tag. The content plugin will not show it's bar it the more tag is used.
 * Fixed: Do not display the content bars of the content plugin if contents are build up for rss feed requests.
 * Fixed: Fixed a small language selection bug. There could be one case where the language selector could not find a language which results into a script warning.

@@ -1,17 +1,17 @@
 === PDF24 Article To PDF ===
 Contributors: pdf24, StefanZiegler
 Donate link: http://www.pdf24.org/
-Tags: pdf, create pdf, convert to pdf, article to pdf
+Tags: pdf, create pdf, convert to pdf, article to pdf, pdf plugin, pdf widget
 Requires at least: 1.5.0
 Tested up to: 3.1
-Stable tag: 3.1.0
+Stable tag: 3.1.1
 
 A plugin to convert articles to PDF. Visitors can make a copy of articles in form of a PDF. Contents in created PDF files are linked with your blog.
 
 == Description ==
 
 This plugin enables your readers to convert one or more articles to pdf files. Therefore a little box is shown below every article, 
-in the sidebar or on the top or bottom of each page in your wordpress blog.
+in the sidebar, on the top or bottom of each page or wherever in your wordpress blog.
 
 The plugin provides two modes to create PDF files. The first mode is the email mode. In that mode each box has a field in which a visitor
 has to enter an email address to which the created PDF will be sent. The second mode is the direct download mode. No email address is needed
@@ -29,14 +29,14 @@ of the plugin. Plugin settings are provided in Wordpress admin area in settings 
 1. Activate the plugin through the 'Plugins' menu in WordPress admin area
 1. Configure the plugin in wordpress admin area Settings->PDF24 Plugin
 
-By default the pdf24 plugin is configured to display a small PDF box below each article. You can change that in settings.
-The plugin can display boxes above or below each article, in the sidebar, on top or bottom of each page or you can place
+By default the pdf plugin is configured to display a small PDF box below each article. You can change that in settings.
+The pdf plugin can display boxes above or below each article, in the sidebar, on top or bottom of each page or you can place
 a PDF link everywhere in your blog. To enable or disable some of these boxes simply change the plugin settings.
 
-If you want to use the pdf24 sidebar widget you have to enable the sidebar plugin. Then open the widget section and put the widget
+If you want to use the pdf sidebar widget you have to enable the sidebar plugin. Then open the widget section and put the widget
 into the sidebar.
 
-If you want to use the pdf24 top/bottom box or the link plugin you have to insert some peace of code into a template file
+If you want to use the pdf top/bottom box or the link plugin you have to insert some peace of code into a template file
 where the box or the link shall appear.
 
 
@@ -62,6 +62,9 @@ Insert the following code into any theme file, where you want to display a PDF l
 6. You can place PDF links everywhere in your Wordpress Blog
 
 == Changelog ==
+
+= 3.1.1 =
+* Added dutch language file
 
 = 3.1.0 =
 * Fixed a bug which has crept in in last version. The Download as PDF link was never shown in the article if the more tag was used. Now the link is shown in the article itself but not in article overview if the is cutted because of the more tag.

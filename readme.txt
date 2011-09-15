@@ -201,5 +201,5 @@ insert the code `<?php pdf24Plugin_link(); ?>`
 
 = Does the plugin support the Wordpress widget system? =
 
-Yes. Open the plugin settings and enable the Wordpress widget plugin. Then open the widget manager and you will see the PDF24 plugin.
+Yes. Open the plugin settings page and enable the Wordpress widget plugin. Then open the widget manager and you will see the PDF24 plugin.
 Add the PDF24 widget to the sidebar or nay other widget places.

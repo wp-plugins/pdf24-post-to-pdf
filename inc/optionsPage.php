@@ -87,6 +87,12 @@ if (isset($_POST['update'])) {
 	update_option('pdf24Plugin_docOrientation', $_POST['docOrientation']);
 	update_option('pdf24Plugin_docStyle', $_POST['docStyle']);	
 	
+	update_option('pdf24Plugin_docTplInUse', isset($_POST['docTplInUse']) ? 'true' : 'false');
+	update_option('pdf24Plugin_docTpl', stripslashes($_POST['docTpl']));
+	
+	update_option('pdf24Plugin_docEntryTplInUse', isset($_POST['docEntryTplInUse']) ? 'true' : 'false');
+	update_option('pdf24Plugin_docEntryTpl', stripslashes($_POST['docEntryTpl']));
+	
 	if(isset($_POST['customLangInUse'])) {
 		$customLang = array();
 		foreach($_POST as $key => $val) {
@@ -163,9 +169,11 @@ if (isset($_POST['update'])) {
 <style type="text/css">
 	h3 { margin-bottom:0px; padding-bottom:0px }
 	.descr  { margin-bottom:10px; font-style:italic;}
-	.tr1 { vertical-align:top; width:180px}
+	.tr1 { vertical-align:top; width:250px}
 	.noDis {display:none;}
 	.cusSty {width:700px; height:150px;}
+	.cusDocTpl {width:700px; height:150px;}
+	.cusDocEntryTpl {width:700px; height:150px;}
 </style>
 
 <h2>PDF24 Plugin Options</h2>
@@ -196,7 +204,7 @@ if (isset($_POST['update'])) {
 	</div>
 	<div>
 		<h3>Document Options</h3>
-		<div class="descr">Options of created pdf documents.</div>
+		<div class="descr">Options for created PDF documents.</div>
 		<table>
 		<tr>
 			<td class="tr1">Customize options</td>
@@ -213,7 +221,7 @@ if (isset($_POST['update'])) {
 			<td><select name="docSize"><?php echo pdf24Plugin_createDocSizeOptions(); ?></select> <select name="docOrientation"><?php echo pdf24Plugin_createDocOrientationOptions(); ?></select></td>
 		</tr>
 		<tr>
-			<td valign="top">CSS Style:<br />(<small>Use CSS to format the tags and classes body, h1, h2, p, div, a, .bodyPart, .meta, .text</small>)</td>
+			<td valign="top">CSS Style:<br />(<small>Use CSS to format the tags and classes <b>body, h1, h2, p, div, a, .bodyPart, .meta, .text</b></small>)</td>
 			<td><textarea name="docStyle" style="width:600px; height:150px"><?php echo htmlspecialchars(pdf24Plugin_getDocStyle()); ?></textarea></td>
 		</tr>
 		</table>
@@ -377,7 +385,7 @@ if (isset($_POST['update'])) {
 	<div>
 		<a name="customLang"></a>
 		<h3>Custom language</h3>
-		<div class="descr">Here you can enter your own language elements for pdf creation boxes displayed on your pages.
+		<div class="descr">Here you can enter your own language elements for PDF creation boxes displayed on your pages.
 		Behind each box is displayed the original english text.</div>
 		<table>
 		<tr>
@@ -389,6 +397,48 @@ if (isset($_POST['update'])) {
 		<tr>
 			<td class="tr1">Custom language elements:</td>
 			<td><?php echo pdf24Plugin_createCustomizedLangInputs(); ?></td>
+		</tr>
+		</table>
+	</div>
+	<div>
+		<?php  $docTpls = pdf24Plugin_getDocTpl(); ?>
+		<a name="customDocTpl"></a>
+		<h3>Custom document template</h3>
+		<div class="descr">This options gives you the possibility to customize the document template which encloses all article entries. There are some
+		placeholders which are replaced with the corresponding content.</div>
+		<table>
+		<tr>
+			<td class="tr1">Cutomize document template</td>
+			<td><input type="checkbox" name="docTplInUse" <?php echo pdf24Plugin_isCustomizedDocTpl() ? 'checked' : ''; ?> onclick="pdf24_showHideCheck('docTplOptions', this);" /></td>
+		</tr>
+		</table>
+		<table id="docTplOptions" class="<?php echo pdf24Plugin_isCustomizedDocTpl() ? '' : 'noDis' ?>">
+		<tr>
+			<td class="tr1">Custom document template:<br />
+				<a href="javascript:void(document.forms.pdf24Form.docTpl.value = '<?php echo pdf24Plugin_makeJsString($docTpls['default']); ?>');">Load default</a>
+			</td>
+			<td><textarea name="docTpl" class="cusDocTpl"><?php echo htmlspecialchars($docTpls['tpl']); ?></textarea></td>
+		</tr>
+		</table>
+	</div>
+	<div>
+		<?php  $docEntryTpls = pdf24Plugin_getDocEntryTpl(); ?>
+		<a name="customDocEntryTpl"></a>
+		<h3>Custom document entry template</h3>
+		<div class="descr">This options gives you the possibility to customize the document article entry template which is a part of the document. There are some
+		placeholders which are replaced with the corresponding content.</div>
+		<table>
+		<tr>
+			<td class="tr1">Cutomize document entry template</td>
+			<td><input type="checkbox" name="docEntryTplInUse" <?php echo pdf24Plugin_isCustomizedDocEntryTpl() ? 'checked' : ''; ?> onclick="pdf24_showHideCheck('docEntryTplOptions', this);" /></td>
+		</tr>
+		</table>
+		<table id="docEntryTplOptions" class="<?php echo pdf24Plugin_isCustomizedDocEntryTpl() ? '' : 'noDis' ?>">
+		<tr>
+			<td class="tr1">Custom document entry template:<br />
+				<a href="javascript:void(document.forms.pdf24Form.docEntryTpl.value = '<?php echo pdf24Plugin_makeJsString($docEntryTpls['default']); ?>');">Load default</a>
+			</td>
+			<td><textarea name="docEntryTpl" class="cusDocEntryTpl"><?php echo htmlspecialchars($docEntryTpls['tpl']); ?></textarea></td>
 		</tr>
 		</table>
 	</div>

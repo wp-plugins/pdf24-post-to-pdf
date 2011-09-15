@@ -29,6 +29,10 @@ function pdf24Plugin_getFile($subFolder, $name) {
 	return $pdf24Plugin['dir'] . '/' . $subFolder . '/' . $name;
 }
 
+function pdf24Plugin_getFileContents($subFolder, $name) {
+	return file_get_contents(pdf24Plugin_getFile($subFolder, $name));
+}
+
 function pdf24Plugin_getAvailableLang() {
 	return pdf24Plugin_getFiles('lang', '.php', 'ir');
 }
@@ -168,6 +172,12 @@ function pdf24Plugin_getBlogHiddenFields($postsCount) {
 		$arr['blogDocSize'] = $pdf24Plugin['docSizes'][pdf24Plugin_getDocSize()];
 		$arr['blogDocOrientation'] = pdf24Plugin_getDocOrientation();
 		$arr['blogDocStyle'] = pdf24Plugin_getDocStyle();
+	}
+	if(pdf24Plugin_isCustomizedDocTpl()) {
+		$arr['blogDocTpl'] = pdf24Plugin_getCustomizedDocTpl();
+	}
+	if(pdf24Plugin_isCustomizedDocEntryTpl()) {
+		$arr['blogDocEntryTpl'] = pdf24Plugin_getCustomizedDocEntryTpl();
 	}
 	return pdf24Plugin_getFormHiddenFields0($arr, array('skipFilterFor' => 'blogValueEncoding'));
 }
@@ -465,6 +475,10 @@ function pdf24Plugin_appendStyle($styleOption, $styleFolder, &$stylesArr) {
 	}
 }
 
+function pdf24Plugin_makeJsString($str) {
+	return htmlspecialchars(str_replace(array("\r\n","\n","\t"), array('\r\n','\n','\t'), $str));
+}
+
 function pdf24Plugin_getStyleParams($wpSetting, $folder) {
 	global $pdf24Plugin;
 
@@ -493,8 +507,8 @@ function pdf24Plugin_getStyleParams($wpSetting, $folder) {
 			$parms['custom'] = htmlspecialchars($custom);
 		}
 
-		$parms['js'] .= $wpSetting . "_custom.push('" . htmlspecialchars(str_replace(array("\r\n","\n"),array('\r\n','\n'),$custom)) . "'); ";
-		$parms['js'] .= $wpSetting . "_default.push('" . htmlspecialchars(str_replace(array("\r\n","\n"),array('\r\n','\n'),$default)) . "'); ";
+		$parms['js'] .= $wpSetting . "_custom.push('" . pdf24Plugin_makeJsString($custom) . "'); ";
+		$parms['js'] .= $wpSetting . "_default.push('" . pdf24Plugin_makeJsString($default) . "'); ";
 		$parms['customized'] = get_option($wpSetting . '_customize') === 'true';
 	}
 	return $parms;
@@ -580,6 +594,53 @@ function pdf24Plugin_getWidgetTitle() {
 	return $text === false ? '' : trim($text);
 }
 
+function pdf24Plugin_isCustomizedDocTpl() {
+	$opt = get_option('pdf24Plugin_docTplInUse');
+	return $opt == 'true';
+}
+
+function pdf24Plugin_getCustomizedDocTpl() {
+	return get_option('pdf24Plugin_docTpl');
+}
+
+function pdf24Plugin_getDefaultDocTpl() {
+	return pdf24Plugin_getFileContents('tpl', 'docTpl.html');
+}
+
+function pdf24Plugin_getDocTpl() {
+	global $pdf24Plugin;
+	$default = pdf24Plugin_getDefaultDocTpl();
+	$custom = pdf24Plugin_isCustomizedDocTpl() ? pdf24Plugin_getCustomizedDocTpl() : false;
+	return array(
+		'tpl' => ($custom ? $custom : $default),
+		'custom' => $custom,
+		'default' => $default
+	);
+}
+
+function pdf24Plugin_isCustomizedDocEntryTpl() {
+	$opt = get_option('pdf24Plugin_docEntryTplInUse');
+	return $opt == 'true';
+}
+
+function pdf24Plugin_getCustomizedDocEntryTpl() {
+	return get_option('pdf24Plugin_docEntryTpl');
+}
+
+function pdf24Plugin_getDefaultDocEntryTpl() {
+	return pdf24Plugin_getFileContents('tpl', 'docEntryTpl.html');
+}
+
+function pdf24Plugin_getDocEntryTpl() {
+	global $pdf24Plugin;
+	$default = pdf24Plugin_getDefaultDocEntryTpl();
+	$custom = pdf24Plugin_isCustomizedDocEntryTpl() ? pdf24Plugin_getCustomizedDocEntryTpl() : false;
+	return array(
+		'tpl' => ($custom ? $custom : $default),
+		'custom' => $custom,
+		'default' => $default
+	);
+}
 
 
 ?>

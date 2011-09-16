@@ -4,7 +4,7 @@ Plugin Name: PDF24 Article To PDF
 Plugin URI: http://www.pdf24.org
 Description: A plugin that converts articles to PDF. Visitors of your blog can make a copy of articles in form of a PDF. Contents in the PDF are linked with your blog.
 Author: Stefan Ziegler
-Version: 3.1.1
+Version: 3.3
 Author URI: http://www.pdf24.org
 */
 
@@ -12,23 +12,26 @@ Author URI: http://www.pdf24.org
 /**************************************************************************************
  * PLUGIN SETTINGS
  */
-if(!isset($pdf24Plugin)) {
-	require_once( ABSPATH . WPINC . '/pluggable.php' );
-	
-	//array holding all pdf24 data
-	global $pdf24Plugin;
-	$pdf24Plugin = array(
-		'dir' => dirname(__FILE__),
-		'url' => get_option('siteurl') . '/wp-content/plugins/' . basename(dirname(__FILE__))
-	);
-	
-	//include necessary files
-	include_once($pdf24Plugin['dir'] . '/inc/config.php');
-	include_once($pdf24Plugin['dir'] . '/inc/common.php');
-		
-	//set language elements for plugin
-	pdf24Plugin_setLang();
+if(isset($pdf24Plugin)) {
+	return;
 }
+
+require_once( ABSPATH . WPINC . '/pluggable.php' );
+
+//array holding all pdf24 data
+global $pdf24Plugin;
+$pdf24Plugin = array(
+	'dir' => dirname(__FILE__),
+	'url' => get_option('siteurl') . '/wp-content/plugins/' . basename(dirname(__FILE__))
+);
+
+//include necessary files
+include_once($pdf24Plugin['dir'] . '/inc/config.php');
+include_once($pdf24Plugin['dir'] . '/inc/common.php');
+	
+//set language elements for plugin
+pdf24Plugin_setLang();
+
 	
 function pdf24Plugin_adminMenu() {
 	add_options_page('PDF24 Plugin Options Page', 'PDF24 Plugin', 8, 'pdf24', 'pdf24Plugin_options');
@@ -42,18 +45,28 @@ function pdf24Plugin_options() {
 function pdf24Plugin_head() {		
 	global $pdf24Plugin;
 	
+	$isPage = is_page();
 	$stylesArr = array();
+	
 	if(pdf24Plugin_isCpInUse()) {
-		pdf24Plugin_appendStyle('pdf24Plugin_cpStyle', 'styles/cp', $stylesArr);
+		if(!($isPage && pdf24Plugin_isCpDisabledOnPages())) {
+			pdf24Plugin_appendStyle('pdf24Plugin_cpStyle', 'styles/cp', $stylesArr);
+		}
 	}
 	if(pdf24Plugin_isTbpInUse()) {
-		pdf24Plugin_appendStyle('pdf24Plugin_tbpStyle', 'styles/tbp', $stylesArr);
+		if(!($isPage && pdf24Plugin_isTbpDisabledOnPages())) {
+			pdf24Plugin_appendStyle('pdf24Plugin_tbpStyle', 'styles/tbp', $stylesArr);
+		}
 	}
 	if(pdf24Plugin_isSbpInUse() && is_active_widget('pdf24Plugin_widget')) {
-		pdf24Plugin_appendStyle('pdf24Plugin_sbpStyle', 'styles/sbp', $stylesArr);
+		if(!($isPage && pdf24Plugin_isSbpDisabledOnPages())) {
+			pdf24Plugin_appendStyle('pdf24Plugin_sbpStyle', 'styles/sbp', $stylesArr);
+		}
 	}
 	if(pdf24Plugin_isLpInUse()) {
-		pdf24Plugin_appendStyle('pdf24Plugin_lpStyle', 'styles/lp', $stylesArr);
+		if(!($isPage && pdf24Plugin_isLpDisabledOnPages())) {
+			pdf24Plugin_appendStyle('pdf24Plugin_lpStyle', 'styles/lp', $stylesArr);
+		}
 	}
 	if(count($stylesArr) > 0) {
 		$outText = '';
@@ -79,8 +92,7 @@ function pdf24Plugin_registerWidget() {
 		wp_register_sidebar_widget( $widgetId, $widgetId, 'pdf24Plugin_widget');		
 		include_once($pdf24Plugin['dir'] . '/inc/widgetControl.php');
 		wp_register_widget_control($widgetId, $widgetId, 'pdf24Plugin_widgetControl');
-	}
-	else {
+	} else {
 		register_sidebar_widget($widgetId, 'pdf24Plugin_widget');		
 		include_once($pdf24Plugin['dir'] . '/inc/widgetControl.php');
 		register_widget_control($widgetId, 'pdf24Plugin_widgetControl');
@@ -88,6 +100,7 @@ function pdf24Plugin_registerWidget() {
 }
 
 if(pdf24Plugin_isAvailable()) {
+	$isPage ? "true" : "false";
 	if(pdf24Plugin_isCpInUse()) {
 		add_filter('the_content', 'pdf24Plugin_content', $pdf24Plugin['contentFilterPriority']);
 	}

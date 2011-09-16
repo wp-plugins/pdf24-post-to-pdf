@@ -55,25 +55,29 @@ if (isset($_POST['update'])) {
 	update_option('pdf24Plugin_availability', $_POST['availability']);
 	
 	update_option('pdf24Plugin_cpInUse', isset($_POST['cpInUse']) ? 'true' : 'false');
+	update_option('pdf24Plugin_cpDisabledOnPages', isset($_POST['cpDisableOnPages']) ? 'true' : 'false');
 	update_option('pdf24Plugin_cpDisplayMode', $_POST['cpDisplayMode']);
 	update_option('pdf24Plugin_cpStyle', $_POST['cpStyle']);
 	update_option('pdf24Plugin_cpStyle_customize', isset($_POST['cpCustomize']) ? 'true' : 'false');
 	update_option('pdf24Plugin_cpStyle_' . $_POST['cpStyle'], stripslashes($_POST['cpCustomStyle']));
 	
 	update_option('pdf24Plugin_sbpInUse', isset($_POST['sbpInUse']) ? 'true' : 'false');
+	update_option('pdf24Plugin_sbpDisabledOnPages', isset($_POST['sbpDisableOnPages']) ? 'true' : 'false');
 	update_option('pdf24Plugin_sbpStyle', $_POST['sbpStyle']);
 	update_option('pdf24Plugin_sbpStyle_customize', isset($_POST['sbpCustomize']) ? 'true' : 'false');
 	update_option('pdf24Plugin_sbpStyle_' . $_POST['sbpStyle'], stripslashes($_POST['sbpCustomStyle']));
 	
 	update_option('pdf24Plugin_tbpInUse', isset($_POST['tbpInUse']) ? 'true' : 'false');
+	update_option('pdf24Plugin_tbpDisabledOnPages', isset($_POST['tbpDisableOnPages']) ? 'true' : 'false');
 	update_option('pdf24Plugin_tbpStyle', $_POST['tbpStyle']);
 	update_option('pdf24Plugin_tbpStyle_customize', isset($_POST['tbpCustomize']) ? 'true' : 'false');
 	update_option('pdf24Plugin_tbpStyle_' . $_POST['tbpStyle'], stripslashes($_POST['tbpCustomStyle']));
 	
 	update_option('pdf24Plugin_lpInUse', isset($_POST['lpInUse']) ? 'true' : 'false');
+	update_option('pdf24Plugin_lpDisabledOnPages', isset($_POST['lpDisableOnPages']) ? 'true' : 'false');
 	update_option('pdf24Plugin_lpStyle', $_POST['lpStyle']);
 	update_option('pdf24Plugin_lpStyle_customize', isset($_POST['lpCustomize']) ? 'true' : 'false');
-	update_option('pdf24Plugin_lpStyle_' . $_POST['tbpStyle'], stripslashes($_POST['tbpCustomStyle']));
+	update_option('pdf24Plugin_lpStyle_' . $_POST['lpStyle'], stripslashes($_POST['lpCustomStyle']));
 	
 	update_option('pdf24Plugin_emailOptionsInUse', isset($_POST['emailOptionsInUse']) ? 'true' : 'false');
 	update_option('pdf24Plugin_emailType', $_POST['emailType']);
@@ -270,6 +274,10 @@ if (isset($_POST['update'])) {
 			<td><input type="checkbox" name="cpInUse" <?php echo pdf24Plugin_isCpInUse() ? 'checked' : ''; ?> /></td>
 		</tr>
 		<tr>
+			<td class="tr1">Disable on pages</td>
+			<td><input type="checkbox" name="cpDisableOnPages" <?php echo pdf24Plugin_isCpDisabledOnPages() ? 'checked' : ''; ?> /></td>
+		</tr>
+		<tr>
 			<td class="tr1">Display mode</td>
 			<td><select name="cpDisplayMode">
 				<option value="bottom" <?php echo get_option('pdf24Plugin_cpDisplayMode') == 'bottom' ? 'selected' : ''; ?>>Below the article</option>
@@ -305,6 +313,10 @@ if (isset($_POST['update'])) {
 			<td><input type="checkbox" name="sbpInUse" <?php echo pdf24Plugin_isSbpInUse() ? 'checked' : ''; ?> /></td>
 		</tr>
 		<tr>
+			<td class="tr1">Disable on pages</td>
+			<td><input type="checkbox" name="sbpDisableOnPages" <?php echo pdf24Plugin_isSbpDisabledOnPages() ? 'checked' : ''; ?> /></td>
+		</tr>
+		<tr>
 			<td class="tr1">Style</td>
 			<td><select name="sbpStyle" onchange="document.forms.pdf24Form.sbpCustomStyle.value = pdf24Plugin_sbpStyle_custom[this.selectedIndex];">
 					<?php  echo $styleParms['options'] ?>
@@ -332,6 +344,10 @@ if (isset($_POST['update'])) {
 		<tr>
 			<td class="tr1">Use this plugin</td>
 			<td><input type="checkbox" name="tbpInUse" <?php echo pdf24Plugin_isTbpInUse() ? 'checked' : ''; ?> /></td>
+		</tr>
+		<tr>
+			<td class="tr1">Disable on pages</td>
+			<td><input type="checkbox" name="tbpDisableOnPages" <?php echo pdf24Plugin_isTbpDisabledOnPages() ? 'checked' : ''; ?> /></td>
 		</tr>
 		<tr>
 			<td class="tr1">Style</td>
@@ -363,6 +379,10 @@ if (isset($_POST['update'])) {
 		<tr>
 			<td class="tr1">Use this plugin</td>
 			<td><input type="checkbox" name="lpInUse" <?php echo pdf24Plugin_isLpInUse() ? 'checked' : ''; ?> /></td>
+		</tr>
+		<tr>
+			<td class="tr1">Disable on pages</td>
+			<td><input type="checkbox" name="lpDisableOnPages" <?php echo pdf24Plugin_isLpDisabledOnPages() ? 'checked' : ''; ?> /></td>
 		</tr>
 		<tr>
 			<td class="tr1">Style</td>

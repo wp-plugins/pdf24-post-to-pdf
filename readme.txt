@@ -4,7 +4,7 @@ Donate link: http://www.pdf24.org/
 Tags: pdf, create pdf, convert to pdf, article to pdf, pdf plugin, pdf widget
 Requires at least: 1.5.0
 Tested up to: 3.2.1
-Stable tag: 3.2.0
+Stable tag: 3.3
 
 A plugin to convert articles to PDF. Visitors can create a PDF of articles in blog. Contents in created PDF files are linked with your blog.
 
@@ -57,6 +57,10 @@ Insert the following code into any theme file, where you want to display a PDF l
 6. You can place PDF links everywhere in your Wordpress Blog
 
 == Changelog ==
+
+= 3.3 =
+* Added a new feature. You can disable the PDF boxes and PDF links on Wordpress pages. The options can be configured in plugin settings. You can do that individually for each of the built in sub plugins.
+* Fixed a bug in link sub plugin. Styles could not be customized.
 
 = 3.2.0 =
 * Added 2 new options in plugin settings. The PDF document template and the article entry template can be customized. It's simple HTML code which is to modify. This provides you the possibility to control the design of the created PDF file. You can add headers, footers and other elements.
@@ -201,5 +205,5 @@ insert the code `<?php pdf24Plugin_link(); ?>`
 
 = Does the plugin support the Wordpress widget system? =
 
-Yes. Open the plugin settings page and enable the Wordpress widget plugin. Then open the widget manager and you will see the PDF24 plugin.
+Yes. Open the plugin settings and enable the Wordpress widget plugin. Then open the widget manager and you will see the PDF24 plugin.
 Add the PDF24 widget to the sidebar or nay other widget places.

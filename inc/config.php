@@ -1,7 +1,7 @@
 <?php
 
 /*
- * DO NOT CHANGE THESE SETTINGS. CAN CAUSE AN NOT WORKING PLUGIN.
+ * DO NOT CHANGE THESE SETTINGS IF YOU DO NOT KNOW WHAT YOU DO.
  */
 
 //default language
@@ -11,7 +11,7 @@ global $pdf24Plugin;
 $pdf24Plugin['defaultLang'] = 'en';
 
 //Priority to execute at last
-$pdf24Plugin['contentFilterPriority'] = 999;
+$pdf24Plugin['contentFilterPriority'] = 999999;
 
 //the default filter used to encode values
 $pdf24Plugin['defaultFilter'] = 'base64';

@@ -4,7 +4,7 @@ Plugin Name: PDF24 Article To PDF
 Plugin URI: http://www.pdf24.org
 Description: A plugin that converts articles to PDF. Visitors of your blog can make a copy of articles in form of a PDF. Contents in the PDF are linked with your blog.
 Author: Stefan Ziegler
-Version: 3.3.1
+Version: 3.3.2
 Author URI: http://www.pdf24.org
 */
 
@@ -29,8 +29,11 @@ $pdf24Plugin = array(
 include_once($pdf24Plugin['dir'] . '/inc/config.php');
 include_once($pdf24Plugin['dir'] . '/inc/common.php');
 	
-//set language elements for plugin
+//some init
 pdf24Plugin_setLang();
+if(pdf24Plugin_isContentCompression()) {
+	$pdf24Plugin['defaultFilter'] = 'gzdeflate base64';
+}
 
 	
 function pdf24Plugin_adminMenu() {
@@ -49,22 +52,22 @@ function pdf24Plugin_head() {
 	$stylesArr = array();
 	
 	if(pdf24Plugin_isCpInUse()) {
-		if(!($isPage && pdf24Plugin_isCpDisabledOnPages())) {
+		if(!$isPage || pdf24Plugin_isCpDisabledOnPages()) {
 			pdf24Plugin_appendStyle('pdf24Plugin_cpStyle', 'styles/cp', $stylesArr);
 		}
 	}
 	if(pdf24Plugin_isTbpInUse()) {
-		if(!($isPage && pdf24Plugin_isTbpDisabledOnPages())) {
+		if(!$isPage || !pdf24Plugin_isTbpDisabledOnPages()) {
 			pdf24Plugin_appendStyle('pdf24Plugin_tbpStyle', 'styles/tbp', $stylesArr);
 		}
 	}
 	if(pdf24Plugin_isSbpInUse() && is_active_widget('pdf24Plugin_widget')) {
-		if(!($isPage && pdf24Plugin_isSbpDisabledOnPages())) {
+		if(!$isPage || !pdf24Plugin_isSbpDisabledOnPages()) {
 			pdf24Plugin_appendStyle('pdf24Plugin_sbpStyle', 'styles/sbp', $stylesArr);
 		}
 	}
 	if(pdf24Plugin_isLpInUse()) {
-		if(!($isPage && pdf24Plugin_isLpDisabledOnPages())) {
+		if(!$isPage || !pdf24Plugin_isLpDisabledOnPages()) {
 			pdf24Plugin_appendStyle('pdf24Plugin_lpStyle', 'styles/lp', $stylesArr);
 		}
 	}
@@ -89,7 +92,7 @@ function pdf24Plugin_registerWidget() {
 	global $pdf24Plugin;
 	$widgetId = 'Articles To PDF';
 	if(function_exists('wp_register_sidebar_widget')) {
-		wp_register_sidebar_widget( $widgetId, $widgetId, 'pdf24Plugin_widget');		
+		wp_register_sidebar_widget( $widgetId, $widgetId, 'pdf24Plugin_widget');
 		include_once($pdf24Plugin['dir'] . '/inc/widgetControl.php');
 		wp_register_widget_control($widgetId, $widgetId, 'pdf24Plugin_widgetControl');
 	} else {
@@ -100,7 +103,6 @@ function pdf24Plugin_registerWidget() {
 }
 
 if(pdf24Plugin_isAvailable()) {
-	$isPage ? "true" : "false";
 	if(pdf24Plugin_isCpInUse()) {
 		add_filter('the_content', 'pdf24Plugin_content', $pdf24Plugin['contentFilterPriority']);
 	}

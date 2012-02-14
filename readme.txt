@@ -58,6 +58,11 @@ Insert the following code into any theme file, where you want to display a PDF l
 
 == Changelog ==
 
+= 3.3.2 =
+* Added compression feature
+* Added compression option to settings of the plugin
+* Fixed some minor bugs
+
 = 3.3.1 =
 * Added a fix to work together with the plugin wp-Typography
 

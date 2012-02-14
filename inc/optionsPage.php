@@ -53,6 +53,7 @@ if (isset($_POST['update'])) {
 	update_option('pdf24Plugin_debug', isset($_POST['debug']) ? 'true' : 'false');
 	update_option('pdf24Plugin_language', $_POST['language']);
 	update_option('pdf24Plugin_availability', $_POST['availability']);
+	update_option('pdf24Plugin_contentCompression', isset($_POST['contentCompression']) ? 'true' : 'false');
 	
 	update_option('pdf24Plugin_cpInUse', isset($_POST['cpInUse']) ? 'true' : 'false');
 	update_option('pdf24Plugin_cpDisabledOnPages', isset($_POST['cpDisableOnPages']) ? 'true' : 'false');
@@ -203,6 +204,12 @@ if (isset($_POST['update'])) {
 		<tr>
 			<td class="tr1">Debug outputs:</td>
 			<td><input type="checkbox" name="debug" <?php echo pdf24Plugin_isDebug() ? 'checked' : ''; ?></td>
+		</tr>
+		<tr>
+			<td class="tr1">Compress Contents</td>
+			<td><input type="checkbox" name="contentCompression" <?php echo pdf24Plugin_isContentCompression() ? 'checked' : ''; ?> />
+			Faster Load if enabled
+			</td>
 		</tr>
 		</table>
 	</div>

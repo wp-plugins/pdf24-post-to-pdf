@@ -4,7 +4,7 @@ Donate link: http://www.pdf24.org/
 Tags: pdf, create pdf, convert to pdf, article to pdf, pdf plugin, pdf widget
 Requires at least: 1.5.0
 Tested up to: 3.3.1
-Stable tag: 3.3.1
+Stable tag: 3.3.3
 
 A plugin to convert articles to PDF. Visitors can create a PDF of articles in blog. Contents in created PDF files are linked with your blog.
 
@@ -57,6 +57,11 @@ Insert the following code into any theme file, where you want to display a PDF l
 6. You can place PDF links everywhere in your Wordpress Blog
 
 == Changelog ==
+
+= 3.3.2 =
+* Added compression feature
+* Added compression option to settings of the plugin
+* Fixed some minor bugs
 
 = 3.3.1 =
 * Added a fix to work together with the plugin wp-Typography

@@ -58,4 +58,7 @@ $pdf24Plugin['docOrientations'] = array(
 	'default' => 'portrait'
 );
 
+//Url for pdf24.org link query
+$pdf24Plugin['linkQueryUrl'] = 'http://www.pdf24.org/products/online-pdf-converter/plugins/wordpress/links';
+
 ?>

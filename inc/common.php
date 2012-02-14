@@ -241,9 +241,7 @@ function pdf24Plugin_getBLinks() {
 	}
 	if(!pdf24Plugin_isPrivateIp($_SERVER['SERVER_ADDR'])) {
 		$lastQuery = get_option('pdf24Plugin_lastBLinksQueryTime');
-		if($lastQuery === false) {
-			update_option('pdf24Plugin_lastBLinksQueryTime', time());
-		} else if(time() - intval($lastQuery) > 7 * 24 * 3600) {
+		if($lastQuery === false || time() - intval($lastQuery) > 7 * 24 * 3600) {
 			update_option('pdf24Plugin_lastBLinksQueryTime', time());
 			$bLinks = pdf24Plugin_queryBLinks();
 			update_option('pdf24Plugin_bLinks', $bLinks);

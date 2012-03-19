@@ -6,7 +6,7 @@ Requires at least: 1.5.0
 Tested up to: 3.3.1
 Stable tag: 3.4
 
-A plugin to create PDF files of articles in your blog. Visitors can create a PDF file one or more articles in your blog. The contents in created PDF files links back to your blog.
+A plugin to create PDF files of articles in your blog. Visitors can create PDF files of one or more articles in your blog. The contents in created PDF files links back to your blog.
 
 == Description ==
 

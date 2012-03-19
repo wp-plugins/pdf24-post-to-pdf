@@ -4,26 +4,26 @@ Donate link: http://www.pdf24.org/
 Tags: pdf, create pdf, convert to pdf, article to pdf, pdf plugin, pdf widget
 Requires at least: 1.5.0
 Tested up to: 3.3.1
-Stable tag: 3.3.3
+Stable tag: 3.4
 
-A plugin to convert articles to PDF. Visitors can create a PDF of articles in blog. Contents in created PDF files are linked with your blog.
+A plugin to create PDF files of articles in your blog. Visitors can create a PDF file one or more articles in your blog. The contents in created PDF files links back to your blog.
 
 == Description ==
 
-This plugin enables your readers to convert one or more articles to PDF files. Therefore a little box is shown below every article, 
-in the sidebar, on the top or bottom of each page or wherever in your wordpress blog where you place some peace of code.
+This plugin enables your blog readers to create PDF files of one or more articles in your blog. To realize that a little box is shown below or above
+every article, in a sidebar, on the top or bottom of a page or wherever you want in your wordpress blog by inserting a peace of code in a template.
 
 The plugin provides two modes to create PDF files. The first mode is the email mode. In that mode each box has a field in which a visitor
-has to enter an email address to which the created PDF will is sent. The second mode is the direct download mode. No email address is needed
-in that mode. Each PDF box or each PDF link creates the PDF directly and the user has to download the created PDF.
+can enter an email address to which the created PDF will be sent. The second mode is the direct download mode. No email address is needed
+in that mode. Each PDF box or each PDF link creates the PDF directly and the user can download the created PDF file.
 
-A PDF box/link below or above each article creates a PDF only of the corresponding article. A PDF widget box in the sidebar or above or below all
-articles creates a PDF from all articles on the page.
+A PDF box or a PDF link below or above each article creates a PDF file with the corresponding article only. A PDF widget box in the sidebar
+or above or below all articles creates a PDF file with all articles on the current page.
 
-The PDF boxes, PDF links and the format of the PDF file can be customized by CSS and templates. Furthermore you can configure some other parts
-of the plugin. Plugin settings are provided in Wordpress admin area in settings section.
+The PDF boxes, PDF links and the format of the PDF file can be highly customized by CSS and templates. Furthermore you can configure a lot of
+other parts of the plugin by editing the plugin settings which are provided in your Wordpress admin area.
 
-Your server or your webspace where your blog is hosted does not need any special modules to run this plugin. Just install it and it will work.
+Your server or your webspace, where your blog is hosted, does not need any special modules to run this plugin. Just install it and it will work.
 
 == Installation ==
 
@@ -31,14 +31,14 @@ Your server or your webspace where your blog is hosted does not need any special
 1. Activate the plugin through the 'Plugins' menu in WordPress admin area
 1. Configure the plugin in wordpress admin area Settings->PDF24 Plugin
 
-By default the PDF plugin is configured to display a small PDF box below each article. You can change that in settings.
+By default the PDF plugin is configured to display a small PDF box below each article. You can change that in the settings.
 The PDF plugin can display boxes above or below each article, in the sidebar, on top or bottom of each page or you can place
 a PDF link everywhere in your blog. To enable or disable some of these boxes simply change the plugin settings.
 
 If you want to use the PDF sidebar widget you have to enable the sidebar plugin. Then open the widget section and put the widget
 into the sidebar.
 
-If you want to use the PDF top/bottom box or the link plugin you have to insert some peace of code into a template file
+If you want to use the PDF top/bottom box or the link plugin then you have to insert some peace of code into a template file
 where the box or the link shall appear.
 
 Insert the following code into the theme file `header.php` or `footer.php`, where the top/bottom PDF bar shall be shown.
@@ -55,8 +55,17 @@ Insert the following code into any theme file, where you want to display a PDF l
 4. Links and boxes can be inserted in multiple places
 5. You can choose between multiple styles our you can customize each style
 6. You can place PDF links everywhere in your Wordpress Blog
+7. THe Plugin supports Wordpress Widgets
 
 == Changelog ==
+
+= 3.4 =
+* Overworked and improved some core parts of the plugin to realize the new features which follows below.
+* Added the feature that you can specify the filename of the resulting PDF file. Names can be added for several blog areas. These are the home page, category pages, blog pages, single post pages and search pages. Placeholders are available for each of the different names. The new settings are available in plugin settings in admin area.
+* Added display permission for each of the plugin types (content bar, top bottom bar, sidebar, links). You can specify where the plugin can display a PDF bar or link. You can disable the bars, boxes or links on home page, category pages, blog pages, single post pages and search pages. The new settings are available in plugin settings in admin area.
+
+= 3.3.3 =
+* minor fix
 
 = 3.3.2 =
 * Added compression feature
@@ -200,7 +209,7 @@ After that code insert this small peace of code:
 
 = Where do i have to insert the code to display the top bar box =
 
-In my theme directory there is an file named index.php. A part of that file looks like this:
+In my theme directory there is a file named index.php. A part of that file looks like this:
 `<div id="content" class="narrowcolumn">`
 
 After that code insert this:

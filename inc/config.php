@@ -58,6 +58,14 @@ $pdf24Plugin['docOrientations'] = array(
 	'default' => 'portrait'
 );
 
+//default disabled on
+$pdf24Plugin['defaultDisabledOn'] = array(
+	'cp' => '',
+	'sbp' => '',
+	'tbp' => '',
+	'lp' => ''
+);
+
 //Url for pdf24.org link query
 $pdf24Plugin['linkQueryUrl'] = 'http://www.pdf24.org/products/online-pdf-converter/plugins/wordpress/links';
 

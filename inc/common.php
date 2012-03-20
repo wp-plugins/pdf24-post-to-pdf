@@ -1,5 +1,14 @@
 <?php
 
+function pdf24Plugin_getBlogUrl() {
+	$version = get_bloginfo('version');
+	if(strcmp($version, '2.2') >= 0) {
+		return get_bloginfo('url');
+	} else {
+		return get_bloginfo('siteurl');
+	}
+}
+
 function pdf24Plugin_shuffle(&$items,$seed) {
 	if(count($items) > 0 && $seed) {
 		mt_srand(crc32(($seed) ? $seed : $items[0]));
@@ -175,13 +184,10 @@ function pdf24Plugin_getBlogHiddenFields($postsCount) {
 	$arr = array (
 		'blogCharset' => get_bloginfo('charset'),
 		'blogPosts' => $postsCount,
-		'blogUrl' => get_bloginfo('siteurl'),
+		'blogUrl' => pdf24Plugin_getBlogUrl(),
 		'blogName' => get_bloginfo('name'),
 		'blogValueEncoding' => $pdf24Plugin['defaultFilter']
 	);
-	if(!$arr['blogUrl']) {
-		$arr['blogUrl'] = get_bloginfo('url');
-	}
 	if(pdf24Plugin_isEmailOptionsInUse()) {
 		$arr['blogEmailText'] = pdf24Plugin_getEmailText();
 		$arr['blogEmailType'] = pdf24Plugin_getEmailType();
@@ -208,10 +214,7 @@ function pdf24Plugin_getShuffleSeed() {
 	if(is_home()) {
 		return '';
 	}
-	$uri = get_bloginfo('url');
-	if(!$uri) {
-		$uri = get_bloginfo('siteurl');
-	}
+	$uri = pdf24Plugin_getBlogUrl();
 	$pos = stripos($uri, $_SERVER['HTTP_HOST']);
 	if($pos !== false) {
 		$uri = substr($uri, $pos + strlen($_SERVER['HTTP_HOST']));
@@ -250,7 +253,7 @@ function pdf24Plugin_getDefaultBLInfo() {
 
 function pdf24Plugin_queryBLinks() {
 	global $pdf24Plugin;
-	$ref = trim(get_bloginfo('siteurl'));
+	$ref = trim(pdf24Plugin_getBlogUrl());
 	if($ref == '') {
 		$ref = $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'];
 	}

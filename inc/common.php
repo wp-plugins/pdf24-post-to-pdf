@@ -554,7 +554,7 @@ function pdf24Plugin_getWhere() {
 	}
 }
 
-function pdf24Plugin_getDocFilename($where) {
+function pdf24Plugin_getDocFilename($where = false) {
 	if(!$where) {
 		$where = pdf24Plugin_getWhere();
 		if($where == 'unknown') {

@@ -37,6 +37,8 @@ Custom fields are supported. Look at the installation and FAQ section to get mor
 
 == Installation ==
 
+**Main Installation**
+
 1. Unpack the plugin zip archive in your wordpress plugin folder `/wp-content/plugins/` or use your Wordpress plugin manager to download the plugin.
 1. Activate the plugin through the 'Plugins' menu in WordPress admin area
 1. Configure the plugin in wordpress admin area Settings->PDF24 Plugin
@@ -45,8 +47,14 @@ By default the PDF plugin is configured to display a small PDF box below each ar
 The PDF plugin can display a box above or below each article, in the sidebar, on top or bottom of each page or you can place
 a PDF link everywhere in your blog. To enable or disable some of these boxes simply change the plugin settings.
 
+
+**PDF Sidebar Widget**
+
 If you want to use the PDF sidebar widget you have to enable the sidebar plugin. Then open the widget section and put the widget
 into the sidebar.
+
+
+**PDF Top/Bottom Bar**
 
 If you want to use the PDF top/bottom box, the link plugin or if you want to show a sidebar box without using the widget then you have to insert
 some peace of code into a template file where the box or the link shall appear.
@@ -54,11 +62,20 @@ some peace of code into a template file where the box or the link shall appear.
 Insert the following code into the theme file `header.php`, `footer.php` or an other one, where the top/bottom PDF bar shall be shown.
 `<?php pdf24Plugin_topBottom(); ?>`
 
+
+**PDF Link**
+
 Insert the following code into any theme file, where you want to display a PDF link.
 `<?php pdf24Plugin_link(); ?>`
 
+
+**PDF Sidebar Box**
+
 Insert the following code into any theme file, where you want to display a PDF sidebar box.
 `<?php pdf24Plugin_sidebar(); ?>`
+
+
+**Custom Fields Support**
 
 If you use custom fields and if you want it to be part of the PDF file then you have to add some codes to your template files to mark the content
 so that the PDF24 plugin knows what the content is. This can be done like the following:
@@ -70,8 +87,9 @@ so that the PDF24 plugin knows what the content is. This can be done like the fo
 	<?php pdf24Plugin_post(); ?>
 	
 The above call to *pdf24Plugin_post()* can be replaced with *pdf24Plugin_link()* or *pdf24Plugin_topBottom()* or *pdf24Plugin_sidebar()*. Each of these
-methods shows a different box depending on what you want. Also look at the FAQ section to get more information about custom fields support. If you have 
-any problems with the custom fields support feel free to contact us.
+methods shows a different box depending on what you want. Also look at the FAQ section to get more information about custom fields support.
+
+If you have any problems with the installation or the custom fields support feel free to contact us.
 
 == Screenshots ==
 

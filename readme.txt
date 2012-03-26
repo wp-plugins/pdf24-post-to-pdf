@@ -8,6 +8,8 @@ Stable tag: 3.5.0
 
 A plugin to create PDF files of articles in your blog.
 
+
+
 == Description ==
 
 This plugin enables your blog readers to create PDF files of one or more articles in your blog. To realize that a little box is shown below or above
@@ -35,9 +37,11 @@ Custom fields are supported. Look at the installation and FAQ section to get mor
 * Supports custom fields
 * Easy installation without or with minimal template changes
 
+
+
 == Installation ==
 
-**Main Installation**
+= Main Installation =
 1. Unpack the plugin zip archive in your wordpress plugin folder `/wp-content/plugins/` or use your Wordpress plugin manager to download the plugin.
 1. Activate the plugin through the 'Plugins' menu in WordPress admin area
 1. Configure the plugin in wordpress admin area Settings->PDF24 Plugin
@@ -47,30 +51,31 @@ The PDF plugin can display a box above or below each article, in the sidebar, on
 a PDF link everywhere in your blog. To enable or disable some of these boxes simply change the plugin settings.
 
 
-**PDF Sidebar Widget**
-If you want to use the PDF sidebar widget you have to enable the sidebar plugin. Then open the widget section and put the widget
+= PDF Sidebar Widget =
+If you want to use the PDF sidebar widget you have to enable the sidebar plugin. Then open the widget section in Wordpress admin area and put the widget
 into the sidebar.
 
 
-**PDF Top/Bottom Bar**
+= PDF Top/Bottom Bar =
 If you want to use the PDF top/bottom box, the link plugin or if you want to show a sidebar box without using the widget then you have to insert
 some peace of code into a template file where the box or the link shall appear.
 
-Insert the following code into the theme file `header.php`, `footer.php` or an other one, where the top/bottom PDF bar shall be shown.
+Insert the following code into the theme file `header.php`, `footer.php` or an other one, where the top/bottom PDF bar shall appear.
 `<?php pdf24Plugin_topBottom(); ?>`
 
 
-**PDF Link**
-Insert the following code into any theme file, where you want to display a PDF link.
+= PDF Link =
+Insert the following code into any theme file, where you want to display a PDF link which creates a PDF file with one or more articles in you blog.
 `<?php pdf24Plugin_link(); ?>`
 
 
-**PDF Sidebar Box**
-Insert the following code into any theme file, where you want to display a PDF sidebar box.
+= PDF Sidebar Box =
+Insert the following code into any theme file, where you want to display a PDF sidebar box by which users can create a PDF file with the articles
+on the currently displayed page.
 `<?php pdf24Plugin_sidebar(); ?>`
 
 
-**Custom Fields Support**
+= Custom Fields Support =
 If you use custom fields and if you want it to be part of the PDF file then you have to add some codes to your template files to mark the content
 so that the PDF24 plugin knows what the content is. This can be done like the following:
 
@@ -85,6 +90,8 @@ methods shows a different box depending on what you want. Also look at the FAQ s
 
 If you have any problems with the installation or the custom fields support feel free to contact us.
 
+
+
 == Screenshots ==
 
 1. Test page with two Send as PDF boxes enabled
@@ -94,6 +101,8 @@ If you have any problems with the installation or the custom fields support feel
 5. You can choose between multiple styles our you can customize each style
 6. You can place PDF links everywhere in your Wordpress Blog
 7. The Plugin supports Wordpress Widgets
+
+
 
 == Changelog ==
 
@@ -242,6 +251,7 @@ display PDF links everywhere in your blog. Thats what a lot of people want.
 = 3.0.0 =
 We have redesigned a lot of parts of the plugin. If you update your currently installed plugin
 please configure the plugin in settings of wordpress admin area.
+
 
 
 == Frequently Asked Questions ==

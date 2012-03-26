@@ -274,10 +274,10 @@ of the PDF file, you have mark up the content area within Wordpress theme files 
 
 To mark up the content, do this:
 
-	**<?php pdf24Plugin_begin(); ?>**
+	<?php pdf24Plugin_begin(); ?>
 	<?php the_content(); ?>
 	... Your custom fields code here...
-	**<?php pdf24Plugin_end(); ?>**
+	<?php pdf24Plugin_end(); ?>
 	
 The above code tells PDF24 that the content is the articles content itself and the rest of the content between the two methods. You can place or
 output any other custom fields or information between the *pdf24Plugin_begin* and *pdf24Plugin_end* method. All that content between the two method
@@ -296,7 +296,7 @@ A sample code section of my test *loop.php* template file looks like this:
 	<?php the_content(); ?>
 	<?php the_meta(); ?>
 	<?php pdf24Plugin_end(); ?>
-	**<?php pdf24Plugin_post(); ?>**
+	<?php pdf24Plugin_post(); ?>
 
 This new code tells the PDF24 plugin what content is to add to the PDF file. This is the outputs of the codes which are placed inside
 the *pdf24Plugin_begin* and *pdf24Plugin_end* methods. The next line, the call to the method *pdf24Plugin_post*, outputs the article PDF bar which

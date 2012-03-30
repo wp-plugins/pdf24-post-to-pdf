@@ -124,7 +124,7 @@ if (isset($_POST['update'])) {
 	
 	update_option('pdf24Plugin_docEntryTplInUse', isset($_POST['docEntryTplInUse']) ? 'true' : 'false');
 	update_option('pdf24Plugin_docEntryTpl', stripslashes($_POST['docEntryTpl']));
-	
+
 	if(isset($_POST['customLangInUse'])) {
 		$customLang = array();
 		foreach($_POST as $key => $val) {
@@ -163,40 +163,78 @@ if (isset($_POST['update'])) {
 
 <div class="wrap">
 <script language="javascript">
-	var pdf24_formError = false;
-	function pdf24_check(elem, v) {
-		if(v) {
-			elem.style.border = '2px solid red';
-			pdf24_formError = true;
-		} else {
-			elem.style.border = '';
-		}
+document.getElementsByClassName = function(cl) {
+	var retnode = [];
+	var myclass = new RegExp('\\b'+cl+'\\b');
+	var elem = this.getElementsByTagName('*');
+	for (var i = 0; i < elem.length; i++) {
+		var classes = elem[i].className;
+		if (myclass.test(classes)) retnode.push(elem[i]);
 	}
-	function pdf24_checkForm(form) {
-		pdf24_formError = false;
-		if(form.useCustomLang.checked) {
-			for(var i=0; i<form.length; i++) {
-				if(form.elements[i].name && form.elements[i].name.match(/^lang-/)) {
-					pdf24_check(form.elements[i], form.elements[i].value.length < 3);
-				}
+	return retnode;
+};
+
+var pdf24_formError = false;
+function pdf24_check(elem, v) {
+	if(v) {
+		elem.style.border = '2px solid red';
+		pdf24_formError = true;
+	} else {
+		elem.style.border = '';
+	}
+}
+function pdf24_checkForm(form) {
+	pdf24_formError = false;
+	if(form.useCustomLang.checked) {
+		for(var i=0; i<form.length; i++) {
+			if(form.elements[i].name && form.elements[i].name.match(/^lang-/)) {
+				pdf24_check(form.elements[i], form.elements[i].value.length < 3);
 			}
 		}
-		return !pdf24_formError;
 	}
-	function pdf24_showHideSel(id,select) {
-		if(select.options[select.selectedIndex].value == '%custom%') {
-			document.getElementById(id).className = '';
-		} else {
-			document.getElementById(id).className = 'noDis';
-		}
+	return !pdf24_formError;
+}
+function pdf24_showHideSel(id,select) {
+	if(select.options[select.selectedIndex].value == '%custom%') {
+		document.getElementById(id).className = '';
+	} else {
+		document.getElementById(id).className = 'noDis';
 	}
-	function pdf24_showHideCheck(id,check) {
-		if(check.checked) {
-			document.getElementById(id).className = '';
-		} else {
-			document.getElementById(id).className = 'noDis';
-		}
+}
+function pdf24_showHideCheck(id,check) {
+	if(check.checked) {
+		document.getElementById(id).className = '';
+	} else {
+		document.getElementById(id).className = 'noDis';
 	}
+}
+
+
+
+function hideInfoBox() {
+	document.getElementsByTagName
+	document.getElementById('InfoBox').style.visibility = "hidden";
+}
+function showInfoBox(e,which) {
+	var offsetx = 20;
+	var offsety = 0;
+	var PositionX = 0;
+	var PositionY = 0;
+	if (!e) var e = window.event;
+	if (e.pageX || e.pageY) {
+		PositionX = e.pageX;
+		PositionY = e.pageY;
+	}
+	else if (e.clientX || e.clientY) {
+		PositionX = e.clientX + document.body.scrollLeft;
+		PositionY = e.clientY + document.body.scrollTop;
+	}
+	document.getElementById("BoxInhalte").innerHTML = Inhalte;
+	document.getElementById('InfoBox').style.left = (PositionX+offsetx)+"px";
+	document.getElementById('InfoBox').style.top = (PositionY+offsety)+"px";
+	document.getElementById('InfoBox').style.visibility = "visible";
+}
+// --> 
 </script>
 <style type="text/css">
 	h3 { margin-bottom:0px; padding-bottom:0px }
@@ -209,7 +247,12 @@ if (isset($_POST['update'])) {
 	.cusSty {width:700px; height:150px;}
 	.cusDocTpl {width:700px; height:150px;}
 	.cusDocEntryTpl {width:700px; height:150px;}
+	.infoBox {display:none; position:absolute; z-index:1; background-color:#FDFEFF; border:3px solid #0090E0;}
 </style>
+
+<div id="dddd" class="infoBox" style="width:400px; height:300px">
+
+</div>
 
 <h2>PDF24 Plugin Options</h2>
 <form name="pdf24Form" method="post" onsubmit="return pdf24_checkForm(this)">
@@ -262,32 +305,38 @@ if (isset($_POST['update'])) {
 			<td class="tr2"><select name="docSize"><?php echo pdf24Plugin_createDocSizeOptions(); ?></select> <select name="docOrientation"><?php echo pdf24Plugin_createDocOrientationOptions(); ?></select></td>
 		</tr>
 		<tr>
-			<td class="tr1">CSS Style:<br />(<small>Use CSS to format the tags and classes <b>body, h1, h2, p, div, a, .bodyPart, .meta, .text</b></small>)</td>
-			<td class="tr2"><textarea name="docStyle" style="width:600px; height:150px"><?php echo htmlspecialchars(pdf24Plugin_getDocStyle()); ?></textarea></td>
+			<td class="tr1">CSS Style:<br /><small>Use CSS to format the tags and classes <b>body, h1, h2, p, div, a, .bodyPart, .meta, .text</b> and others</small></td>
+			<td class="tr2"><textarea name="docStyle" style="width:600px; height:120px"><?php echo htmlspecialchars(pdf24Plugin_getDocStyle()); ?></textarea></td>
 		</tr>
 		<tr>
-			<td class="tr1" height="50">Default filename:<br /><small>Allowed placeholder: <b>{blogName}, {date:FORMAT}</b></small></td>
-			<td class="tr2"><input name="docDefaultFilename" style="width:600px" value="<?php echo htmlspecialchars(pdf24Plugin_getDocFilename('default')); ?>" /></td>
+			<td class="tr1" height="60">Default filename:</td>
+			<td class="tr2"><input name="docDefaultFilename" style="width:600px" value="<?php echo htmlspecialchars(pdf24Plugin_getDocFilename('default')); ?>" />
+			<br /><small>Allowed placeholders: <b>{blogName}, {date:FORMAT}</b></small></td>
 		</tr>
 		<tr>
-			<td class="tr1" height="50">Filename for home page:<br /><small>Allowed placeholder: <b>{blogName}, {date:FORMAT}</b></small></td>
-			<td class="tr2"><input name="docHomeFilename" style="width:600px" value="<?php echo htmlspecialchars(pdf24Plugin_getDocFilename('home')); ?>" /></td>
+			<td class="tr1" height="60">Filename for home page:</td>
+			<td class="tr2"><input name="docHomeFilename" style="width:600px" value="<?php echo htmlspecialchars(pdf24Plugin_getDocFilename('home')); ?>" />
+			<br /><small>Allowed placeholders: <b>{blogName}, {date:FORMAT}</b></small></td>
 		</tr>
 		<tr>
-			<td class="tr1" height="80">Filename for single post pages:<br /><small>Allowed placeholder: <b>{blogName}, {date:FORMAT}, {singleId}, {singleAuthor}, {singleDate}, {singleTitle}, {singleName}</b></small></td>
-			<td class="tr2"><input name="docSingleFilename" style="width:600px" value="<?php echo htmlspecialchars(pdf24Plugin_getDocFilename('single')); ?>" /></td>
+			<td class="tr1" height="60">Filename for single post pages:</td>
+			<td class="tr2"><input name="docSingleFilename" style="width:600px" value="<?php echo htmlspecialchars(pdf24Plugin_getDocFilename('single')); ?>" />
+			<br /><small>Allowed placeholders: <b>{blogName}, {date:FORMAT}, {singleId}, {singleAuthor}, {singleDate}, {singleTitle}, {singleName}</b></small></td>
 		</tr>
 		<tr>
-			<td class="tr1" height="60">Filename for wordpress pages:<br /><small>Allowed placeholder: <b>{blogName}, {date:FORMAT}, {pageId}, {pageAuthor}, {pageDate}, {pageTitle}, {pageName}</b></small></td>
-			<td class="tr2"><input name="docPageFilename" style="width:600px" value="<?php echo htmlspecialchars(pdf24Plugin_getDocFilename('page')); ?>" /></td>
+			<td class="tr1" height="60">Filename for wordpress pages:</td>
+			<td class="tr2"><input name="docPageFilename" style="width:600px" value="<?php echo htmlspecialchars(pdf24Plugin_getDocFilename('page')); ?>" />
+			<br /><small>Allowed placeholders: <b>{blogName}, {date:FORMAT}, {pageId}, {pageAuthor}, {pageDate}, {pageTitle}, {pageName}</b></small></td>
 		</tr>
 		<tr>
-			<td class="tr1" height="80">Filename for category pages:<br /><small>Allowed placeholder: <b>{blogName}, {date:FORMAT}, {catSlug}, {catName}, {catNiceName}</b></small></td>
-			<td class="tr2"><input name="docCategoryFilename" style="width:600px" value="<?php echo htmlspecialchars(pdf24Plugin_getDocFilename('category')); ?>" /></td>
+			<td class="tr1" height="60">Filename for category pages:</td>
+			<td class="tr2"><input name="docCategoryFilename" style="width:600px" value="<?php echo htmlspecialchars(pdf24Plugin_getDocFilename('category')); ?>" />
+			<br /><small>Allowed placeholders: <b>{blogName}, {date:FORMAT}, {catSlug}, {catName}, {catNiceName}</b></small></td>
 		</tr>
 		<tr>
-			<td class="tr1" height="80">Filename for search pages:<br /><small>Allowed placeholder: <b>{blogName}, {date:FORMAT}, {searchQuery},</b></small></td>
-			<td class="tr2"><input name="docSearchFilename" style="width:600px" value="<?php echo htmlspecialchars(pdf24Plugin_getDocFilename('search')); ?>" /></td>
+			<td class="tr1" height="60">Filename for search pages:</td>
+			<td class="tr2"><input name="docSearchFilename" style="width:600px" value="<?php echo htmlspecialchars(pdf24Plugin_getDocFilename('search')); ?>" />
+			<br /><small>Allowed placeholders: <b>{blogName}, {date:FORMAT}, {searchQuery},</b></small></td>
 		</tr>
 		</table>
 	</div>
@@ -328,7 +377,7 @@ if (isset($_POST['update'])) {
 		<?php  $styleParms = pdf24Plugin_getStyleParams('pdf24Plugin_cpStyle', 'styles/cp'); ?>
 		<script language="javascript"><?php  echo $styleParms['js']; ?></script>
 		<h3>Article Plugin</h3>
-		<div class="descr">This plugin displays a small box underneath each article to convert the above article to pdf.</div>
+		<div class="descr">This plugin displays a small box underneath or above each article to convert the article into a PDF file.</div>
 		<table>
 		<tr>
 			<td class="tr1">Use this plugin</td>
@@ -378,8 +427,9 @@ if (isset($_POST['update'])) {
 	<div>
 		<?php  $styleParms = pdf24Plugin_getStyleParams('pdf24Plugin_sbpStyle', 'styles/sbp'); ?>
 		<script language="javascript"><?php  echo $styleParms['js']; ?></script>
-		<h3>Sidebar Widget Plugin</h3>	
-		<div class="descr">This plugin adds a widget to your Wordpress blog. Look at the widget section in your wordpress admin area to put the widget into the sidebar.</div>			
+		<h3>Sidebar Plugin & Sidebar Widget Plugin</h3>
+		<div class="descr">This plugin adds a widget to your Wordpress blog. Look at the widget section in your wordpress admin area to put the widget into the sidebar.<br />
+		You can also add the code <b><nobr>&lt;?php pdf24Plugin_sidebar(); ?&gt;</nobr></b> into a template file where the sidebar box shall be shown.</div>			
 		<table>
 		<tr>
 			<td class="tr1">Use this plugin</td>
@@ -470,8 +520,8 @@ if (isset($_POST['update'])) {
 		<h3>Link Plugin</h3>
 		<div class="descr">This plugin displays a link everywhere in your blog where you place some peace of code in a template of your theme.<br />
 		Copy and paste the code <b><nobr>&lt;?php pdf24Plugin_link(); ?&gt;</nobr></b> or <b><nobr>&lt;?php pdf24Plugin_link('MY_LINK_TEXT'); ?&gt;</nobr></b>
-		into a template of your theme where a download as PDF link shall be shown. If the link is places outside the loop, the code produce a link which converts all
-		articles on the current page to PDF. If the link is places inside the loop, the code produce a link which converts only the current article to PDF.</div>
+		into a template of your theme where a Download as PDF link shall be shown.<br />If the link is placed outside the loop, the code produces a link which converts all
+		articles on the current page to a PDF file. If the link is placed inside the loop, the code produces a link which converts only the current article.</div>
 		<table>
 		<tr>
 			<td class="tr1">Use this plugin</td>

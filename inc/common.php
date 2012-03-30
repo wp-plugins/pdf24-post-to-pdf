@@ -1,5 +1,14 @@
 <?php
 
+function pdf24Plugin_wpEscape($str) {
+	$version = get_bloginfo('version');
+	if(strcmp($version, '2.8') >= 0) {
+		return esc_html($str);
+	} else {
+		return wp_specialchars($str, true);
+	}
+}
+
 function pdf24Plugin_getBlogUrl() {
 	$version = get_bloginfo('version');
 	if(strcmp($version, '2.2') >= 0) {
@@ -954,8 +963,10 @@ function pdf24Plugin_widget($args) {
 	if(pdf24Plugin_isSbpInUse() && pdf24Plugin_isAvailable()) {
 		if(!pdf24Plugin_isDisabledOn('sbp')) {
 			extract($args);
-			echo $before_widget . $before_title . pdf24Plugin_getWidgetTitle() . $after_title;
+			echo $before_widget;
+			echo $before_title . pdf24Plugin_getWidgetTitle() . $after_title;
 			echo pdf24Plugin_getSidebarForm();
+			echo $after_widget;
 		}
 	}
 }

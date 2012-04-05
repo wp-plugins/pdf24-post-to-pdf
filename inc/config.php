@@ -67,6 +67,6 @@ $pdf24Plugin['defaultDisabledOn'] = array(
 );
 
 //Url for pdf24.org link query
-$pdf24Plugin['linkQueryUrl'] = 'http://www.pdf24.org/products/online-pdf-converter/plugins/wordpress/links';
+$pdf24Plugin['linkQueryUrl'] = 'http://wordpress.pdf24.org/products/online-pdf-converter/plugins/wordpress/links';
 
 ?>

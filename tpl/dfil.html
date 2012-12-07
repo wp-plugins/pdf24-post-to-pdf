@@ -1,6 +1,8 @@
 <span class="pdf24Plugin-{styleId}">
 	<form style="display:none; padding:0px; margin:0px;" name="pdf24Form{formId}" method="post" target="{targetName}" action="{actionUrl}">{hiddenFields}</form>
 	<span class="pdf24Plugin-{styleId}-link">
-		<a href="{blUrl}" title="{blText}" onclick="{openTargetCode} document.pdf24Form{formId}.submit(); {callbackCode} return false;">{lang_downloadAsPDF}</a>
+		<a href="{blUrl}" title="{lang_downloadAsPDF}" onclick="{openTargetCode} document.pdf24Form{formId}.submit(); {callbackCode} return false;">
+			<img src="{pluginUrl}/img/icon_pdf.gif" alt="{blText}" title="{lang_downloadAsPDF}" />
+		</a>
 	</span>
 </span>

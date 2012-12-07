@@ -3,11 +3,10 @@ Contributors: pdf24, StefanZiegler
 Donate link: http://www.pdf24.org/
 Tags: pdf, create pdf, convert to pdf, article to pdf, pdf plugin, pdf widget
 Requires at least: 1.5.0
-Tested up to: 3.3.1
-Stable tag: 3.5.2
+Tested up to: 3.4.2
+Stable tag: 3.6.0
 
 A plugin to create PDF files of articles in your blog.
-
 
 
 == Description ==
@@ -83,10 +82,21 @@ so that the PDF24 plugin knows what the content is. This can be done like the fo
 	<?php the_content(); ?>
 	... Your custom fields code ...
 	<?php pdf24Plugin_end(); ?>
-	<?php pdf24Plugin_post(); ?>
+	<?php pdf24Plugin_post(); ?>  OR  <?php pdf24Plugin_form(ID); ?>
 	
 The above call to *pdf24Plugin_post()* can be replaced with *pdf24Plugin_link()* or *pdf24Plugin_topBottom()* or *pdf24Plugin_sidebar()*. Each of these
-methods shows a different box depending on what you want. Also look at the FAQ section to get more information about custom fields support.
+methods shows a different box depending on what you want.
+
+You can also replace the call to *pdf24Plugin_post()* with a call to *pdf24Plugin_form(ID)*, which then outputs nothing visible to the user. The call to
+*pdf24Plugin_form()* just creates a hidden form which can than be sent by an other peace of code. The create form is hidden and you need a link or a button
+to submit the form and that functionality is provided with the *pdf24Plugin_formSubmit(ID,TPL)* method. The call to *pdf24Plugin_formSubmit(ID,TPL)* can be
+placed elsewhere in your template and prints a link which submits the form create by a call to *pdf24Plugin_form(ID)*. This is a very flexible feature. The
+first argument, the ID, is a needed argument. If you create a hidden form by a call to *pdf24Plugin_form(ID)* then the form is identified by the ID. A call
+to *pdf24Plugin_formSubmit(ID,TPL)* with the same ID will submit the form identified by that ID. The ID argument can simply be the wordpress post identifier
+which you get by a call to get_the_ID(). The second parameter, the TPL, is a optinal argument. This
+argument controls the output (normal link, image link or whatever). The TPL argument is the name of a template of the plugin which is loaded and printed.
+
+Don't forget to look at the FAQ section to get more information about custom fields support.
 
 If you have any problems with the installation or the custom fields support feel free to contact us.
 
@@ -105,6 +115,14 @@ If you have any problems with the installation or the custom fields support feel
 
 
 == Changelog ==
+
+= 3.6.0 =
+* Image link for link plugin supported
+* Option to call user event function when creating a PDF file
+* Is't now possible to place a link everywhere inside a template and not only only after the call to pdf24Plugin_end()
+* WPML support added. The plugin now uses the Wordpress Localization Technology for text of the plugin
+* Fixed a tpl tag issue
+* Fixed a script bug in plugin setting page
 
 = 3.5.2 =
 * Minor fix
@@ -313,10 +331,10 @@ output any other custom fields or information between the *pdf24Plugin_begin* an
 is added to the PDF file.
 
 All PDF24 plugin PDF bars, links and boxes automatically uses this information to create the PDF file. Special care must be taken when you use the
-article bars which is automatically added to the content of each article. If you use the above markup code then the article bars will be removed
+article bars which are automatically added to the content of each article. If you use the above markup code then the article bars will be removed
 from the content and you have to insert some extra code where the article bar shall appear.
 
-This extra code is the following:
+This extra code is:
 	<?php pdf24Plugin_post(); ?>
 	
 A sample code section of my test *loop.php* template file looks like this:
@@ -340,8 +358,12 @@ instead of the bigger article bar. The above code could also look like the follo
 	<?php the_content(); ?>
 	... Your custom fields code here...
 	<?php pdf24Plugin_end(); ?>
-	<?php pdf24Plugin_link(); ?>
+	<?php pdf24Plugin_link(); ?> OR <?php pdf24Plugin_form(get_the_ID()); ?>
 	
-You can place the *pdf24Plugin_link()* call where you want. This can be directly after the content, in the entry utility area or everywhere else in the template.
+You can place the *pdf24Plugin_link()* call wherever you want, except before the *pdf24Plugin_end()* call.
+The call to pdf24Plugin_form(get_the_ID()) must also be placed after the *pdf24Plugin_end()* call. This call only generates a hidden form which
+needs a link to be sent. This link can be created with the function *pdf24Plugin_formSubmit(get_the_ID())*. The call to this function can be placed
+everywhere in a template (after a call to pdf24Plugin_end() or before the call or in an other template) because the created link references the created
+hidden form created by *pdf24Plugin_form(get_the_ID());*.
 
 This feature makes PDF24 a very powerful PDF generator. You can generate the PDF file of nearly every content in you blog.

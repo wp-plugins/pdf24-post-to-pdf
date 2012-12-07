@@ -328,34 +328,43 @@ function pdf24Plugin_replaceLang($str, $count, $searchReplace = null) {
 	}
 
 	$langs = pdf24Plugin_getLangElements();
-	$search = array();
-	$replace = array();
+	$map = array();
 	foreach($langs as $key => $val) {
 		$k = '{lang_'. $key .'}';
 		if($searchReplace && isset($searchReplace[$k])) {
 			$val = $searchReplace[$k];
-		}
-		$search[] = $k;
-		$replace[] = $val;
+		} else {
+			$t = __($key, 'pdf24');
+			if(trim($t) != trim($key)) {
+				$val = $t;
+			}
+		}		
+		$map[$k] = $val;
 	}
-
+	
 	if($searchReplace && isset($searchReplace['{lang_sendAsPDF}'])) {
-		$search[] = '{lang_sendAsPDF}';
-		$replace[] = $searchReplace['{lang_sendAsPDF}'];
+		$map['{lang_sendAsPDF}'] = $searchReplace['{lang_sendAsPDF}'];
 	} else {
-		$search[] = '{lang_sendAsPDF}';
-		$replace[] = $count == 1 ? pdf24Plugin_getLangVal('sendArticleAsPDF') : pdf24Plugin_getLangVal('sendArticlesAsPDF');
+		$map['{lang_sendAsPDF}'] = $count == 1 ? pdf24Plugin_getLangVal('sendArticleAsPDF') : pdf24Plugin_getLangVal('sendArticlesAsPDF');
 	}
 
 	if($searchReplace && isset($searchReplace['{lang_downloadAsPDF}'])) {
-		$search[] = '{lang_downloadAsPDF}';
-		$replace[] = $searchReplace['{lang_downloadAsPDF}'];
+		$map['{lang_downloadAsPDF}'] = $searchReplace['{lang_downloadAsPDF}'];
 	} else {
-		$search[] = '{lang_downloadAsPDF}';
-		$replace[] = $count == 1 ? pdf24Plugin_getLangVal('downloadArticleAsPDF') : pdf24Plugin_getLangVal('downloadArticlesAsPDF');
+		$map['{lang_downloadAsPDF}'] = $count == 1 ? pdf24Plugin_getLangVal('downloadArticleAsPDF') : pdf24Plugin_getLangVal('downloadArticlesAsPDF');
 	}
-
-	return str_replace($search, $replace, $str);
+	
+	$n = preg_replace('@<a[^>]*>(.+?)</a>@i', '', $str);
+	$l = 'http://' . (isset($pdf24Plugin['useLang']) ? $pdf24Plugin['useLang'] : 'en') . '.pdf24.org';
+	$c = '<a href="'. $l .'" target="_blank" style="color:inherit;font-size:inherit;font:inherit;text:inherit">$0</a>';
+	foreach(array('sendAsPDF', 'sendArticleAsPDF', 'sendArticlesAsPDF') as $v) {
+		$e = '{lang_'. $v .'}';
+		if(isset($map[$e]) && stripos($n, $e) !== false) {
+			$map[$e] = preg_replace ('/PDF/i', $c, $map[$e]);
+		}
+	}
+	
+	return str_replace(array_keys($map), array_values($map), $str);
 }
 
 function pdf24Plugin_nextFormId() {
@@ -387,7 +396,8 @@ function pdf24Plugin_parseTplContent($postsArr, $tpl, $styleId, $searchReplace =
 		'{blUrl}' => $blUrl,
 		'{pluginUrl}' => $pdf24Plugin['url'],
 		'{targetName}' => $pdf24Plugin['targetName'],
-		'{openTargetCode}' => $pdf24Plugin['jsOpenTargetWin']
+		'{openTargetCode}' => $pdf24Plugin['jsOpenTargetWin'],
+		'{callbackCode}' => $pdf24Plugin['jsCallbackCode']
 	);
 	$content = str_replace(array_keys($data), array_values($data), $tpl);
 	$content = pdf24Plugin_replaceLang($content, count($postsArr), $searchReplace);
@@ -411,6 +421,49 @@ function pdf24Plugin_getTplContent($postsArr, $wpOptionKey, $styleFolder, $style
 		$style = pdf24Plugin_getDefaultStyle($styleFolder);
 	}
 	return pdf24Plugin_parseTplContent($postsArr, pdf24Plugin_styleToTpl($style), $styleId, $searchReplace);
+}
+
+function pdf24Plugin_validateFormId($formId) {
+	return preg_replace('/[^a-zA-Z0-9\-_]/','', $formId);
+}
+
+function pdf24Plugin_parseHiddenForm($postsArr, $formId) {
+	global $pdf24Plugin;
+	if(count($postsArr) == 0) {
+		return '';
+	}
+	$hiddenFilds = pdf24Plugin_getBlogHiddenFields(count($postsArr));
+	foreach($postsArr as $key => $val) {
+		$hiddenFilds .= pdf24Plugin_getFormHiddenFields($val, '', '_' . $key);
+	}
+	$tpl = file_get_contents(pdf24Plugin_getFile('tpl', 'hiddenForm.html'));
+	$data = array(
+		'{formId}' => pdf24Plugin_validateFormId($formId),
+		'{actionUrl}' => $pdf24Plugin['serviceUrl'],
+		'{hiddenFields}' => $hiddenFilds,
+		'{targetName}' => $pdf24Plugin['targetName'],
+	);
+	$content = str_replace(array_keys($data), array_values($data), $tpl);
+	return $content;
+}
+
+function pdf24Plugin_parseFormSubmit($formId, $tpl = 'formSubmitText') {
+	global $pdf24Plugin;
+	$tpl = file_get_contents(pdf24Plugin_getFile('tpl', $tpl . '.html'));
+	$blInfo = pdf24Plugin_getBLInfo();
+	list($blText, $blUrl) = $blInfo;
+
+	$data = array(
+		'{formId}' => pdf24Plugin_validateFormId($formId),
+		'{pluginUrl}' => $pdf24Plugin['url'],
+		'{openTargetCode}' => $pdf24Plugin['jsOpenTargetWin'],
+		'{callbackCode}' => $pdf24Plugin['jsCallbackCode'],
+		'{blText}' => $blText,
+		'{blUrl}' => $blUrl
+	);
+	$content = str_replace(array_keys($data), array_values($data), $tpl);
+	$content = pdf24Plugin_replaceLang($content, count($postsArr));
+	return $content;
 }
 
 function pdf24Plugin_getAllPosts() {
@@ -560,6 +613,14 @@ function pdf24Plugin_getLinkForm($txt = null, $arg = false) {
 			);
 		}
 		return pdf24Plugin_getTplContent($postsArr, 'pdf24Plugin_lpStyle', 'styles/lp', 'lp', $searchReplace);
+	}
+	return '';
+}
+
+function pdf24Plugin_getHiddenForm($formId, $arg = false) {
+	$postsArr = pdf24Plugin_getPostsArr($arg);
+	if($postsArr) {
+		return pdf24Plugin_parseHiddenForm($postsArr, $formId);
 	}
 	return '';
 }
@@ -948,6 +1009,18 @@ function pdf24Plugin_link($txt = null, $arg = false) {
 		if(!pdf24Plugin_isDisabledOn('lp')) {
 			echo pdf24Plugin_getLinkForm($txt, $arg);
 		}
+	}
+}
+
+function pdf24Plugin_form($formId) {
+	if(pdf24Plugin_isAvailable()) {
+		echo pdf24Plugin_getHiddenForm($formId);
+	}
+}
+
+function pdf24Plugin_formSubmit($formId, $tpl = 'formSubmitText') {
+	if(pdf24Plugin_isAvailable()) {
+		echo pdf24Plugin_parseFormSubmit($formId, $tpl);
 	}
 }
 

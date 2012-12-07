@@ -1,6 +1,6 @@
 <div class="pdf24Plugin-{styleId}">
 	<div class="pdf24Plugin-{styleId}-title">{lang_sendAsPDF}</div>
-	<form name="pdf24Form{formId}" method="post" target="{targetName}" action="{actionUrl}" onsubmit="{openTargetCode}">
+	<form name="pdf24Form{formId}" method="post" target="{targetName}" action="{actionUrl}" onsubmit="{openTargetCode} {callbackCode}">
 		{hiddenFields}
 		<div class="pdf24Plugin-{styleId}-sendto"><input type="text" name="sendEmailTo" value="{lang_enterEmail}" onmousedown="this.value = '';" /></div>
 		<div class="pdf24Plugin-{styleId}-submit"><input type="submit" value="{lang_send}" /></div>

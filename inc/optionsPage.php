@@ -185,7 +185,7 @@ function pdf24_check(elem, v) {
 }
 function pdf24_checkForm(form) {
 	pdf24_formError = false;
-	if(form.useCustomLang.checked) {
+	if(form.customLangInUse.checked) {
 		for(var i=0; i<form.length; i++) {
 			if(form.elements[i].name && form.elements[i].name.match(/^lang-/)) {
 				pdf24_check(form.elements[i], form.elements[i].value.length < 3);

@@ -23,7 +23,10 @@ $pdf24Plugin['serviceUrl'] = 'http://doc2pdf.pdf24.org/wordpress.php';
 $pdf24Plugin['targetName'] = 'pdf24PopWin';
 
 //js code to open the target window
-$pdf24Plugin['jsOpenTargetWin'] = "var pdf24Win = window.open('about:blank', 'pdf24PopWin', 'resizable=yes,scrollbars=yes,width=400,height=200,top=0,left=0'); pdf24Win.focus();";
+$pdf24Plugin['jsOpenTargetWin'] = "var pdf24Win = window.open('about:blank', 'pdf24PopWin', 'resizable=yes,scrollbars=yes,width=500,height=250,top=0,left=0'); pdf24Win.focus();";
+
+//js code to do a callback when creating a PDF
+$pdf24Plugin['jsCallbackCode'] = "if(typeof pdf24OnCreatePDF === 'function'){void(pdf24OnCreatePDF(this,pdf24Win));}";
 
 //Document sizes of created PDF
 $pdf24Plugin['docSizes'] = array(
@@ -67,6 +70,6 @@ $pdf24Plugin['defaultDisabledOn'] = array(
 );
 
 //Url for pdf24.org link query
-$pdf24Plugin['linkQueryUrl'] = 'http://www.pdf24.org/products/online-pdf-converter/plugins/wordpress/links';
+$pdf24Plugin['linkQueryUrl'] = 'http://wordpress.pdf24.org/products/online-pdf-converter/plugins/wordpress/links';
 
 ?>

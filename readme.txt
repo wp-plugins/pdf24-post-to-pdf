@@ -116,6 +116,9 @@ If you have any problems with the installation or the custom fields support feel
 
 == Changelog ==
 
+= 3.6.1 =
+* Fixed a template bug
+
 = 3.6.0 =
 * Image link for link plugin supported
 * Option to call user event function when creating a PDF file

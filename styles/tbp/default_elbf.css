@@ -1,5 +1,19 @@
-.pdf24Plugin-tbp { border: 1px solid silver; padding: 3px; }
-.pdf24Plugin-tbp-input { width: 150px; font-size:smaller; }
-.pdf24Plugin-tbp-submit { font-size:smaller; }
-.pdf24Plugin-tbp-box td { font-size:smaller; }
-.pdf24Plugin-tbp-box a { font-size:smaller; }
+.pdf24Plugin-tbp {
+	border:1px solid silver;
+	width:600px;
+	margin:auto;
+	padding:3px;
+}
+
+.pdf24Plugin-tbp-input {
+	width:200px;
+	padding:2px;
+}
+
+.pdf24Plugin-tbp-submit {
+	padding:2px 10px !important;
+}
+
+.pdf24Plugin-tbp * {
+	font-size:90%;
+}

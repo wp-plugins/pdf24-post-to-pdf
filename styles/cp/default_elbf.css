@@ -1,5 +1,31 @@
-.pdf24Plugin-cp { border: 1px solid silver; padding: 3px; }
-.pdf24Plugin-cp input[type="text"] { width: 150px; font-size: smaller; margin: 0px; }
-.pdf24Plugin-cp input[type="submit"] { font-size: smaller; margin: 0px; }
-.pdf24Plugin-cp a { font-size: smaller; }
-.pdf24Plugin-cp form { margin: 0px; padding: 0px; }
+.pdf24Plugin-cp {
+	border:1px solid silver;
+	padding:3px;
+}
+
+.pdf24Plugin-cp input[type="text"] {
+	width:200px;
+	vertical-align:middle;
+	border:1px solid silver;
+	margin:0;
+	padding:2px;
+}
+
+.pdf24Plugin-cp input[type="submit"] {
+	vertical-align:middle;
+	margin:0;
+	padding:3px 10px !important;
+}
+
+.pdf24Plugin-cp form {
+	margin:0;
+	padding:0;
+}
+
+.pdf24Plugin-cp span {
+	vertical-align:middle;
+}
+
+.pdf24Plugin-cp * {
+	font-size:90%;
+}

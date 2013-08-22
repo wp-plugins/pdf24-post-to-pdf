@@ -1,4 +1,18 @@
-.pdf24Plugin-sbp { text-align:center; border: 1px solid silver; padding: 5px; }
-.pdf24Plugin-sbp-title { font-weight:bold; }
-.pdf24Plugin-sbp-submit { }
-.pdf24Plugin-sbp-bl { font-size:smaller; }
+.pdf24Plugin-sbp {
+	text-align:center;
+	border:1px solid silver;
+	padding:5px;
+}
+
+.pdf24Plugin-sbp-title {
+	font-weight:700;
+}
+
+.pdf24Plugin-sbp-submit input {
+	font-weight:700;
+	padding:2px 10px !important;
+}
+
+.pdf24Plugin-sbp-bl {
+	font-size:smaller;
+}

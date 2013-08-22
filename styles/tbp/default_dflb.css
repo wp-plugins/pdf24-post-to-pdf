@@ -1,2 +1,8 @@
-.pdf24Plugin-tbp { padding: 3px; }
-.pdf24Plugin-tbp a { font-size: smaller; }
+.pdf24Plugin-tbp {
+	padding: 3px;
+	width:600px;
+	margin:auto;
+}
+.pdf24Plugin-tbp * {
+	font-size: 90%;
+}

@@ -354,16 +354,6 @@ function pdf24Plugin_replaceLang($str, $count, $searchReplace = null) {
 		$map['{lang_downloadAsPDF}'] = $count == 1 ? pdf24Plugin_getLangVal('downloadArticleAsPDF') : pdf24Plugin_getLangVal('downloadArticlesAsPDF');
 	}
 	
-	$n = preg_replace('@<a[^>]*>(.+?)</a>@i', '', $str);
-	$l = 'http://' . (isset($pdf24Plugin['useLang']) ? $pdf24Plugin['useLang'] : 'en') . '.pdf24.org';
-	$c = '<a href="'. $l .'" target="_blank" style="color:inherit;font-size:inherit;font:inherit;text:inherit">$0</a>';
-	foreach(array('sendAsPDF', 'sendArticleAsPDF', 'sendArticlesAsPDF') as $v) {
-		$e = '{lang_'. $v .'}';
-		if(isset($map[$e]) && stripos($n, $e) !== false) {
-			$map[$e] = preg_replace ('/PDF/i', $c, $map[$e]);
-		}
-	}
-	
 	return str_replace(array_keys($map), array_values($map), $str);
 }
 
